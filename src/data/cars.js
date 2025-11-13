@@ -38,7 +38,7 @@ export const cars = [
     id: 6,
     make: "Porsche",
     model: "911 Carrera",
-    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://en.drivar.de/wp-content/uploads/2024/11/Rent-a-Porsche-911-Carrera-4-GTS-in-Berlin.jpeg",
     price: 120000
   },
   {
@@ -94,7 +94,7 @@ export const cars = [
     id: 14,
     make: "Volkswagen",
     model: "Golf GTI",
-    imageURL: "https://images.unsplash.com/photo-1564577160324-112d603f750f?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/volkswagen/golf-gti/2024/oem/2024_volkswagen_golf-gti_4dr-hatchback_380-autobahn_fq_oem_1_1600.jpg",
     price: 38000
   },
   {

@@ -164,6 +164,19 @@ const Game = ({ onGameOver }) => {
         </div>
       </motion.div>
 
+      {/* Instruction Text */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="text-center mb-6 max-w-4xl mx-auto"
+      >
+        <p className="text-lg md:text-xl text-gray-300">
+          Is <span className="text-neon-blue font-bold">{nextCar.make} {nextCar.model}</span> lower or higher than{' '}
+          <span className="text-neon-purple font-bold">{currentCar.make} {currentCar.model}</span>?
+        </p>
+      </motion.div>
+
       {/* Game Area */}
       <div className="flex-1 flex items-center justify-center">
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">

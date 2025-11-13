@@ -181,7 +181,7 @@ const Game = ({ onGameOver }) => {
       <div className="flex-1 flex items-center justify-center">
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Current Car */}
-          <CarCard car={currentCar} showPrice={true} label="Current Car" />
+          <CarCard key={currentCar.id} car={currentCar} showPrice={true} label="Current Car" />
 
           {/* VS Divider */}
           <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
@@ -197,6 +197,7 @@ const Game = ({ onGameOver }) => {
 
           {/* Next Car */}
           <CarCard
+            key={nextCar.id}
             car={nextCar}
             showPrice={showResult}
             label="Next Car"

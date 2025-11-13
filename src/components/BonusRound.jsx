@@ -91,7 +91,7 @@ const BonusRound = ({
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           {/* Car 1 */}
           <div>
-            <CarCard car={car1} showPrice={showResult} label="Car Option 1" isRevealing={showResult} />
+            <CarCard key={car1.id} car={car1} showPrice={showResult} label="Car Option 1" isRevealing={showResult} />
             {!showResult && (
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -108,7 +108,7 @@ const BonusRound = ({
 
           {/* Car 2 */}
           <div>
-            <CarCard car={car2} showPrice={showResult} label="Car Option 2" isRevealing={showResult} />
+            <CarCard key={car2.id} car={car2} showPrice={showResult} label="Car Option 2" isRevealing={showResult} />
             {!showResult && (
               <motion.button
                 whileHover={{ scale: 1.05 }}

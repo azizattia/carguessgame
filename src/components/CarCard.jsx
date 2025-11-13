@@ -1,6 +1,19 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const CarCard = ({ car, showPrice, label, isRevealing = false }) => {
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(true);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -14,17 +27,33 @@ const CarCard = ({ car, showPrice, label, isRevealing = false }) => {
       </div>
 
       {/* Image */}
-      <div className="relative h-64 overflow-hidden bg-black/30">
-        <img
-          src={car.imageURL}
-          alt={`${car.make} ${car.model}`}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/500x300/0f0f0f/00f0ff?text=' +
-              encodeURIComponent(car.make + ' ' + car.model);
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-900 to-black">
+        {!imageLoaded && !imageError && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-16 h-16 border-4 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+
+        {imageError ? (
+          <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+            <div className="text-6xl mb-4">🚗</div>
+            <div className="text-2xl font-bold text-neon-blue glow-text">{car.make}</div>
+            <div className="text-xl text-neon-purple">{car.model}</div>
+          </div>
+        ) : (
+          <>
+            <img
+              src={car.imageURL}
+              alt={`${car.make} ${car.model}`}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              onError={handleImageError}
+              onLoad={handleImageLoad}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </>
+        )}
       </div>
 
       {/* Car Info */}

@@ -1,26 +1,14 @@
-// Temporarily disabled Supabase to debug
-console.log('Supabase temporarily disabled for debugging');
+import { createClient } from '@supabase/supabase-js';
 
-// Mock Supabase client
-export const supabase = {
-  auth: {
-    getSession: async () => ({ data: { session: null }, error: null }),
-    onAuthStateChange: () => ({
-      data: { subscription: { unsubscribe: () => {} } }
-    }),
-    signUp: async () => ({ data: null, error: 'Supabase disabled' }),
-    signInWithPassword: async () => ({ data: null, error: 'Supabase disabled' }),
-    signOut: async () => ({ error: null })
-  },
-  from: () => ({
-    select: () => ({
-      eq: () => ({
-        single: async () => ({ data: null, error: null })
-      })
-    }),
-    insert: () => ({
-      select: async () => ({ data: null, error: null })
-    })
-  }),
-  rpc: async () => ({ data: [], error: null })
-};
+console.log('Loading Supabase with hardcoded credentials...');
+
+// Hardcoded credentials (temporary fix for env variable loading issue)
+const supabaseUrl = 'https://yaixoliparazhkrjgxpv.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhaXhvbGlwYXJhemhrcmpneHB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwMDM1NzcsImV4cCI6MjA3ODU3OTU3N30.Uv-SoDF7bQyHC_Q5u_1hofhD883Nuqs2e0PRedvo48g';
+
+console.log('Supabase URL:', supabaseUrl);
+console.log('Supabase Key:', supabaseAnonKey ? 'SET' : 'NOT SET');
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+console.log('Supabase client created successfully!');

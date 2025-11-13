@@ -94,7 +94,7 @@ export const cars = [
     id: 14,
     make: "Volkswagen",
     model: "Golf GTI",
-    imageURL: "https://images.unsplash.com/photo-1622998093257-8e239b6f7e29?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://images.unsplash.com/photo-1564577160324-112d603f750f?w=600&h=400&fit=crop&q=80",
     price: 38000
   },
   {

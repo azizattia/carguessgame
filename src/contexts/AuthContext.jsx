@@ -47,9 +47,19 @@ export const AuthProvider = ({ children }) => {
         .from('user_profiles')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
 
-      if (error) throw error;
+      if (error && error.code !== 'PGRST116') {
+        // PGRST116 means no rows returned, which is ok
+        console.error('Error fetching profile:', error);
+        throw error;
+      }
+
+      if (!data) {
+        console.warn('No profile found for user:', userId);
+        console.warn('The trigger might not have fired. Profile should be created automatically.');
+      }
+
       setProfile(data);
     } catch (error) {
       console.error('Error fetching profile:', error);

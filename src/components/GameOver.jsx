@@ -1,0 +1,108 @@
+import { motion } from 'framer-motion';
+import { getUsername } from '../utils/storage';
+import { playClickSound } from '../utils/sounds';
+
+const GameOver = ({ score, onPlayAgain, onShowLeaderboard }) => {
+  const username = getUsername();
+
+  const handlePlayAgain = () => {
+    playClickSound();
+    onPlayAgain();
+  };
+
+  const handleLeaderboard = () => {
+    playClickSound();
+    onShowLeaderboard();
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen flex items-center justify-center p-4"
+    >
+      <div className="max-w-2xl w-full">
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', damping: 15 }}
+          className="text-center mb-8"
+        >
+          <h1 className="text-6xl md:text-8xl font-bold text-red-400 glow-text mb-4">
+            GAME OVER
+          </h1>
+          <p className="text-2xl text-gray-400">Better luck next time!</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="glass-effect rounded-2xl p-8 md:p-12 shadow-neon-purple mb-8"
+        >
+          <div className="text-center mb-8">
+            <p className="text-gray-400 text-lg mb-2">Player</p>
+            <p className="text-3xl font-bold text-neon-blue glow-text mb-6">{username}</p>
+
+            <p className="text-gray-400 text-lg mb-2">Final Score</p>
+            <motion.p
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', delay: 0.5 }}
+              className="text-7xl font-bold text-neon-purple glow-text"
+            >
+              {score}
+            </motion.p>
+          </div>
+
+          {score > 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="text-center text-gray-400 mb-8"
+            >
+              <p className="text-lg">
+                {score >= 20 && '🏆 Outstanding! You\'re a car price expert!'}
+                {score >= 15 && score < 20 && '🎖️ Excellent performance!'}
+                {score >= 10 && score < 15 && '🌟 Great job!'}
+                {score >= 5 && score < 10 && '👍 Good effort!'}
+                {score < 5 && '💪 Keep practicing!'}
+              </p>
+            </motion.div>
+          )}
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+            className="space-y-4"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handlePlayAgain}
+              className="w-full py-4 text-xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple
+                       rounded-xl shadow-neon-blue hover:shadow-neon-purple transition-all duration-300"
+            >
+              🎮 Play Again
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleLeaderboard}
+              className="w-full py-4 text-xl font-bold glass-effect rounded-xl
+                       border-2 border-neon-purple/50 hover:border-neon-purple hover:shadow-neon-purple
+                       transition-all duration-300"
+            >
+              🏆 View Leaderboard
+            </motion.button>
+          </motion.div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default GameOver;

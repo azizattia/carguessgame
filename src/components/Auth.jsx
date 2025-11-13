@@ -40,12 +40,12 @@ const Auth = ({ onShowLeaderboard }) => {
           return;
         }
 
-        const { error } = await signUp(email, password, username);
+        const { error, message } = await signUp(email, password, username);
         if (error) {
           setError(error);
         } else {
           playClickSound();
-          setError('Account created! Please check your email to verify.');
+          setError(message || 'Account created successfully!');
         }
       }
     } catch (err) {

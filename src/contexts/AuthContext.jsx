@@ -60,30 +60,26 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = async (email, password, username) => {
     try {
-      // Check if username already exists
-      const { data: existingUser } = await supabase
-        .from('user_profiles')
-        .select('username')
-        .eq('username', username)
-        .single();
-
-      if (existingUser) {
-        throw new Error('Username already taken');
-      }
-
-      // Sign up the user
+      // Sign up the user (database unique constraint will handle duplicate usernames)
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
             username: username
-          }
+          },
+          emailRedirectTo: window.location.origin
         }
       });
 
       if (error) throw error;
-      return { data, error: null };
+
+      // Check if email confirmation is disabled (user will be immediately confirmed)
+      if (data?.user && data.user.confirmed_at) {
+        return { data, error: null, message: 'Account created successfully!' };
+      }
+
+      return { data, error: null, message: 'Account created! You can now login.' };
     } catch (error) {
       return { data: null, error: error.message };
     }

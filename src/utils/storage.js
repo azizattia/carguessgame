@@ -19,7 +19,7 @@ export const addScore = async (userId, score) => {
 // Get leaderboard from database
 export const getLeaderboard = async () => {
   try {
-    const { data, error } = await supabase.rpc('get_leaderboard', { limit_count: 10 });
+    const { data, error } = await supabase.rpc('get_leaderboard', { limit_count: 100 });
 
     if (error) throw error;
     return data || [];

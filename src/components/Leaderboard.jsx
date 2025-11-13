@@ -51,7 +51,7 @@ const Leaderboard = ({ onBack }) => {
           transition={{ delay: 0.2 }}
           className="text-xl text-center mb-8 text-gray-400"
         >
-          Top 10 Players
+          Top 100 Players - Global Leaderboard
         </motion.p>
 
         <motion.div

@@ -14,16 +14,16 @@ const BonusRound = ({
   username
 }) => {
   return (
-    <div className="min-h-screen p-4 flex flex-col">
+    <div className="min-h-screen p-4 flex flex-col overflow-hidden">
       {/* Header */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="text-center mb-6"
+        className="text-center mb-6 overflow-hidden"
       >
         <motion.div
           animate={{
-            scale: [1, 1.1, 1],
+            scale: [1, 1.05, 1],
             textShadow: [
               '0 0 20px #bf00ff',
               '0 0 40px #bf00ff',

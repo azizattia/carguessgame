@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cars } from '../data/cars';
-import { getUsername } from '../utils/storage';
+import { useAuth } from '../contexts/AuthContext';
 import { playCorrectSound, playWrongSound, playBonusSound, playLevelUpSound } from '../utils/sounds';
 import CarCard from './CarCard';
 import BonusRound from './BonusRound';
 
 const Game = ({ onGameOver }) => {
+  const { profile } = useAuth();
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
   const [currentCar, setCurrentCar] = useState(null);
@@ -16,7 +17,6 @@ const Game = ({ onGameOver }) => {
   const [showScoreAnimation, setShowScoreAnimation] = useState(false);
   const [isBonusRound, setIsBonusRound] = useState(false);
   const [targetPrice, setTargetPrice] = useState(0);
-  const username = getUsername();
 
   useEffect(() => {
     startNewRound();
@@ -113,7 +113,7 @@ const Game = ({ onGameOver }) => {
         isCorrect={isCorrect}
         onGuess={handleGuess}
         showScoreAnimation={showScoreAnimation}
-        username={username}
+        username={profile?.username}
       />
     );
   }
@@ -129,7 +129,7 @@ const Game = ({ onGameOver }) => {
         <div className="flex justify-between items-center max-w-4xl mx-auto mb-4">
           <div className="text-left">
             <p className="text-gray-400 text-sm">Player</p>
-            <p className="text-xl font-bold text-neon-blue glow-text">{username}</p>
+            <p className="text-xl font-bold text-neon-blue glow-text">{profile?.username}</p>
           </div>
 
           <div className="text-center">

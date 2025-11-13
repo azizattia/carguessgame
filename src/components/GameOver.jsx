@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import { getUsername } from '../utils/storage';
+import { useAuth } from '../contexts/AuthContext';
 import { playClickSound } from '../utils/sounds';
 
 const GameOver = ({ score, onPlayAgain, onShowLeaderboard }) => {
-  const username = getUsername();
+  const { profile } = useAuth();
 
   const handlePlayAgain = () => {
     playClickSound();
@@ -42,7 +42,7 @@ const GameOver = ({ score, onPlayAgain, onShowLeaderboard }) => {
         >
           <div className="text-center mb-8">
             <p className="text-gray-400 text-lg mb-2">Player</p>
-            <p className="text-3xl font-bold text-neon-blue glow-text mb-6">{username}</p>
+            <p className="text-3xl font-bold text-neon-blue glow-text mb-6">{profile?.username}</p>
 
             <p className="text-gray-400 text-lg mb-2">Final Score</p>
             <motion.p

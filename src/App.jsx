@@ -1,30 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import StartScreen from './components/StartScreen';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import Auth from './components/Auth';
 import Game from './components/Game';
 import GameOver from './components/GameOver';
 import Leaderboard from './components/Leaderboard';
-import { addToLeaderboard, getUsername } from './utils/storage';
+import { addScore } from './utils/storage';
 
-function App() {
-  const [screen, setScreen] = useState('start'); // start, game, gameOver, leaderboard
+function AppContent() {
+  const { user, profile, loading, signOut } = useAuth();
+  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard
   const [finalScore, setFinalScore] = useState(0);
-
-  useEffect(() => {
-    // Check if user already has a username
-    const username = getUsername();
-    if (username) {
-      // User can still see start screen but name is pre-filled
-    }
-  }, []);
 
   const handleStartGame = () => {
     setScreen('game');
   };
 
-  const handleGameOver = (score) => {
-    const username = getUsername();
-    addToLeaderboard(username, score);
+  const handleGameOver = async (score) => {
+    // Save score to database
+    if (user) {
+      await addScore(user.id, score);
+    }
     setFinalScore(score);
     setScreen('gameOver');
   };
@@ -37,21 +33,58 @@ function App() {
     setScreen('leaderboard');
   };
 
-  const handleBackToStart = () => {
-    setScreen('start');
+  const handleBackToGame = () => {
+    setScreen('game');
   };
 
+  const handleLogout = async () => {
+    await signOut();
+    setScreen('game');
+  };
+
+  // Show loading spinner while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-neon-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-xl text-neon-blue glow-text">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If not authenticated, show login/register screen
+  if (!user || !profile) {
+    return (
+      <div className="min-h-screen bg-[#0f0f0f]">
+        <AnimatePresence mode="wait">
+          {screen === 'leaderboard' ? (
+            <Leaderboard key="leaderboard" onBack={() => setScreen('game')} />
+          ) : (
+            <Auth key="auth" onShowLeaderboard={handleShowLeaderboard} />
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  // If authenticated, show game
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
-      <AnimatePresence mode="wait">
-        {screen === 'start' && (
-          <StartScreen
-            key="start"
-            onStart={handleStartGame}
-            onShowLeaderboard={handleShowLeaderboard}
-          />
-        )}
+      {/* Logout button - always visible */}
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 glass-effect rounded-lg border border-neon-pink/50
+                   hover:border-neon-pink hover:shadow-neon-pink transition-all duration-300
+                   text-sm font-semibold"
+        >
+          Logout
+        </button>
+      </div>
 
+      <AnimatePresence mode="wait">
         {screen === 'game' && (
           <Game
             key="game"
@@ -71,11 +104,19 @@ function App() {
         {screen === 'leaderboard' && (
           <Leaderboard
             key="leaderboard"
-            onBack={handleBackToStart}
+            onBack={handleBackToGame}
           />
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

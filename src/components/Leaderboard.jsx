@@ -5,10 +5,18 @@ import { playClickSound } from '../utils/sounds';
 
 const Leaderboard = ({ onBack }) => {
   const [leaderboard, setLeaderboard] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLeaderboard(getLeaderboard());
+    loadLeaderboard();
   }, []);
+
+  const loadLeaderboard = async () => {
+    setLoading(true);
+    const data = await getLeaderboard();
+    setLeaderboard(data);
+    setLoading(false);
+  };
 
   const handleBack = () => {
     playClickSound();
@@ -52,7 +60,12 @@ const Leaderboard = ({ onBack }) => {
           transition={{ delay: 0.3 }}
           className="glass-effect rounded-2xl p-6 md:p-8 shadow-neon-purple mb-8"
         >
-          {leaderboard.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 border-4 border-neon-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-xl text-gray-400">Loading leaderboard...</p>
+            </div>
+          ) : leaderboard.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-2xl text-gray-400 mb-4">No scores yet!</p>
               <p className="text-lg text-gray-500">Be the first to set a record!</p>
@@ -61,7 +74,7 @@ const Leaderboard = ({ onBack }) => {
             <div className="space-y-3">
               {leaderboard.map((entry, index) => (
                 <motion.div
-                  key={index}
+                  key={entry.username}
                   initial={{ x: -50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.1 * index }}
@@ -86,16 +99,16 @@ const Leaderboard = ({ onBack }) => {
                         {entry.username}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {new Date(entry.date).toLocaleDateString()}
+                        {entry.total_games} game{entry.total_games !== 1 ? 's' : ''} played
                       </p>
                     </div>
                   </div>
 
                   <div className="text-right">
                     <p className="text-3xl font-bold text-neon-purple glow-text">
-                      {entry.score}
+                      {entry.high_score}
                     </p>
-                    <p className="text-xs text-gray-500">points</p>
+                    <p className="text-xs text-gray-500">best score</p>
                   </div>
                 </motion.div>
               ))}

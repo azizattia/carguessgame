@@ -38,9 +38,30 @@ const Game = ({ onGameOver }) => {
   const [showPriceHint, setShowPriceHint] = useState(false);
   const [priceHintRange, setPriceHintRange] = useState(null);
 
+  // Timer state
+  const [timeLeft, setTimeLeft] = useState(10);
+  const [timerActive, setTimerActive] = useState(false);
+
   useEffect(() => {
     startNewRound();
   }, []);
+
+  // Timer countdown effect
+  useEffect(() => {
+    if (!timerActive || showResult || isBonusRound) return;
+
+    if (timeLeft <= 0) {
+      // Time's up! Treat as wrong answer
+      handleTimeUp();
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft, timerActive, showResult, isBonusRound]);
 
   const getRandomCar = (excludeId = null) => {
     let availableCars = [...cars];
@@ -136,6 +157,29 @@ const Game = ({ onGameOver }) => {
     }
   };
 
+  const handleTimeUp = () => {
+    setTimerActive(false);
+    setIsCorrect(false);
+    setShowResult(true);
+
+    // Check if player has extra life
+    if (extraLives > 0) {
+      playBonusSound();
+      setExtraLives(prev => prev - 1);
+      setTimeout(() => {
+        setShowResult(false);
+        setIsCorrect(false);
+        setTimeLeft(10);
+        setTimerActive(true);
+      }, 2000);
+    } else {
+      playWrongSound();
+      setTimeout(() => {
+        onGameOver(score);
+      }, 2500);
+    }
+  };
+
   const startNewRound = () => {
     // Update multiplier rounds
     if (multiplierRoundsLeft > 0) {
@@ -146,8 +190,9 @@ const Game = ({ onGameOver }) => {
     }
 
     if ((level + 1) % 5 === 0) {
-      // Bonus round every 5 levels
+      // Bonus round every 5 levels (no timer for bonus rounds)
       setIsBonusRound(true);
+      setTimerActive(false);
       const car1 = getRandomCar();
       const car2 = getRandomCar(car1.id);
       setCurrentCar(car1);
@@ -181,12 +226,19 @@ const Game = ({ onGameOver }) => {
       if (hidePriceNextRound) {
         setHidePriceNextRound(false);
       }
+
+      // Reset and start timer for regular rounds
+      setTimeLeft(10);
+      setTimerActive(true);
     }
     setShowResult(false);
   };
 
   const handleGuess = (guess) => {
     if (showResult) return;
+
+    // Stop the timer
+    setTimerActive(false);
 
     // Apply reverse controls if active
     let actualGuess = guess;
@@ -305,17 +357,86 @@ const Game = ({ onGameOver }) => {
             <p className="text-xl font-bold text-neon-blue glow-text">{profile?.username}</p>
           </div>
 
-          <div className="text-center">
-            <p className="text-gray-400 text-sm">Level</p>
-            <motion.p
-              key={level}
-              initial={{ scale: 1.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="text-3xl font-bold text-neon-purple glow-text"
-            >
-              {level}
-            </motion.p>
-          </div>
+          {/* Timer Display - Center */}
+          {!isBonusRound && (
+            <div className="text-center">
+              <p className="text-gray-400 text-sm mb-2">Time Left</p>
+              <motion.div
+                animate={timeLeft <= 3 ? {
+                  scale: [1, 1.1, 1],
+                  rotate: [0, -5, 5, 0]
+                } : {}}
+                transition={{ duration: 0.3, repeat: timeLeft <= 3 ? Infinity : 0 }}
+                className="relative"
+              >
+                {/* Circular Progress */}
+                <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                  {/* Background circle */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.1)"
+                    strokeWidth="8"
+                  />
+                  {/* Progress circle */}
+                  <motion.circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="none"
+                    stroke={timeLeft <= 3 ? '#ef4444' : timeLeft <= 5 ? '#f59e0b' : '#10b981'}
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    strokeDasharray={`${2 * Math.PI * 45}`}
+                    strokeDashoffset={`${2 * Math.PI * 45 * (1 - timeLeft / 10)}`}
+                    className="transition-all duration-1000"
+                    style={{
+                      filter: timeLeft <= 3 ? 'drop-shadow(0 0 8px rgba(239, 68, 68, 0.8))' :
+                              timeLeft <= 5 ? 'drop-shadow(0 0 8px rgba(245, 158, 11, 0.6))' :
+                              'drop-shadow(0 0 8px rgba(16, 185, 129, 0.4))'
+                    }}
+                  />
+                </svg>
+                {/* Timer number */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.span
+                    key={timeLeft}
+                    initial={{ scale: 1.2, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className={`text-3xl font-bold ${
+                      timeLeft <= 3 ? 'text-red-400' :
+                      timeLeft <= 5 ? 'text-yellow-400' :
+                      'text-green-400'
+                    }`}
+                    style={{
+                      textShadow: timeLeft <= 3 ? '0 0 20px rgba(239, 68, 68, 0.8)' :
+                                  timeLeft <= 5 ? '0 0 15px rgba(245, 158, 11, 0.6)' :
+                                  '0 0 10px rgba(16, 185, 129, 0.4)'
+                    }}
+                  >
+                    {timeLeft}
+                  </motion.span>
+                </div>
+              </motion.div>
+            </div>
+          )}
+
+          {/* Level Display - Center (for bonus rounds) */}
+          {isBonusRound && (
+            <div className="text-center">
+              <p className="text-gray-400 text-sm">Level</p>
+              <motion.p
+                key={level}
+                initial={{ scale: 1.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="text-3xl font-bold text-neon-purple glow-text"
+              >
+                {level}
+              </motion.p>
+            </div>
+          )}
 
           <div className="text-right relative">
             <p className="text-gray-400 text-sm">Score</p>
@@ -475,7 +596,7 @@ const Game = ({ onGameOver }) => {
                   isCorrect ? 'text-green-400' : 'text-red-400'
                 } glow-text`}
               >
-                {isCorrect ? '✓ CORRECT!' : '✗ WRONG!'}
+                {isCorrect ? '✓ CORRECT!' : timeLeft === 0 ? '⏰ TIME\'S UP!' : '✗ WRONG!'}
               </motion.div>
 
               {/* Coin Earned Animation */}

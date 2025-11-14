@@ -109,6 +109,26 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signInWithGoogle = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        }
+      });
+
+      if (error) throw error;
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error: error.message };
+    }
+  };
+
   const signOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
@@ -132,6 +152,7 @@ export const AuthProvider = ({ children }) => {
     loading,
     signUp,
     signIn,
+    signInWithGoogle,
     signOut,
     refreshProfile
   };

@@ -59,7 +59,24 @@ const CarCard = ({ car, showPrice, label, isRevealing = false }) => {
       {/* Car Info */}
       <div className="p-6">
         <h3 className="text-2xl font-bold mb-1 text-neon-blue glow-text">{car.make}</h3>
-        <p className="text-lg text-gray-300 mb-4">{car.model}</p>
+        <p className="text-lg text-gray-300 mb-2">{car.model}</p>
+
+        {/* Car Details */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          <span className="px-2 py-1 text-xs rounded-full bg-neon-blue/20 text-neon-blue border border-neon-blue/30">
+            {car.year}
+          </span>
+          <span className={`px-2 py-1 text-xs rounded-full border ${
+            car.condition === 'Brand New'
+              ? 'bg-green-500/20 text-green-400 border-green-500/30'
+              : 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
+          }`}>
+            {car.condition}
+          </span>
+          <span className="px-2 py-1 text-xs rounded-full bg-neon-purple/20 text-neon-purple border border-neon-purple/30">
+            {car.mileage === 0 ? '0 km' : `${car.mileage.toLocaleString()} km`}
+          </span>
+        </div>
 
         {/* Price */}
         <div className="relative h-16 flex items-center justify-center">

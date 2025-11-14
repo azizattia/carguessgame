@@ -15,6 +15,7 @@ function AppContent() {
   const { user, profile, loading, signOut } = useAuth();
   const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop
   const [finalScore, setFinalScore] = useState(0);
+  const [gameKey, setGameKey] = useState(0);
 
   const handleStartGame = () => {
     setScreen('game');
@@ -30,6 +31,7 @@ function AppContent() {
   };
 
   const handlePlayAgain = () => {
+    setGameKey(prev => prev + 1); // Force Game component to remount
     setScreen('game');
   };
 
@@ -129,7 +131,7 @@ function AppContent() {
 
       {/* Keep Game mounted to preserve state */}
       <div style={{ display: screen === 'game' ? 'block' : 'none' }}>
-        <Game onGameOver={handleGameOver} />
+        <Game key={gameKey} onGameOver={handleGameOver} />
       </div>
 
       <AnimatePresence mode="wait">

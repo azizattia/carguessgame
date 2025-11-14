@@ -6,6 +6,8 @@ import { playCorrectSound, playWrongSound, playBonusSound, playLevelUpSound } fr
 import { addCoins } from '../utils/storage';
 import CarCard from './CarCard';
 import BonusRound from './BonusRound';
+import LuckyBlock, { LuckyBlockResult } from './LuckyBlock';
+import { getRandomOutcome, LUCKY_BLOCK_CONFIG } from '../data/luckyBlocks';
 
 const Game = ({ onGameOver }) => {
   const { user, profile, refreshProfile } = useAuth();
@@ -21,6 +23,21 @@ const Game = ({ onGameOver }) => {
   const [isBonusRound, setIsBonusRound] = useState(false);
   const [targetPrice, setTargetPrice] = useState(0);
 
+  // Lucky block states
+  const [showLuckyBlock, setShowLuckyBlock] = useState(false);
+  const [luckyBlockOutcome, setLuckyBlockOutcome] = useState(null);
+  const [showLuckyResult, setShowLuckyResult] = useState(false);
+  const [lastLuckyBlockLevel, setLastLuckyBlockLevel] = useState(0);
+
+  // Active effects
+  const [extraLives, setExtraLives] = useState(0);
+  const [coinMultiplier, setCoinMultiplier] = useState(1);
+  const [multiplierRoundsLeft, setMultiplierRoundsLeft] = useState(0);
+  const [reverseControls, setReverseControls] = useState(false);
+  const [hidePriceNextRound, setHidePriceNextRound] = useState(false);
+  const [showPriceHint, setShowPriceHint] = useState(false);
+  const [priceHintRange, setPriceHintRange] = useState(null);
+
   useEffect(() => {
     startNewRound();
   }, []);
@@ -33,7 +50,101 @@ const Game = ({ onGameOver }) => {
     return availableCars[Math.floor(Math.random() * availableCars.length)];
   };
 
+  const checkForLuckyBlock = () => {
+    // Check if we should show a lucky block
+    const levelsSinceLastBlock = level - lastLuckyBlockLevel;
+
+    if (level >= LUCKY_BLOCK_CONFIG.minLevel &&
+        levelsSinceLastBlock >= LUCKY_BLOCK_CONFIG.cooldown &&
+        Math.random() < LUCKY_BLOCK_CONFIG.baseChance) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleLuckyBlockOpen = () => {
+    const outcome = getRandomOutcome();
+    setLuckyBlockOutcome(outcome);
+    setShowLuckyBlock(false);
+    setShowLuckyResult(true);
+    setLastLuckyBlockLevel(level);
+  };
+
+  const handleLuckyBlockSkip = () => {
+    setShowLuckyBlock(false);
+    setLastLuckyBlockLevel(level);
+    startNewRound();
+  };
+
+  const handleLuckyResultContinue = () => {
+    applyLuckyBlockEffect(luckyBlockOutcome);
+    setShowLuckyResult(false);
+    startNewRound();
+  };
+
+  const applyLuckyBlockEffect = (outcome) => {
+    const effect = outcome.effect;
+
+    switch (effect.type) {
+      case 'coins':
+        if (user) {
+          addCoins(user.id, effect.value).then(() => refreshProfile());
+        }
+        break;
+
+      case 'extra_life':
+        setExtraLives(prev => prev + effect.value);
+        break;
+
+      case 'skip_level':
+        setLevel(prev => prev + effect.value);
+        setScore(prev => prev + effect.value);
+        break;
+
+      case 'coin_multiplier':
+        setCoinMultiplier(effect.value);
+        setMultiplierRoundsLeft(effect.duration);
+        break;
+
+      case 'price_hint':
+        setShowPriceHint(true);
+        break;
+
+      case 'reverse_controls':
+        setReverseControls(true);
+        break;
+
+      case 'level_penalty':
+        const newLevel = Math.max(1, level + effect.value);
+        setLevel(newLevel);
+        setScore(Math.max(0, score + effect.value));
+        break;
+
+      case 'hide_price':
+        setHidePriceNextRound(true);
+        break;
+
+      case 'random_swap':
+        // Swap score and level for fun chaos
+        const tempLevel = level;
+        setLevel(score > 0 ? score : 1);
+        setScore(tempLevel);
+        break;
+
+      default:
+        break;
+    }
+  };
+
   const startNewRound = () => {
+    // Update multiplier rounds
+    if (multiplierRoundsLeft > 0) {
+      setMultiplierRoundsLeft(prev => prev - 1);
+      if (multiplierRoundsLeft === 1) {
+        setCoinMultiplier(1);
+      }
+    }
+
     if ((level + 1) % 5 === 0) {
       // Bonus round every 5 levels
       setIsBonusRound(true);
@@ -53,12 +164,36 @@ const Game = ({ onGameOver }) => {
       const newNext = getRandomCar(newCurrent.id);
       setCurrentCar(newCurrent);
       setNextCar(newNext);
+
+      // Set price hint if active
+      if (showPriceHint) {
+        const range = {
+          min: Math.floor(newNext.price * 0.8),
+          max: Math.floor(newNext.price * 1.2)
+        };
+        setPriceHintRange(range);
+        setShowPriceHint(false);
+      } else {
+        setPriceHintRange(null);
+      }
+
+      // Reset hide price effect after it's been applied
+      if (hidePriceNextRound) {
+        setHidePriceNextRound(false);
+      }
     }
     setShowResult(false);
   };
 
   const handleGuess = (guess) => {
     if (showResult) return;
+
+    // Apply reverse controls if active
+    let actualGuess = guess;
+    if (reverseControls && !isBonusRound) {
+      actualGuess = guess === 'higher' ? 'lower' : 'higher';
+      setReverseControls(false); // Effect lasts only one round
+    }
 
     let correct = false;
 
@@ -67,14 +202,14 @@ const Game = ({ onGameOver }) => {
       const diff1 = Math.abs(currentCar.price - targetPrice);
       const diff2 = Math.abs(nextCar.price - targetPrice);
 
-      if (guess === 'first') {
+      if (actualGuess === 'first') {
         correct = diff1 <= diff2;
       } else {
         correct = diff2 < diff1;
       }
     } else {
       // Regular round: higher or lower?
-      if (guess === 'higher') {
+      if (actualGuess === 'higher') {
         correct = nextCar.price >= currentCar.price;
       } else {
         correct = nextCar.price <= currentCar.price;
@@ -87,8 +222,9 @@ const Game = ({ onGameOver }) => {
     if (correct) {
       playCorrectSound();
 
-      // Award coins for correct answer
-      const earnedCoins = isBonusRound ? 50 : 10;
+      // Award coins for correct answer with multiplier
+      const baseCoins = isBonusRound ? 50 : 10;
+      const earnedCoins = Math.floor(baseCoins * coinMultiplier);
       setCoinsEarned(earnedCoins);
       if (user) {
         addCoins(user.id, earnedCoins).then(() => {
@@ -106,13 +242,31 @@ const Game = ({ onGameOver }) => {
         }, 500);
         setLevel(level + 1);
         playLevelUpSound();
-        setTimeout(() => startNewRound(), 1500);
+
+        // Check for lucky block after correct answer
+        setTimeout(() => {
+          if (checkForLuckyBlock()) {
+            setShowLuckyBlock(true);
+          } else {
+            startNewRound();
+          }
+        }, 1500);
       }, 2000);
     } else {
-      playWrongSound();
-      setTimeout(() => {
-        onGameOver(score);
-      }, 2500);
+      // Check if player has extra life
+      if (extraLives > 0) {
+        playBonusSound();
+        setExtraLives(prev => prev - 1);
+        setTimeout(() => {
+          setShowResult(false);
+          setIsCorrect(false);
+        }, 2000);
+      } else {
+        playWrongSound();
+        setTimeout(() => {
+          onGameOver(score);
+        }, 2500);
+      }
     }
   };
 
@@ -181,6 +335,51 @@ const Game = ({ onGameOver }) => {
             </AnimatePresence>
           </div>
         </div>
+
+        {/* Active Effects Display */}
+        <div className="flex justify-center gap-3 flex-wrap mt-4">
+          {extraLives > 0 && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded-full text-sm font-semibold text-pink-400"
+            >
+              ❤️ {extraLives} Extra {extraLives === 1 ? 'Life' : 'Lives'}
+            </motion.div>
+          )}
+          {coinMultiplier !== 1 && multiplierRoundsLeft > 0 && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className={`px-3 py-1 border rounded-full text-sm font-semibold ${
+                coinMultiplier > 1
+                  ? 'bg-green-500/20 border-green-500/50 text-green-400'
+                  : 'bg-orange-500/20 border-orange-500/50 text-orange-400'
+              }`}
+            >
+              {coinMultiplier > 1 ? '✨' : '📉'} {coinMultiplier}x Coins ({multiplierRoundsLeft} left)
+            </motion.div>
+          )}
+          {reverseControls && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1, rotate: [0, -5, 5, -5, 5, 0] }}
+              transition={{ rotate: { repeat: Infinity, duration: 0.5 } }}
+              className="px-3 py-1 bg-red-500/20 border border-red-500/50 rounded-full text-sm font-semibold text-red-400"
+            >
+              🔄 Controls Reversed!
+            </motion.div>
+          )}
+          {priceHintRange && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full text-sm font-semibold text-purple-400"
+            >
+              🔮 Hint: ${priceHintRange.min.toLocaleString()} - ${priceHintRange.max.toLocaleString()}
+            </motion.div>
+          )}
+        </div>
       </motion.div>
 
       {/* Instruction Text */}
@@ -200,7 +399,7 @@ const Game = ({ onGameOver }) => {
       <div className="flex-1 flex items-center justify-center">
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Current Car */}
-          <CarCard key={currentCar.id} car={currentCar} showPrice={true} label="Current Car" />
+          <CarCard key={currentCar.id} car={currentCar} showPrice={!hidePriceNextRound} label="Current Car" />
 
           {/* VS Divider */}
           <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
@@ -291,8 +490,38 @@ const Game = ({ onGameOver }) => {
                   <span>+{coinsEarned}</span>
                 </motion.div>
               )}
+
+              {/* Extra Life Used Animation */}
+              {!isCorrect && extraLives >= 0 && showResult && (
+                <motion.div
+                  initial={{ y: 20, opacity: 0, scale: 0.5 }}
+                  animate={{ y: 0, opacity: 1, scale: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  className="flex items-center gap-2 text-3xl font-bold text-pink-400 glow-text"
+                >
+                  <span>❤️</span>
+                  <span>EXTRA LIFE SAVED YOU!</span>
+                </motion.div>
+              )}
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Lucky Block Modals */}
+      <AnimatePresence>
+        {showLuckyBlock && (
+          <LuckyBlock
+            onOpen={handleLuckyBlockOpen}
+            onSkip={handleLuckyBlockSkip}
+          />
+        )}
+
+        {showLuckyResult && luckyBlockOutcome && (
+          <LuckyBlockResult
+            outcome={luckyBlockOutcome}
+            onContinue={handleLuckyResultContinue}
+          />
         )}
       </AnimatePresence>
     </div>

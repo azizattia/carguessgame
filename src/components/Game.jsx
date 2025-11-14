@@ -8,6 +8,8 @@ import CarCard from './CarCard';
 import BonusRound from './BonusRound';
 import LuckyBlock, { LuckyBlockResult } from './LuckyBlock';
 import { getRandomOutcome, LUCKY_BLOCK_CONFIG } from '../data/luckyBlocks';
+import Jumpscare from './Jumpscare';
+import { getRandomJumpscare, CHAOS_CONFIG } from '../data/jumpscares';
 
 const Game = ({ onGameOver }) => {
   const { user, profile, refreshProfile } = useAuth();
@@ -41,6 +43,12 @@ const Game = ({ onGameOver }) => {
   // Timer state
   const [timeLeft, setTimeLeft] = useState(10);
   const [timerActive, setTimerActive] = useState(false);
+
+  // Chaos/Brainrot states
+  const [showJumpscare, setShowJumpscare] = useState(false);
+  const [currentJumpscare, setCurrentJumpscare] = useState(null);
+  const [screenFlipped, setScreenFlipped] = useState(false);
+  const [buttonsMoving, setButtonsMoving] = useState(false);
 
   useEffect(() => {
     startNewRound();
@@ -180,6 +188,35 @@ const Game = ({ onGameOver }) => {
     }
   };
 
+  const triggerChaosEffects = () => {
+    // Only trigger chaos in regular rounds (not bonus)
+    // Check for jumpscare
+    if (Math.random() < CHAOS_CONFIG.jumpscareChance) {
+      setTimeout(() => {
+        const scare = getRandomJumpscare();
+        setCurrentJumpscare(scare);
+        setShowJumpscare(true);
+        setTimerActive(false); // Pause timer during jumpscare
+      }, Math.random() * 3000 + 1000); // Random delay 1-4 seconds
+    }
+
+    // Check for screen flip
+    if (Math.random() < CHAOS_CONFIG.screenFlipChance) {
+      setScreenFlipped(true);
+    }
+
+    // Check for moving buttons
+    if (Math.random() < CHAOS_CONFIG.movingButtonsChance) {
+      setButtonsMoving(true);
+    }
+  };
+
+  const handleJumpscareDismiss = () => {
+    setShowJumpscare(false);
+    setCurrentJumpscare(null);
+    setTimerActive(true); // Resume timer after jumpscare
+  };
+
   const startNewRound = () => {
     // Update multiplier rounds
     if (multiplierRoundsLeft > 0) {
@@ -203,6 +240,10 @@ const Game = ({ onGameOver }) => {
       const target = Math.floor(minPrice + (maxPrice - minPrice) * Math.random());
       setTargetPrice(target);
       playBonusSound();
+
+      // No chaos effects in bonus rounds
+      setScreenFlipped(false);
+      setButtonsMoving(false);
     } else {
       setIsBonusRound(false);
       const newCurrent = nextCar || getRandomCar();
@@ -230,6 +271,9 @@ const Game = ({ onGameOver }) => {
       // Reset and start timer for regular rounds
       setTimeLeft(10);
       setTimerActive(true);
+
+      // Trigger chaos effects for regular rounds
+      triggerChaosEffects();
     }
     setShowResult(false);
   };
@@ -239,6 +283,10 @@ const Game = ({ onGameOver }) => {
 
     // Stop the timer
     setTimerActive(false);
+
+    // Reset chaos effects after making a guess
+    setScreenFlipped(false);
+    setButtonsMoving(false);
 
     // Apply reverse controls if active
     let actualGuess = guess;
@@ -344,7 +392,24 @@ const Game = ({ onGameOver }) => {
   }
 
   return (
-    <div className="min-h-screen p-4 flex flex-col">
+    <div
+      className="min-h-screen p-4 flex flex-col transition-transform duration-1000"
+      style={{
+        transform: screenFlipped ? 'rotate(180deg)' : 'rotate(0deg)',
+      }}
+    >
+      {/* Chaos Warning Indicator */}
+      {screenFlipped && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40 px-4 py-2 bg-red-500/20 border border-red-500/50 rounded-full text-sm font-semibold text-red-400"
+          style={{ transform: screenFlipped ? 'rotate(180deg) translateX(50%)' : 'translateX(-50%)' }}
+        >
+          🙃 SCREEN FLIPPED! 🙃
+        </motion.div>
+      )}
+
       {/* Header */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
@@ -550,11 +615,31 @@ const Game = ({ onGameOver }) => {
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="flex gap-4 justify-center mb-8 flex-wrap"
+          className="flex gap-4 justify-center mb-8 flex-wrap relative"
         >
+          {buttonsMoving && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-yellow-500/20 border border-yellow-500/50 rounded-full text-sm font-semibold text-yellow-400"
+            >
+              🌀 MOVING BUTTONS! 🌀
+            </motion.div>
+          )}
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            animate={buttonsMoving ? {
+              x: [0, -30, 30, -20, 20, -10, 10, 0],
+              y: [0, -20, 20, -15, 15, -10, 10, 0],
+              rotate: [0, -10, 10, -5, 5, 0]
+            } : {}}
+            transition={buttonsMoving ? {
+              repeat: Infinity,
+              duration: 3,
+              ease: "easeInOut"
+            } : {}}
             onClick={() => handleGuess('higher')}
             className="px-12 py-4 text-xl font-bold bg-gradient-to-r from-green-500 to-green-600
                      rounded-xl shadow-lg hover:shadow-green-500/50 transition-all duration-300
@@ -566,6 +651,16 @@ const Game = ({ onGameOver }) => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            animate={buttonsMoving ? {
+              x: [0, 30, -30, 20, -20, 10, -10, 0],
+              y: [0, 20, -20, 15, -15, 10, -10, 0],
+              rotate: [0, 10, -10, 5, -5, 0]
+            } : {}}
+            transition={buttonsMoving ? {
+              repeat: Infinity,
+              duration: 3,
+              ease: "easeInOut"
+            } : {}}
             onClick={() => handleGuess('lower')}
             className="px-12 py-4 text-xl font-bold bg-gradient-to-r from-red-500 to-red-600
                      rounded-xl shadow-lg hover:shadow-red-500/50 transition-all duration-300
@@ -642,6 +737,14 @@ const Game = ({ onGameOver }) => {
           <LuckyBlockResult
             outcome={luckyBlockOutcome}
             onContinue={handleLuckyResultContinue}
+          />
+        )}
+
+        {/* Jumpscare */}
+        {showJumpscare && currentJumpscare && (
+          <Jumpscare
+            jumpscare={currentJumpscare}
+            onDismiss={handleJumpscareDismiss}
           />
         )}
       </AnimatePresence>

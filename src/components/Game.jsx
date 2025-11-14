@@ -10,6 +10,7 @@ import LuckyBlock, { LuckyBlockResult } from './LuckyBlock';
 import { getRandomOutcome, LUCKY_BLOCK_CONFIG } from '../data/luckyBlocks';
 import Jumpscare from './Jumpscare';
 import { getRandomJumpscare, CHAOS_CONFIG } from '../data/jumpscares';
+import { speakRoast, stopRoasting, ROASTS } from '../utils/voiceRoasts';
 
 const Game = ({ onGameOver }) => {
   const { user, profile, refreshProfile } = useAuth();
@@ -62,6 +63,11 @@ const Game = ({ onGameOver }) => {
       // Time's up! Treat as wrong answer
       handleTimeUp();
       return;
+    }
+
+    // Roast player if taking too long (at 5 seconds)
+    if (timeLeft === 5 && Math.random() < 0.5) { // 50% chance at 5 seconds
+      speakRoast(ROASTS.takingTooLong);
     }
 
     const timer = setInterval(() => {
@@ -169,10 +175,12 @@ const Game = ({ onGameOver }) => {
     setTimerActive(false);
     setIsCorrect(false);
     setShowResult(true);
+    stopRoasting(); // Stop any ongoing roast
 
     // Check if player has extra life
     if (extraLives > 0) {
       playBonusSound();
+      speakRoast(ROASTS.needsExtraLife); // Roast for using extra life
       setExtraLives(prev => prev - 1);
       setTimeout(() => {
         setShowResult(false);
@@ -182,9 +190,15 @@ const Game = ({ onGameOver }) => {
       }, 2000);
     } else {
       playWrongSound();
+      speakRoast(ROASTS.wrongAnswer); // Roast for timing out
       setTimeout(() => {
-        onGameOver(score);
-      }, 2500);
+        if (score < 5) {
+          speakRoast(ROASTS.lowScore); // Extra roast for low score
+        }
+        setTimeout(() => {
+          onGameOver(score);
+        }, 1000);
+      }, 1500);
     }
   };
 
@@ -353,9 +367,12 @@ const Game = ({ onGameOver }) => {
         }, 1500);
       }, 2000);
     } else {
+      stopRoasting(); // Stop any ongoing roast
+
       // Check if player has extra life
       if (extraLives > 0) {
         playBonusSound();
+        speakRoast(ROASTS.needsExtraLife); // Roast for needing extra life
         setExtraLives(prev => prev - 1);
         setTimeout(() => {
           setShowResult(false);
@@ -363,9 +380,15 @@ const Game = ({ onGameOver }) => {
         }, 2000);
       } else {
         playWrongSound();
+        speakRoast(ROASTS.wrongAnswer); // Roast for wrong answer
         setTimeout(() => {
-          onGameOver(score);
-        }, 2500);
+          if (score < 5) {
+            speakRoast(ROASTS.lowScore); // Extra roast for low score
+          }
+          setTimeout(() => {
+            onGameOver(score);
+          }, 1000);
+        }, 1500);
       }
     }
   };

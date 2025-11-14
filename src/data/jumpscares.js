@@ -90,6 +90,13 @@ export const JUMPSCARES = [
     emoji: "🔥",
     text: "THIS IS FINE",
     sound: "🔥"
+  },
+  {
+    id: 16,
+    emoji: "🐱",
+    text: "O II A I OO I A I",
+    sound: "🐱",
+    isSpinningCat: true
   }
 ];
 

@@ -131,3 +131,52 @@ export const setCurrentAvatar = async (userId, avatarId) => {
     return { success: false, error: error.message };
   }
 };
+
+// Open chest (deduct coins and potentially add avatar/coins)
+export const openChest = async (userId, chestPrice, rewardType, rewardData) => {
+  try {
+    // Start by deducting the chest price
+    const { data: coinData, error: coinError } = await supabase.rpc('update_user_coins', {
+      user_uuid: userId,
+      coins_to_add: -chestPrice
+    });
+
+    if (coinError) throw coinError;
+
+    // If reward is an avatar, unlock it
+    if (rewardType === 'avatar' && rewardData.avatarId) {
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('unlocked_avatars')
+        .eq('id', userId)
+        .single();
+
+      const updatedAvatars = [...(profile.unlocked_avatars || []), rewardData.avatarId];
+
+      const { error: avatarError } = await supabase
+        .from('user_profiles')
+        .update({
+          unlocked_avatars: updatedAvatars,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', userId);
+
+      if (avatarError) throw avatarError;
+    }
+
+    // If reward is coins, add them
+    if (rewardType === 'coins' && rewardData.amount > 0) {
+      const { error: rewardError } = await supabase.rpc('update_user_coins', {
+        user_uuid: userId,
+        coins_to_add: rewardData.amount
+      });
+
+      if (rewardError) throw rewardError;
+    }
+
+    return { success: true, error: null };
+  } catch (error) {
+    console.error('Error opening chest:', error);
+    return { success: false, error: error.message };
+  }
+};

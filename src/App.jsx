@@ -6,13 +6,14 @@ import Game from './components/Game';
 import GameOver from './components/GameOver';
 import Leaderboard from './components/Leaderboard';
 import AvatarShop from './components/AvatarShop';
+import ChestShop from './components/ChestShop';
 import CoinDisplay from './components/CoinDisplay';
 import Avatar from './components/Avatar';
 import { addScore } from './utils/storage';
 
 function AppContent() {
   const { user, profile, loading, signOut } = useAuth();
-  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop
+  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop
   const [finalScore, setFinalScore] = useState(0);
 
   const handleStartGame = () => {
@@ -38,6 +39,10 @@ function AppContent() {
 
   const handleShowAvatarShop = () => {
     setScreen('avatarShop');
+  };
+
+  const handleShowChestShop = () => {
+    setScreen('chestShop');
   };
 
   const handleBackToGame = () => {
@@ -79,15 +84,15 @@ function AppContent() {
   // If authenticated, show game
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
-      {/* Top bar - always visible (except in avatar shop) */}
-      {screen !== 'avatarShop' && (
+      {/* Top bar - always visible (except in shops) */}
+      {screen !== 'avatarShop' && screen !== 'chestShop' && (
         <>
           {/* Coin display */}
           <div className="fixed top-4 left-4 z-50">
             <CoinDisplay />
           </div>
 
-          {/* Avatar button */}
+          {/* Shop buttons */}
           <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-3">
             <button
               onClick={handleShowAvatarShop}
@@ -95,7 +100,16 @@ function AppContent() {
                        hover:border-neon-purple hover:shadow-neon-purple transition-all duration-300"
             >
               <Avatar avatarId={profile?.current_avatar || 1} size="sm" />
-              <span className="text-sm font-semibold">Shop</span>
+              <span className="text-sm font-semibold">Avatars</span>
+            </button>
+
+            <button
+              onClick={handleShowChestShop}
+              className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg border border-yellow-500/50
+                       hover:border-yellow-500 hover:shadow-yellow-500/50 transition-all duration-300"
+            >
+              <span className="text-2xl">🎁</span>
+              <span className="text-sm font-semibold">Chests</span>
             </button>
           </div>
 
@@ -113,14 +127,12 @@ function AppContent() {
         </>
       )}
 
-      <AnimatePresence mode="wait">
-        {screen === 'game' && (
-          <Game
-            key="game"
-            onGameOver={handleGameOver}
-          />
-        )}
+      {/* Keep Game mounted to preserve state */}
+      <div style={{ display: screen === 'game' ? 'block' : 'none' }}>
+        <Game onGameOver={handleGameOver} />
+      </div>
 
+      <AnimatePresence mode="wait">
         {screen === 'gameOver' && (
           <GameOver
             key="gameOver"
@@ -140,6 +152,13 @@ function AppContent() {
         {screen === 'avatarShop' && (
           <AvatarShop
             key="avatarShop"
+            onBack={handleBackToGame}
+          />
+        )}
+
+        {screen === 'chestShop' && (
+          <ChestShop
+            key="chestShop"
             onBack={handleBackToGame}
           />
         )}

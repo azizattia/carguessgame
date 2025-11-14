@@ -47,7 +47,7 @@ export const cars = [
     model: "Forte",
     condition: "Used",
     mileage: 18000,
-    imageURL: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-kia-forte-gt-104-1633972551.jpg?crop=0.814xw:0.688xh;0.0401xw,0.127xh&resize=2048:*",
     price: 23000
   },
   {

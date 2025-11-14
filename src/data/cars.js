@@ -509,5 +509,517 @@ export const cars = [
     mileage: 0,
     imageURL: "https://images.unsplash.com/photo-1617531653520-bd466c77e5c1?w=600&h=400&fit=crop&q=80",
     price: 46000
+  },
+
+  // Additional Budget & Economy Cars
+  {
+    id: 51,
+    year: 2023,
+    make: "Nissan",
+    model: "Sentra",
+    condition: "Used",
+    mileage: 24000,
+    imageURL: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&h=400&fit=crop&q=80",
+    price: 22000
+  },
+  {
+    id: 52,
+    year: 2024,
+    make: "Mazda",
+    model: "Mazda3",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&h=400&fit=crop&q=80",
+    price: 26000
+  },
+  {
+    id: 53,
+    year: 2021,
+    make: "Chevrolet",
+    model: "Malibu",
+    condition: "Used",
+    mileage: 42000,
+    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    price: 19000
+  },
+  {
+    id: 54,
+    year: 2023,
+    make: "Toyota",
+    model: "Prius",
+    condition: "Used",
+    mileage: 20000,
+    imageURL: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop&q=80",
+    price: 27000
+  },
+  {
+    id: 55,
+    year: 2022,
+    make: "Ford",
+    model: "Focus ST",
+    condition: "Used",
+    mileage: 30000,
+    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    price: 24000
+  },
+  {
+    id: 56,
+    year: 2024,
+    make: "Subaru",
+    model: "WRX",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&h=400&fit=crop&q=80",
+    price: 33000
+  },
+
+  // SUVs & Crossovers
+  {
+    id: 57,
+    year: 2023,
+    make: "Toyota",
+    model: "RAV4",
+    condition: "Used",
+    mileage: 18000,
+    imageURL: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop&q=80",
+    price: 36000
+  },
+  {
+    id: 58,
+    year: 2024,
+    make: "Honda",
+    model: "CR-V",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&h=400&fit=crop&q=80",
+    price: 38000
+  },
+  {
+    id: 59,
+    year: 2022,
+    make: "Mazda",
+    model: "CX-5",
+    condition: "Used",
+    mileage: 25000,
+    imageURL: "https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&h=400&fit=crop&q=80",
+    price: 31000
+  },
+  {
+    id: 60,
+    year: 2023,
+    make: "Jeep",
+    model: "Grand Cherokee",
+    condition: "Used",
+    mileage: 15000,
+    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    price: 45000
+  },
+  {
+    id: 61,
+    year: 2024,
+    make: "Ford",
+    model: "Explorer",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    price: 49000
+  },
+  {
+    id: 62,
+    year: 2023,
+    make: "Chevrolet",
+    model: "Tahoe",
+    condition: "Used",
+    mileage: 20000,
+    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    price: 58000
+  },
+  {
+    id: 63,
+    year: 2024,
+    make: "BMW",
+    model: "X3",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    price: 52000
+  },
+  {
+    id: 64,
+    year: 2023,
+    make: "Audi",
+    model: "Q5",
+    condition: "Used",
+    mileage: 14000,
+    imageURL: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&q=80",
+    price: 48000
+  },
+  {
+    id: 65,
+    year: 2024,
+    make: "Mercedes-Benz",
+    model: "GLE 450",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    price: 72000
+  },
+  {
+    id: 66,
+    year: 2023,
+    make: "Lexus",
+    model: "RX 350",
+    condition: "Used",
+    mileage: 12000,
+    imageURL: "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?w=600&h=400&fit=crop&q=80",
+    price: 54000
+  },
+  {
+    id: 67,
+    year: 2024,
+    make: "Porsche",
+    model: "Cayenne",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    price: 88000
+  },
+  {
+    id: 68,
+    year: 2023,
+    make: "Range Rover",
+    model: "Sport",
+    condition: "Used",
+    mileage: 10000,
+    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    price: 95000
+  },
+
+  // Pickup Trucks
+  {
+    id: 69,
+    year: 2023,
+    make: "Ford",
+    model: "F-150",
+    condition: "Used",
+    mileage: 28000,
+    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    price: 42000
+  },
+  {
+    id: 70,
+    year: 2024,
+    make: "Chevrolet",
+    model: "Silverado",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    price: 48000
+  },
+  {
+    id: 71,
+    year: 2022,
+    make: "RAM",
+    model: "1500",
+    condition: "Used",
+    mileage: 35000,
+    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    price: 39000
+  },
+  {
+    id: 72,
+    year: 2023,
+    make: "Toyota",
+    model: "Tundra",
+    condition: "Used",
+    mileage: 22000,
+    imageURL: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop&q=80",
+    price: 51000
+  },
+  {
+    id: 73,
+    year: 2024,
+    make: "GMC",
+    model: "Sierra Denali",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    price: 65000
+  },
+
+  // Electric & Hybrid Vehicles
+  {
+    id: 74,
+    year: 2024,
+    make: "Tesla",
+    model: "Model Y",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600&h=400&fit=crop&q=80",
+    price: 54000
+  },
+  {
+    id: 75,
+    year: 2023,
+    make: "Tesla",
+    model: "Model X",
+    condition: "Used",
+    mileage: 11000,
+    imageURL: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&h=400&fit=crop&q=80",
+    price: 89000
+  },
+  {
+    id: 76,
+    year: 2024,
+    make: "Rivian",
+    model: "R1T",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    price: 78000
+  },
+  {
+    id: 77,
+    year: 2023,
+    make: "Lucid",
+    model: "Air",
+    condition: "Used",
+    mileage: 8000,
+    imageURL: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&h=400&fit=crop&q=80",
+    price: 92000
+  },
+  {
+    id: 78,
+    year: 2024,
+    make: "Polestar",
+    model: "2",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1617531653520-bd466c77e5c1?w=600&h=400&fit=crop&q=80",
+    price: 51000
+  },
+  {
+    id: 79,
+    year: 2023,
+    make: "BMW",
+    model: "i4",
+    condition: "Used",
+    mileage: 9000,
+    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    price: 62000
+  },
+  {
+    id: 80,
+    year: 2024,
+    make: "Mercedes-Benz",
+    model: "EQS",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    price: 105000
+  },
+  {
+    id: 81,
+    year: 2023,
+    make: "Audi",
+    model: "e-tron GT",
+    condition: "Used",
+    mileage: 7000,
+    imageURL: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=600&h=400&fit=crop&q=80",
+    price: 98000
+  },
+
+  // Additional Performance Cars
+  {
+    id: 82,
+    year: 2023,
+    make: "Alfa Romeo",
+    model: "Giulia Quadrifoglio",
+    condition: "Used",
+    mileage: 11000,
+    imageURL: "https://images.unsplash.com/photo-1617531653520-bd466c77e5c1?w=600&h=400&fit=crop&q=80",
+    price: 64000
+  },
+  {
+    id: 83,
+    year: 2024,
+    make: "Cadillac",
+    model: "CT5-V Blackwing",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    price: 95000
+  },
+  {
+    id: 84,
+    year: 2022,
+    make: "Lexus",
+    model: "LC 500",
+    condition: "Used",
+    mileage: 13000,
+    imageURL: "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?w=600&h=400&fit=crop&q=80",
+    price: 78000
+  },
+  {
+    id: 85,
+    year: 2023,
+    make: "BMW",
+    model: "M3",
+    condition: "Used",
+    mileage: 8000,
+    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    price: 73000
+  },
+  {
+    id: 86,
+    year: 2024,
+    make: "Mercedes-AMG",
+    model: "E 63 S",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    price: 112000
+  },
+  {
+    id: 87,
+    year: 2023,
+    make: "Porsche",
+    model: "Panamera Turbo",
+    condition: "Used",
+    mileage: 6000,
+    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    price: 138000
+  },
+
+  // Ultra-Luxury Cars
+  {
+    id: 88,
+    year: 2024,
+    make: "Bentley",
+    model: "Flying Spur",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    price: 225000
+  },
+  {
+    id: 89,
+    year: 2023,
+    make: "Rolls-Royce",
+    model: "Ghost",
+    condition: "Used",
+    mileage: 3000,
+    imageURL: "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=600&h=400&fit=crop&q=80",
+    price: 315000
+  },
+  {
+    id: 90,
+    year: 2024,
+    make: "Aston Martin",
+    model: "DBS Superleggera",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&h=400&fit=crop&q=80",
+    price: 335000
+  },
+  {
+    id: 91,
+    year: 2023,
+    make: "Ferrari",
+    model: "Roma",
+    condition: "Used",
+    mileage: 4000,
+    imageURL: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&h=400&fit=crop&q=80",
+    price: 245000
+  },
+  {
+    id: 92,
+    year: 2024,
+    make: "Lamborghini",
+    model: "Revuelto",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1621135802920-133df287f89c?w=600&h=400&fit=crop&q=80",
+    price: 608000
+  },
+  {
+    id: 93,
+    year: 2023,
+    make: "McLaren",
+    model: "Artura",
+    condition: "Used",
+    mileage: 2500,
+    imageURL: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&h=400&fit=crop&q=80",
+    price: 235000
+  },
+  {
+    id: 94,
+    year: 2024,
+    make: "Porsche",
+    model: "918 Spyder",
+    condition: "Used",
+    mileage: 1200,
+    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    price: 1850000
+  },
+  {
+    id: 95,
+    year: 2023,
+    make: "Pagani",
+    model: "Huayra",
+    condition: "Used",
+    mileage: 600,
+    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    price: 2800000
+  },
+  {
+    id: 96,
+    year: 2024,
+    make: "Koenigsegg",
+    model: "Jesko",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    price: 3200000
+  },
+  {
+    id: 97,
+    year: 2023,
+    make: "Ferrari",
+    model: "LaFerrari",
+    condition: "Used",
+    mileage: 800,
+    imageURL: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=600&h=400&fit=crop&q=80",
+    price: 3500000
+  },
+  {
+    id: 98,
+    year: 2022,
+    make: "McLaren",
+    model: "Speedtail",
+    condition: "Used",
+    mileage: 950,
+    imageURL: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&h=400&fit=crop&q=80",
+    price: 2950000
+  },
+  {
+    id: 99,
+    year: 2024,
+    make: "Aston Martin",
+    model: "Valkyrie",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&h=400&fit=crop&q=80",
+    price: 3500000
+  },
+  {
+    id: 100,
+    year: 2023,
+    make: "Bugatti",
+    model: "Mistral",
+    condition: "Brand New",
+    mileage: 0,
+    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    price: 5000000
   }
 ];

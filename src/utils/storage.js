@@ -85,7 +85,7 @@ export const addCoins = async (userId, coinsToAdd) => {
 // Get user's coin balance
 export const getCoinBalance = async (userId) => {
   try {
-    const { data, error } = await supabase
+    const { data, error} = await supabase
       .from('user_profiles')
       .select('coins')
       .eq('id', userId)
@@ -96,5 +96,38 @@ export const getCoinBalance = async (userId) => {
   } catch (error) {
     console.error('Error fetching coin balance:', error);
     return 0;
+  }
+};
+
+// Unlock avatar (purchase with coins)
+export const unlockAvatar = async (userId, avatarId, cost) => {
+  try {
+    const { data, error } = await supabase.rpc('unlock_avatar', {
+      user_uuid: userId,
+      avatar_id: avatarId,
+      cost: cost
+    });
+
+    if (error) throw error;
+    return { success: data, error: null };
+  } catch (error) {
+    console.error('Error unlocking avatar:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+// Set current avatar
+export const setCurrentAvatar = async (userId, avatarId) => {
+  try {
+    const { data, error } = await supabase.rpc('set_current_avatar', {
+      user_uuid: userId,
+      avatar_id: avatarId
+    });
+
+    if (error) throw error;
+    return { success: data, error: null };
+  } catch (error) {
+    console.error('Error setting current avatar:', error);
+    return { success: false, error: error.message };
   }
 };

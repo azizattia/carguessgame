@@ -5,12 +5,14 @@ import Auth from './components/Auth';
 import Game from './components/Game';
 import GameOver from './components/GameOver';
 import Leaderboard from './components/Leaderboard';
+import AvatarShop from './components/AvatarShop';
 import CoinDisplay from './components/CoinDisplay';
+import Avatar from './components/Avatar';
 import { addScore } from './utils/storage';
 
 function AppContent() {
   const { user, profile, loading, signOut } = useAuth();
-  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard
+  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop
   const [finalScore, setFinalScore] = useState(0);
 
   const handleStartGame = () => {
@@ -32,6 +34,10 @@ function AppContent() {
 
   const handleShowLeaderboard = () => {
     setScreen('leaderboard');
+  };
+
+  const handleShowAvatarShop = () => {
+    setScreen('avatarShop');
   };
 
   const handleBackToGame = () => {
@@ -73,22 +79,39 @@ function AppContent() {
   // If authenticated, show game
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
-      {/* Coin display - always visible */}
-      <div className="fixed top-4 left-4 z-50">
-        <CoinDisplay />
-      </div>
+      {/* Top bar - always visible (except in avatar shop) */}
+      {screen !== 'avatarShop' && (
+        <>
+          {/* Coin display */}
+          <div className="fixed top-4 left-4 z-50">
+            <CoinDisplay />
+          </div>
 
-      {/* Logout button - always visible */}
-      <div className="fixed top-4 right-4 z-50">
-        <button
-          onClick={handleLogout}
-          className="px-4 py-2 glass-effect rounded-lg border border-neon-pink/50
-                   hover:border-neon-pink hover:shadow-neon-pink transition-all duration-300
-                   text-sm font-semibold"
-        >
-          Logout
-        </button>
-      </div>
+          {/* Avatar button */}
+          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-3">
+            <button
+              onClick={handleShowAvatarShop}
+              className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg border border-neon-purple/50
+                       hover:border-neon-purple hover:shadow-neon-purple transition-all duration-300"
+            >
+              <Avatar avatarId={profile?.current_avatar || 1} size="sm" />
+              <span className="text-sm font-semibold">Shop</span>
+            </button>
+          </div>
+
+          {/* Logout button */}
+          <div className="fixed top-4 right-4 z-50">
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 glass-effect rounded-lg border border-neon-pink/50
+                       hover:border-neon-pink hover:shadow-neon-pink transition-all duration-300
+                       text-sm font-semibold"
+            >
+              Logout
+            </button>
+          </div>
+        </>
+      )}
 
       <AnimatePresence mode="wait">
         {screen === 'game' && (
@@ -110,6 +133,13 @@ function AppContent() {
         {screen === 'leaderboard' && (
           <Leaderboard
             key="leaderboard"
+            onBack={handleBackToGame}
+          />
+        )}
+
+        {screen === 'avatarShop' && (
+          <AvatarShop
+            key="avatarShop"
             onBack={handleBackToGame}
           />
         )}

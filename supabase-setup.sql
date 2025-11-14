@@ -8,12 +8,14 @@
 DROP TABLE IF EXISTS public.scores CASCADE;
 DROP TABLE IF EXISTS public.user_profiles CASCADE;
 
--- Create user_profiles table with email and coins
+-- Create user_profiles table with email, coins, and avatars
 CREATE TABLE public.user_profiles (
   id UUID REFERENCES auth.users(id) PRIMARY KEY,
   username TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
   coins INTEGER DEFAULT 0 NOT NULL,
+  current_avatar INTEGER DEFAULT 1 NOT NULL,
+  unlocked_avatars INTEGER[] DEFAULT ARRAY[1],
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -102,12 +104,14 @@ DROP FUNCTION IF EXISTS public.handle_new_user();
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.user_profiles (id, username, email, coins)
+  INSERT INTO public.user_profiles (id, username, email, coins, current_avatar, unlocked_avatars)
   VALUES (
     NEW.id,
     COALESCE(NEW.raw_user_meta_data->>'username', SPLIT_PART(NEW.email, '@', 1)),
     NEW.email,
-    0
+    0,
+    1,
+    ARRAY[1]
   );
   RETURN NEW;
 END;
@@ -134,6 +138,62 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+-- 10. Create functions for avatar system
+CREATE OR REPLACE FUNCTION unlock_avatar(user_uuid UUID, avatar_id INTEGER, cost INTEGER)
+RETURNS BOOLEAN AS $$
+DECLARE
+  user_coins INTEGER;
+  already_unlocked BOOLEAN;
+BEGIN
+  -- Check if user has enough coins
+  SELECT coins INTO user_coins FROM public.user_profiles WHERE id = user_uuid;
+
+  IF user_coins < cost THEN
+    RETURN FALSE;
+  END IF;
+
+  -- Check if avatar is already unlocked
+  SELECT avatar_id = ANY(unlocked_avatars) INTO already_unlocked
+  FROM public.user_profiles WHERE id = user_uuid;
+
+  IF already_unlocked THEN
+    RETURN FALSE;
+  END IF;
+
+  -- Unlock avatar and deduct coins
+  UPDATE public.user_profiles
+  SET unlocked_avatars = array_append(unlocked_avatars, avatar_id),
+      coins = coins - cost,
+      updated_at = NOW()
+  WHERE id = user_uuid;
+
+  RETURN TRUE;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION set_current_avatar(user_uuid UUID, avatar_id INTEGER)
+RETURNS BOOLEAN AS $$
+DECLARE
+  is_unlocked BOOLEAN;
+BEGIN
+  -- Check if avatar is unlocked
+  SELECT avatar_id = ANY(unlocked_avatars) INTO is_unlocked
+  FROM public.user_profiles WHERE id = user_uuid;
+
+  IF NOT is_unlocked THEN
+    RETURN FALSE;
+  END IF;
+
+  -- Set current avatar
+  UPDATE public.user_profiles
+  SET current_avatar = avatar_id,
+      updated_at = NOW()
+  WHERE id = user_uuid;
+
+  RETURN TRUE;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- ============================================
 -- Setup Complete!
 -- ============================================
@@ -141,4 +201,5 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- They are NOT and SHOULD NOT be stored in user_profiles table
 -- Emails are now saved in user_profiles for easy access
 -- Coins system: Users start with 0 coins and earn them through gameplay
+-- Avatar system: Users start with avatar #1 (free common) and can unlock 19 more
 -- ============================================

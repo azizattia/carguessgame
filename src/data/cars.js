@@ -201,7 +201,7 @@ export const cars = [
     model: "RS5",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1610768764270-790fbec18178?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/audi-rs5-competition-package-11-1652285182.jpg?crop=0.766xw:0.573xh;0.160xw,0.225xh&resize=1200:*",
     price: 88000
   },
   {
@@ -591,7 +591,7 @@ export const cars = [
     model: "CR-V",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/honda/cr-v/2026/oem/2026_honda_cr-v_4dr-suv_ex-l_fq_oem_1_1600.jpg",
     price: 38000
   },
   {
@@ -837,7 +837,7 @@ export const cars = [
     model: "Giulia Quadrifoglio",
     condition: "Used",
     mileage: 11000,
-    imageURL: "https://images.unsplash.com/photo-1617531653520-bd466c77e5c1?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://di-uploads-pod14.dealerinspire.com/billluketempe/uploads/2021/12/GiuliaQuadrifoglio.jpeg",
     price: 64000
   },
   {

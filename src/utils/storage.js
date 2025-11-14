@@ -65,3 +65,36 @@ export const getUserRecentGames = async (userId, limit = 5) => {
     return [];
   }
 };
+
+// Add coins to user account
+export const addCoins = async (userId, coinsToAdd) => {
+  try {
+    const { data, error } = await supabase.rpc('update_user_coins', {
+      user_uuid: userId,
+      coins_to_add: coinsToAdd
+    });
+
+    if (error) throw error;
+    return { newBalance: data, error: null };
+  } catch (error) {
+    console.error('Error adding coins:', error);
+    return { newBalance: null, error: error.message };
+  }
+};
+
+// Get user's coin balance
+export const getCoinBalance = async (userId) => {
+  try {
+    const { data, error } = await supabase
+      .from('user_profiles')
+      .select('coins')
+      .eq('id', userId)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data?.coins || 0;
+  } catch (error) {
+    console.error('Error fetching coin balance:', error);
+    return 0;
+  }
+};

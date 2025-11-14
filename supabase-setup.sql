@@ -8,11 +8,12 @@
 DROP TABLE IF EXISTS public.scores CASCADE;
 DROP TABLE IF EXISTS public.user_profiles CASCADE;
 
--- Create user_profiles table with email
+-- Create user_profiles table with email and coins
 CREATE TABLE public.user_profiles (
   id UUID REFERENCES auth.users(id) PRIMARY KEY,
   username TEXT UNIQUE NOT NULL,
   email TEXT NOT NULL,
+  coins INTEGER DEFAULT 0 NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -101,11 +102,12 @@ DROP FUNCTION IF EXISTS public.handle_new_user();
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.user_profiles (id, username, email)
+  INSERT INTO public.user_profiles (id, username, email, coins)
   VALUES (
     NEW.id,
     COALESCE(NEW.raw_user_meta_data->>'username', SPLIT_PART(NEW.email, '@', 1)),
-    NEW.email
+    NEW.email,
+    0
   );
   RETURN NEW;
 END;
@@ -116,10 +118,27 @@ CREATE TRIGGER on_auth_user_created
   FOR EACH ROW
   EXECUTE FUNCTION public.handle_new_user();
 
+-- 9. Create a function to update user coins
+CREATE OR REPLACE FUNCTION update_user_coins(user_uuid UUID, coins_to_add INTEGER)
+RETURNS INTEGER AS $$
+DECLARE
+  new_balance INTEGER;
+BEGIN
+  UPDATE public.user_profiles
+  SET coins = coins + coins_to_add,
+      updated_at = NOW()
+  WHERE id = user_uuid
+  RETURNING coins INTO new_balance;
+
+  RETURN new_balance;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- ============================================
 -- Setup Complete!
 -- ============================================
 -- Note: Passwords are securely stored by Supabase Auth (encrypted)
 -- They are NOT and SHOULD NOT be stored in user_profiles table
 -- Emails are now saved in user_profiles for easy access
+-- Coins system: Users start with 0 coins and earn them through gameplay
 -- ============================================

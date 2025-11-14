@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cars } from '../data/cars';
 import { useAuth } from '../contexts/AuthContext';
 import { playCorrectSound, playWrongSound, playBonusSound, playLevelUpSound } from '../utils/sounds';
+import { addCoins } from '../utils/storage';
 import CarCard from './CarCard';
 import BonusRound from './BonusRound';
 
 const Game = ({ onGameOver }) => {
-  const { profile } = useAuth();
+  const { user, profile, refreshProfile } = useAuth();
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
   const [currentCar, setCurrentCar] = useState(null);
@@ -15,6 +16,8 @@ const Game = ({ onGameOver }) => {
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showScoreAnimation, setShowScoreAnimation] = useState(false);
+  const [showCoinAnimation, setShowCoinAnimation] = useState(false);
+  const [coinsEarned, setCoinsEarned] = useState(0);
   const [isBonusRound, setIsBonusRound] = useState(false);
   const [targetPrice, setTargetPrice] = useState(0);
 
@@ -83,10 +86,24 @@ const Game = ({ onGameOver }) => {
 
     if (correct) {
       playCorrectSound();
+
+      // Award coins for correct answer
+      const earnedCoins = isBonusRound ? 50 : 10;
+      setCoinsEarned(earnedCoins);
+      if (user) {
+        addCoins(user.id, earnedCoins).then(() => {
+          refreshProfile();
+        });
+      }
+
       setTimeout(() => {
         setScore(score + 1);
         setShowScoreAnimation(true);
-        setTimeout(() => setShowScoreAnimation(false), 500);
+        setShowCoinAnimation(true);
+        setTimeout(() => {
+          setShowScoreAnimation(false);
+          setShowCoinAnimation(false);
+        }, 500);
         setLevel(level + 1);
         playLevelUpSound();
         setTimeout(() => startNewRound(), 1500);
@@ -113,6 +130,8 @@ const Game = ({ onGameOver }) => {
         isCorrect={isCorrect}
         onGuess={handleGuess}
         showScoreAnimation={showScoreAnimation}
+        showCoinAnimation={showCoinAnimation}
+        coinsEarned={coinsEarned}
         username={profile?.username}
       />
     );
@@ -246,18 +265,33 @@ const Game = ({ onGameOver }) => {
             exit={{ scale: 0, opacity: 0 }}
             className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
           >
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                rotate: [0, 5, -5, 0]
-              }}
-              transition={{ duration: 0.5 }}
-              className={`text-8xl font-bold ${
-                isCorrect ? 'text-green-400' : 'text-red-400'
-              } glow-text`}
-            >
-              {isCorrect ? '✓ CORRECT!' : '✗ WRONG!'}
-            </motion.div>
+            <div className="flex flex-col items-center gap-4">
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 5, -5, 0]
+                }}
+                transition={{ duration: 0.5 }}
+                className={`text-8xl font-bold ${
+                  isCorrect ? 'text-green-400' : 'text-red-400'
+                } glow-text`}
+              >
+                {isCorrect ? '✓ CORRECT!' : '✗ WRONG!'}
+              </motion.div>
+
+              {/* Coin Earned Animation */}
+              {isCorrect && showCoinAnimation && (
+                <motion.div
+                  initial={{ y: 20, opacity: 0, scale: 0.5 }}
+                  animate={{ y: 0, opacity: 1, scale: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  className="flex items-center gap-2 text-3xl font-bold text-yellow-400 glow-text"
+                >
+                  <span>🪙</span>
+                  <span>+{coinsEarned}</span>
+                </motion.div>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -11,6 +11,8 @@ const BonusRound = ({
   isCorrect,
   onGuess,
   showScoreAnimation,
+  showCoinAnimation,
+  coinsEarned,
   username
 }) => {
   return (
@@ -134,18 +136,34 @@ const BonusRound = ({
             exit={{ scale: 0, opacity: 0 }}
             className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
           >
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                rotate: [0, 5, -5, 0]
-              }}
-              transition={{ duration: 0.5 }}
-              className={`text-8xl font-bold ${
-                isCorrect ? 'text-green-400' : 'text-red-400'
-              } glow-text`}
-            >
-              {isCorrect ? '✓ CORRECT!' : '✗ WRONG!'}
-            </motion.div>
+            <div className="flex flex-col items-center gap-4">
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 5, -5, 0]
+                }}
+                transition={{ duration: 0.5 }}
+                className={`text-8xl font-bold ${
+                  isCorrect ? 'text-green-400' : 'text-red-400'
+                } glow-text`}
+              >
+                {isCorrect ? '✓ CORRECT!' : '✗ WRONG!'}
+              </motion.div>
+
+              {/* Coin Earned Animation */}
+              {isCorrect && showCoinAnimation && (
+                <motion.div
+                  initial={{ y: 20, opacity: 0, scale: 0.5 }}
+                  animate={{ y: 0, opacity: 1, scale: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  className="flex items-center gap-2 text-3xl font-bold text-yellow-400 glow-text"
+                >
+                  <span>🪙</span>
+                  <span>+{coinsEarned}</span>
+                  <span className="text-2xl text-neon-pink">(BONUS!)</span>
+                </motion.div>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

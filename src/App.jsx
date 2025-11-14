@@ -5,6 +5,7 @@ import Auth from './components/Auth';
 import Game from './components/Game';
 import GameOver from './components/GameOver';
 import Leaderboard from './components/Leaderboard';
+import CoinDisplay from './components/CoinDisplay';
 import { addScore } from './utils/storage';
 
 function AppContent() {
@@ -72,6 +73,11 @@ function AppContent() {
   // If authenticated, show game
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
+      {/* Coin display - always visible */}
+      <div className="fixed top-4 left-4 z-50">
+        <CoinDisplay />
+      </div>
+
       {/* Logout button - always visible */}
       <div className="fixed top-4 right-4 z-50">
         <button

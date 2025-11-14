@@ -415,7 +415,7 @@ export const cars = [
     model: "765LT",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://mclaren.scene7.com/is/image/mclaren/765lt-3-1200x1200-1:crop-4x3?wid=1920&hei=1440",
     price: 395000
   },
   {
@@ -519,7 +519,7 @@ export const cars = [
     model: "Sentra",
     condition: "Used",
     mileage: 24000,
-    imageURL: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-nissan-sentra-129-6488757e6ae9a.jpg?crop=0.663xw:0.560xh;0.279xw,0.373xh&resize=2048:*",
     price: 22000
   },
   {

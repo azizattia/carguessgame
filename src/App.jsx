@@ -93,7 +93,7 @@ function AppContent() {
           </div>
 
           {/* Shop buttons */}
-          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-3">
+          <div className="fixed bottom-4 left-4 z-50 flex items-center gap-3">
             <button
               onClick={handleShowAvatarShop}
               className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg border border-neon-purple/50

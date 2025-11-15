@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { applyReferralCode } from '../utils/storage';
 
 const AuthContext = createContext({});
 
@@ -68,7 +69,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signUp = async (email, password, username) => {
+  const signUp = async (email, password, username, referralCode = '') => {
     try {
       // Sign up the user (database unique constraint will handle duplicate usernames)
       const { data, error } = await supabase.auth.signUp({
@@ -83,6 +84,15 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (error) throw error;
+
+      // Apply referral code if provided
+      if (referralCode && data?.user) {
+        const referralResult = await applyReferralCode(data.user.id, referralCode);
+        if (!referralResult.success && referralResult.error) {
+          console.warn('Referral code error:', referralResult.error);
+          // Don't fail signup if referral code is invalid, just warn
+        }
+      }
 
       // Check if email confirmation is disabled (user will be immediately confirmed)
       if (data?.user && data.user.confirmed_at) {

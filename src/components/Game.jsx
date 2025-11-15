@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cars } from '../data/cars';
 import { useAuth } from '../contexts/AuthContext';
 import { playCorrectSound, playWrongSound, playBonusSound, playLevelUpSound } from '../utils/sounds';
-import { addCoins } from '../utils/storage';
+import { addCoins, checkAndRewardReferral } from '../utils/storage';
 import CarCard from './CarCard';
 import BonusRound from './BonusRound';
 import LuckyBlock, { LuckyBlockResult } from './LuckyBlock';
@@ -36,6 +36,10 @@ const Game = ({ onGameOver }) => {
   // Geography minigame states
   const [showGeographyMinigame, setShowGeographyMinigame] = useState(false);
   const [lastGeographyLevel, setLastGeographyLevel] = useState(0);
+
+  // Referral reward states
+  const [showReferralReward, setShowReferralReward] = useState(false);
+  const [referralRewardAmount, setReferralRewardAmount] = useState(0);
 
   // Active effects
   const [extraLives, setExtraLives] = useState(0);
@@ -400,8 +404,23 @@ const Game = ({ onGameOver }) => {
           setShowScoreAnimation(false);
           setShowCoinAnimation(false);
         }, 500);
-        setLevel(level + 1);
+        const newLevel = level + 1;
+        setLevel(newLevel);
         playLevelUpSound();
+
+        // Check for referral reward at level 15
+        if (user && newLevel === 15) {
+          checkAndRewardReferral(user.id, newLevel).then((result) => {
+            if (result.rewarded) {
+              setReferralRewardAmount(result.amount);
+              setShowReferralReward(true);
+              refreshProfile(); // Refresh to show new coin balance
+              setTimeout(() => {
+                setShowReferralReward(false);
+              }, 5000);
+            }
+          });
+        }
 
         // Check for special events after correct answer
         setTimeout(() => {
@@ -791,6 +810,39 @@ const Game = ({ onGameOver }) => {
           <GeographyMinigame
             onComplete={handleGeographyComplete}
           />
+        )}
+      </AnimatePresence>
+
+      {/* Referral Reward Notification */}
+      <AnimatePresence>
+        {showReferralReward && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 px-4 md:px-8 py-3 md:py-6
+                     glass-effect rounded-xl md:rounded-2xl border-2 border-yellow-500 shadow-lg shadow-yellow-500/50
+                     max-w-xs md:max-w-md"
+          >
+            <div className="text-center">
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1] }}
+                transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 1 }}
+                className="text-4xl md:text-5xl mb-2 md:mb-3"
+              >
+                🎉
+              </motion.div>
+              <h3 className="text-lg md:text-2xl font-bold text-yellow-400 mb-1 md:mb-2">
+                REFERRAL REWARD!
+              </h3>
+              <p className="text-xs md:text-base text-gray-300 mb-2 md:mb-3">
+                You reached Level 15! You and your friend both earned:
+              </p>
+              <div className="text-2xl md:text-4xl font-bold text-yellow-400 glow-text">
+                🪙 {referralRewardAmount.toLocaleString()} Coins!
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

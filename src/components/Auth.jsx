@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { playClickSound } from '../utils/sounds';
@@ -8,9 +8,20 @@ const Auth = ({ onShowLeaderboard }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [referralCode, setReferralCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, signInWithGoogle } = useAuth();
+
+  // Check for referral code in URL on mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refCode = urlParams.get('ref');
+    if (refCode) {
+      setReferralCode(refCode.toUpperCase());
+      setIsLogin(false); // Switch to register mode
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +51,7 @@ const Auth = ({ onShowLeaderboard }) => {
           return;
         }
 
-        const { error, message } = await signUp(email, password, username);
+        const { error, message } = await signUp(email, password, username, referralCode);
         if (error) {
           setError(error);
         } else {
@@ -205,6 +216,27 @@ const Auth = ({ onShowLeaderboard }) => {
                 minLength={6}
               />
             </div>
+
+            {!isLogin && (
+              <div>
+                <label className="block text-sm text-gray-400 mb-2">
+                  Referral Code <span className="text-gray-500">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  value={referralCode}
+                  onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                  placeholder="Enter friend's code"
+                  className="w-full px-4 py-3 bg-black/50 border-2 border-neon-purple/30 rounded-xl
+                           focus:border-neon-purple focus:outline-none focus:shadow-neon-purple
+                           transition-all duration-300 uppercase"
+                  maxLength={12}
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  You'll both get 5,000 coins when you reach level 15!
+                </p>
+              </div>
+            )}
 
             {error && (
               <motion.div

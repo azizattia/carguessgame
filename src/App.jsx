@@ -7,13 +7,14 @@ import GameOver from './components/GameOver';
 import Leaderboard from './components/Leaderboard';
 import AvatarShop from './components/AvatarShop';
 import ChestShop from './components/ChestShop';
+import ReferralSystem from './components/ReferralSystem';
 import CoinDisplay from './components/CoinDisplay';
 import Avatar from './components/Avatar';
 import { addScore } from './utils/storage';
 
 function AppContent() {
   const { user, profile, loading, signOut } = useAuth();
-  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop
+  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals
   const [finalScore, setFinalScore] = useState(0);
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [gameKey, setGameKey] = useState(0);
@@ -49,6 +50,10 @@ function AppContent() {
 
   const handleShowChestShop = () => {
     setScreen('chestShop');
+  };
+
+  const handleShowReferrals = () => {
+    setScreen('referrals');
   };
 
   const handleBackToGame = () => {
@@ -98,7 +103,7 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
       {/* Top bar - always visible (except in shops) */}
-      {screen !== 'avatarShop' && screen !== 'chestShop' && (
+      {screen !== 'avatarShop' && screen !== 'chestShop' && screen !== 'referrals' && (
         <>
           {/* Coin display */}
           <div className="fixed top-2 md:top-4 left-2 md:left-4 z-50">
@@ -106,7 +111,7 @@ function AppContent() {
           </div>
 
           {/* Shop buttons */}
-          <div className="fixed bottom-2 md:bottom-4 left-2 md:left-4 z-50 flex items-center gap-2 md:gap-3">
+          <div className="fixed bottom-2 md:bottom-4 left-2 md:left-4 z-50 flex items-center gap-2 md:gap-3 flex-wrap max-w-[250px] md:max-w-none">
             <button
               onClick={handleShowAvatarShop}
               className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border border-neon-purple/50
@@ -123,6 +128,15 @@ function AppContent() {
             >
               <span className="text-xl md:text-2xl">🎁</span>
               <span className="text-xs md:text-sm font-semibold">Chests</span>
+            </button>
+
+            <button
+              onClick={handleShowReferrals}
+              className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border border-neon-blue/50
+                       hover:border-neon-blue hover:shadow-neon-blue transition-all duration-300"
+            >
+              <span className="text-xl md:text-2xl">🎁</span>
+              <span className="text-xs md:text-sm font-semibold">Referrals</span>
             </button>
           </div>
 
@@ -173,6 +187,13 @@ function AppContent() {
         {screen === 'chestShop' && (
           <ChestShop
             key="chestShop"
+            onBack={handleBackToGame}
+          />
+        )}
+
+        {screen === 'referrals' && (
+          <ReferralSystem
+            key="referrals"
             onBack={handleBackToGame}
           />
         )}

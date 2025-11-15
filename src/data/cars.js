@@ -17,7 +17,7 @@ export const cars = [
     model: "Civic",
     condition: "Used",
     mileage: 15000,
-    imageURL: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-honda-civic-hatchback-sport-touring-309-1634066512.jpg?crop=0.617xw:0.520xh;0.298xw,0.477xh&resize=2048:*",
     price: 28000
   },
   {
@@ -27,7 +27,7 @@ export const cars = [
     model: "MX-5 Miata",
     condition: "Used",
     mileage: 22000,
-    imageURL: "https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/mazda/hero/mazda_hero_502_1600.jpg",
     price: 29000
   },
   {
@@ -37,7 +37,7 @@ export const cars = [
     model: "Elantra",
     condition: "Used",
     mileage: 35000,
-    imageURL: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://cimg0.ibsrv.net/ibimg/hgm/1920x1080-1/100/740/2021-hyundai-elantra_100740296.jpg",
     price: 21000
   },
   {
@@ -47,7 +47,7 @@ export const cars = [
     model: "Forte",
     condition: "Used",
     mileage: 18000,
-    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-kia-forte-gt-104-1633972551.jpg?crop=0.814xw:0.688xh;0.0401xw,0.127xh&resize=2048:*",
+    imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Ti2imnXCc6mJd_mxxy_kI9EvHfAtmFdI6A&s",
     price: 23000
   },
   {
@@ -57,7 +57,7 @@ export const cars = [
     model: "Jetta",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1622298453451-0d5c6ebf49fc?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFcp48RVkeNLxWgrtENhoHa_MMYyCx4IG9gA&s",
     price: 27000
   },
   {
@@ -67,7 +67,7 @@ export const cars = [
     model: "Impreza",
     condition: "Used",
     mileage: 28000,
-    imageURL: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/subaru/impreza/2022/oem/2022_subaru_impreza_4dr-hatchback_limited_fq_oem_1_1600.jpg",
     price: 26000
   },
 
@@ -79,7 +79,7 @@ export const cars = [
     model: "Camaro",
     condition: "Used",
     mileage: 12000,
-    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2019-chevrolet-camaro-2-0t-1le-6mt-106-1539790974.jpg?crop=0.675xw:0.620xh;0.252xw,0.335xh&resize=2048:*",
     price: 35000
   },
   {
@@ -89,7 +89,7 @@ export const cars = [
     model: "Golf GTI",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://media.ed.edmunds-media.com/volkswagen/golf-gti/2024/oem/2024_volkswagen_golf-gti_4dr-hatchback_380-autobahn_fq_oem_1_1600.jpg",
+    imageURL: "https://www.tonyvolkswagen.com/blogs/4424/wp-content/uploads/2024/11/2024-Volkswagen-Golf-GTI.jpg",
     price: 38000
   },
   {
@@ -99,7 +99,7 @@ export const cars = [
     model: "A4",
     condition: "Used",
     mileage: 20000,
-    imageURL: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/medium-6802-audia4-1654633069.jpg?crop=1.00xw:0.846xh;0,0.154xh&resize=2048:*",
     price: 42000
   },
   {
@@ -109,7 +109,7 @@ export const cars = [
     model: "Model 3",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://i.gaw.to/content/photos/61/09/610913-tesla-model-3-2024-enfin-une-vraie-voiture.jpeg",
     price: 45000
   },
   {
@@ -119,7 +119,7 @@ export const cars = [
     model: "C-Class",
     condition: "Used",
     mileage: 25000,
-    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://cdn.motor1.com/images/mgl/0eVX0V/s1/2022-mercedes-benz-c-class.jpg",
     price: 48000
   },
   {
@@ -129,7 +129,7 @@ export const cars = [
     model: "Mustang GT",
     condition: "Used",
     mileage: 8000,
-    imageURL: "https://images.unsplash.com/photo-1584345604476-8ec5f8d6e674?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/ford/mustang/2022/oem/2022_ford_mustang_coupe_ecoboost-premium_fq_oem_1_1600.jpg",
     price: 52000
   },
   {
@@ -139,7 +139,7 @@ export const cars = [
     model: "3 Series",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/bmw/3-series/2023/oem/2023_bmw_3-series_sedan_330i-xdrive_fq_oem_1_1280.jpg",
     price: 55000
   },
   {
@@ -149,7 +149,7 @@ export const cars = [
     model: "IS 350",
     condition: "Used",
     mileage: 18000,
-    imageURL: "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/lexus/is-350/2022/oem/2022_lexus_is-350_sedan_f-sport_fq_oem_2_1600.jpg",
     price: 47000
   },
   {
@@ -159,7 +159,7 @@ export const cars = [
     model: "TLX",
     condition: "Used",
     mileage: 15000,
-    imageURL: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://images.cars.com/cldstatic/wp-content/uploads/acura-tlx-type-s-2023-exterior-oem-01.jpg",
     price: 44000
   },
 
@@ -171,7 +171,7 @@ export const cars = [
     model: "M4",
     condition: "Used",
     mileage: 5000,
-    imageURL: "https://di-uploads-pod23.dealerinspire.com/bmwofowingsmills/uploads/2024/07/P90548593_highRes_the-all-new-bmw-m4-c-1.jpg",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-bmw-m4-csl-111-1652905671.jpg?crop=0.891xw:0.753xh;0.109xw,0.247xh&resize=2048:*",
     price: 75000
   },
   {
@@ -181,7 +181,7 @@ export const cars = [
     model: "Model S",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-tesla-model-s-107-6572200e43fa1.jpg?crop=0.473xw:0.355xh;0.254xw,0.341xh&resize=1200:*",
     price: 95000
   },
   {
@@ -191,7 +191,7 @@ export const cars = [
     model: "AMG C 63",
     condition: "Used",
     mileage: 10000,
-    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://s1.cdn.autoevolution.com/images/news/2023-mercedes-amg-c-63-s-e-performance-rocks-four-cylinder-phev-setup-with-671-hp-199218-7.jpg",
     price: 82000
   },
   {
@@ -201,7 +201,7 @@ export const cars = [
     model: "RS5",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://hips.hearstapps.com/hmg-prod/images/audi-rs5-competition-package-11-1652285182.jpg?crop=0.766xw:0.573xh;0.160xw,0.225xh&resize=1200:*",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-audi-rs5-sportback-101-64ad735ff3ac8.jpg?crop=0.601xw:0.507xh;0.249xw,0.410xh&resize=2048:*",
     price: 88000
   },
   {
@@ -211,7 +211,7 @@ export const cars = [
     model: "Cayman S",
     condition: "Used",
     mileage: 12000,
-    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2021-porsche-718-cayman-gt4-107-1616160477.jpg?crop=0.731xw:0.615xh;0.136xw,0.192xh&resize=2048:*",
     price: 78000
   },
   {
@@ -221,7 +221,7 @@ export const cars = [
     model: "C8 Stingray",
     condition: "Used",
     mileage: 7000,
-    imageURL: "https://images.unsplash.com/photo-1597404294360-feefc342d578?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.edmunds.com/assets/m/chevrolet/corvette/2023/oem/2023_chevrolet_corvette_coupe_stingray_fq_oem_1_600.jpg",
     price: 85000
   },
   {
@@ -231,7 +231,7 @@ export const cars = [
     model: "F-Type",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://media.ed.edmunds-media.com/jaguar/f-type/2024/oem/2024_jaguar_f-type_coupe_p575-r75_fq_oem_1_1600.jpg",
+    imageURL: "https://cdn.jdpower.com/JDP_2024%20Jaguar%20F-Type%20R75%20Convertible%20Giola%20Green%20Front%20Quarter%20View.jpg",
     price: 92000
   },
   {
@@ -241,7 +241,7 @@ export const cars = [
     model: "E-Class",
     condition: "Used",
     mileage: 22000,
-    imageURL: "https://images.unsplash.com/photo-1617531653520-bd466c77e5c1?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2021-mercedes-benz-e450-4matic-sedan-107-1604280340.jpg?crop=0.728xw:0.613xh;0.181xw,0.240xh&resize=2048:*",
     price: 65000
   },
   {
@@ -251,7 +251,7 @@ export const cars = [
     model: "X5 M",
     condition: "Used",
     mileage: 15000,
-    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2021-bmw-x5-m-competition-101-1644233593.jpg?crop=0.614xw:0.518xh;0.279xw,0.350xh&resize=2048:*",
     price: 98000
   },
   {
@@ -261,7 +261,7 @@ export const cars = [
     model: "GT-R",
     condition: "Used",
     mileage: 8000,
-    imageURL: "https://images.unsplash.com/photo-1546614042-7df3c24c9e5d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/nissan/gt-r/2023/oem/2023_nissan_gt-r_coupe_premium_fq_oem_6_1600.jpg",
     price: 115000
   },
 
@@ -273,7 +273,7 @@ export const cars = [
     model: "911 Carrera",
     condition: "Used",
     mileage: 6000,
-    imageURL: "https://en.drivar.de/wp-content/uploads/2024/11/Rent-a-Porsche-911-Carrera-4-GTS-in-Berlin.jpeg",
+    imageURL: "https://media.ed.edmunds-media.com/porsche/911/2023/oem/2023_porsche_911_coupe_carrera-4-gts_fq_oem_1_1600.jpg",
     price: 125000
   },
   {
@@ -283,7 +283,7 @@ export const cars = [
     model: "S-Class",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://i.gaw.to/vehicles/photos/40/35/403538-2024-mercedes-benz-s-class.jpg?1024x640",
     price: 135000
   },
   {
@@ -293,7 +293,7 @@ export const cars = [
     model: "M8 Competition",
     condition: "Used",
     mileage: 4000,
-    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2020-bmw-m8-competition-coupe-104-1570575778.jpg?crop=0.852xw:0.719xh;0.0570xw,0.193xh&resize=2048:*",
     price: 145000
   },
   {
@@ -303,7 +303,7 @@ export const cars = [
     model: "R8",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://robbreport.com/wp-content/uploads/2024/03/audir8.jpg",
     price: 165000
   },
   {
@@ -313,7 +313,7 @@ export const cars = [
     model: "Taycan Turbo S",
     condition: "Used",
     mileage: 9000,
-    imageURL: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-porsche-taycan-sport-turismo-gts-19-1638148404.jpg?crop=0.800xw:0.673xh;0.104xw,0.244xh&resize=1200:*",
     price: 155000
   },
   {
@@ -323,7 +323,7 @@ export const cars = [
     model: "Continental GT",
     condition: "Used",
     mileage: 12000,
-    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.edmunds.com/assets/m/bentley/continental/2022/oem/2022_bentley_continental_convertible_gt-speed_fq_oem_1_600.jpg",
     price: 175000
   },
   {
@@ -333,7 +333,7 @@ export const cars = [
     model: "MC20",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://bringatrailer.com/wp-content/uploads/2024/09/2024_maserati_mc20-coupe_2024_maserati_mc20-coupe_6716d8f2-1b95-4241-9e72-6e4679bef300-kt4lat-53837-74908.jpg?fit=1894%2C1263",
     price: 185000
   },
   {
@@ -343,7 +343,7 @@ export const cars = [
     model: "DB11",
     condition: "Used",
     mileage: 7000,
-    imageURL: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/mtg-prod/659f04fc095f610008e66e2f/2023-aston-martin-db11-v8-front-three-quarter-in-motion-02.jpg",
     price: 195000
   },
 
@@ -355,7 +355,7 @@ export const cars = [
     model: "Huracán EVO",
     condition: "Used",
     mileage: 3000,
-    imageURL: "https://images.unsplash.com/photo-1621135802920-133df287f89c?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-lamborghini-huracan-tecnica-101-1657303967.jpg?crop=0.704xw:0.594xh;0.0619xw,0.301xh&resize=2048:*",
     price: 250000
   },
   {
@@ -365,7 +365,7 @@ export const cars = [
     model: "F8 Tributo",
     condition: "Used",
     mileage: 5000,
-    imageURL: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://i.gaw.to/vehicles/photos/40/26/402621-2022-ferrari-f8.jpg?1024x640",
     price: 280000
   },
   {
@@ -375,7 +375,7 @@ export const cars = [
     model: "720S",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://luxurylaunches.com/wp-content/uploads/2023/04/mclaren-750s.jpg",
     price: 315000
   },
   {
@@ -385,7 +385,7 @@ export const cars = [
     model: "Aventador SVJ",
     condition: "Used",
     mileage: 2000,
-    imageURL: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://autotraderau-res.cloudinary.com/image/upload/e_trim:10,f_auto/c_scale,t_cg_base,w_678/glasses/zIDOVBDM.jpg",
     price: 420000
   },
   {
@@ -395,7 +395,7 @@ export const cars = [
     model: "SF90 Stradale",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-ferrari-sf90-xx-stradale-122-654a66978f827.jpg?crop=0.623xw:0.622xh;0.221xw,0.244xh&resize=1200:*",
     price: 625000
   },
   {
@@ -405,7 +405,7 @@ export const cars = [
     model: "911 GT3 RS",
     condition: "Used",
     mileage: 1500,
-    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://images.pistonheads.com/nimg/47438/blobid0.jpg",
     price: 285000
   },
   {
@@ -415,7 +415,7 @@ export const cars = [
     model: "765LT",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://mclaren.scene7.com/is/image/mclaren/765lt-3-1200x1200-1:crop-4x3?wid=1920&hei=1440",
+    imageURL: "https://autotraderau-res.cloudinary.com/image/upload/e_trim:10,f_auto/c_scale,t_cg_base,w_678/glasses/0IzRQVEM.jpg",
     price: 395000
   },
   {
@@ -425,7 +425,7 @@ export const cars = [
     model: "Chiron",
     condition: "Used",
     mileage: 800,
-    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.carscoops.com/wp-content/uploads/2022/10/2022-Bugatti-Chiron-No-400-6.jpg",
     price: 2950000
   },
   {
@@ -435,7 +435,7 @@ export const cars = [
     model: "Phantom",
     condition: "Used",
     mileage: 5000,
-    imageURL: "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/rolls-royce/phantom/2023/oem/2023_rolls-royce_phantom_sedan_base_fq_oem_10_1600.jpg",
     price: 485000
   },
   {
@@ -445,7 +445,7 @@ export const cars = [
     model: "Urus",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.thedrive.com/wp-content/uploads/2024/08/2024-Lamborghini-Urus-1.jpg?quality=85",
     price: 245000
   },
   {
@@ -455,7 +455,7 @@ export const cars = [
     model: "GT Black Series",
     condition: "Used",
     mileage: 2500,
-    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.topgear.com/sites/default/files/cars-car/image/2020/09/_atf5691.jpeg",
     price: 385000
   },
 
@@ -467,7 +467,7 @@ export const cars = [
     model: "Camry",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.edmunds.com/assets/m/cs/blt95cf4db396c717b7/672bda61733622566a9c6cac/2024-toyota-camry-actf34.jpg",
     price: 32000
   },
   {
@@ -477,7 +477,7 @@ export const cars = [
     model: "Accord",
     condition: "Used",
     mileage: 16000,
-    imageURL: "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.edmunds.com/assets/m/honda/accord/2023/oem/2023_honda_accord_sedan_sport-l-hybrid_fq_oem_1_600.jpg",
     price: 34000
   },
   {
@@ -487,7 +487,7 @@ export const cars = [
     model: "F-150 Lightning",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://di-uploads-pod45.dealerinspire.com/donfranklinfordlondon/uploads/2024/11/2024-Ford-F-150-Lightning.jpg",
     price: 58000
   },
   {
@@ -497,7 +497,7 @@ export const cars = [
     model: "Challenger SRT Hellcat",
     condition: "Used",
     mileage: 9000,
-    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-dodge-challenger-srt-hellcat-super-stock-mmp-1-1634585571.jpg",
     price: 68000
   },
   {
@@ -507,7 +507,7 @@ export const cars = [
     model: "G70",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1617531653520-bd466c77e5c1?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://smartcdn.gprod.postmedia.digital/driving/wp-content/uploads/2024/02/2024-Genesis-G70-GF2.jpg",
     price: 46000
   },
 
@@ -519,7 +519,7 @@ export const cars = [
     model: "Sentra",
     condition: "Used",
     mileage: 24000,
-    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-nissan-sentra-129-6488757e6ae9a.jpg?crop=0.663xw:0.560xh;0.279xw,0.373xh&resize=2048:*",
+    imageURL: "https://di-uploads-pod40.dealerinspire.com/nissanofjeffersoncity/uploads/2023/04/2023-NISSAN-SENTRA-PERFORMANCE.jpg",
     price: 22000
   },
   {
@@ -529,7 +529,7 @@ export const cars = [
     model: "Mazda3",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/mazda/3/2024/oem/2024_mazda_3_4dr-hatchback_25-s-carbon-edition_fq_oem_1_1600.jpg",
     price: 26000
   },
   {
@@ -539,7 +539,7 @@ export const cars = [
     model: "Malibu",
     condition: "Used",
     mileage: 42000,
-    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2021-chevrolet-malibu-mmp-1-1598373352.jpg?crop=0.982xw:0.846xh;0.00641xw,0.122xh&resize=2048:*",
     price: 19000
   },
   {
@@ -549,7 +549,7 @@ export const cars = [
     model: "Prius",
     condition: "Used",
     mileage: 20000,
-    imageURL: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://toyotacanada.scene7.com/is/image/toyotacanada/2023_Prius_Limited_ReservoirBlue_001?ts=1696207870625&$Media-Large$&dpr=off",
     price: 27000
   },
   {
@@ -559,7 +559,7 @@ export const cars = [
     model: "Focus ST",
     condition: "Used",
     mileage: 30000,
-    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.onlycars.com.au/img/news/ford%20focus%20st%20res-02106.jpg",
     price: 24000
   },
   {
@@ -569,7 +569,7 @@ export const cars = [
     model: "WRX",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://cdn-fastly.autoguide.com/media/2024/05/14/11271/2024-subaru-wrx-rs-review-track-upgrades-make-a-more-fun-road-car.jpg?size=720x845&nocrop=1",
     price: 33000
   },
 
@@ -581,7 +581,7 @@ export const cars = [
     model: "RAV4",
     condition: "Used",
     mileage: 18000,
-    imageURL: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-toyota-rav4-101-1666018775.jpg?crop=0.587xw:0.587xh;0.207xw,0.336xh&resize=1200:*",
     price: 36000
   },
   {
@@ -591,7 +591,7 @@ export const cars = [
     model: "CR-V",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://media.ed.edmunds-media.com/honda/cr-v/2026/oem/2026_honda_cr-v_4dr-suv_ex-l_fq_oem_1_1600.jpg",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-honda-cr-v-101-661024514d1a1.jpg?crop=0.766xw:0.649xh;0.119xw,0.214xh&resize=2048:*",
     price: 38000
   },
   {
@@ -601,7 +601,7 @@ export const cars = [
     model: "CX-5",
     condition: "Used",
     mileage: 25000,
-    imageURL: "https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-mazda-cx-5-2p5-turbo-signature-104-1657559238.jpg?crop=0.710xw:0.599xh;0.170xw,0.288xh&resize=2048:*",
     price: 31000
   },
   {
@@ -611,7 +611,7 @@ export const cars = [
     model: "Grand Cherokee",
     condition: "Used",
     mileage: 15000,
-    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.thedrive.com/wp-content/uploads/2024/02/06/2023-jeep-grand-cherokee-review-1.jpg?quality=85",
     price: 45000
   },
   {
@@ -621,7 +621,7 @@ export const cars = [
     model: "Explorer",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/ford/explorer/2023/oem/2023_ford_explorer_4dr-suv_king-ranch_fq_oem_1_1280.jpg",
     price: 49000
   },
   {
@@ -631,7 +631,7 @@ export const cars = [
     model: "Tahoe",
     condition: "Used",
     mileage: 20000,
-    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/chevrolet/tahoe/2023/oem/2023_chevrolet_tahoe_4dr-suv_high-country_fq_oem_1_1600.jpg",
     price: 58000
   },
   {
@@ -641,7 +641,7 @@ export const cars = [
     model: "X3",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-bmw-x3-101-64e782a68ab3d.jpg?crop=0.945xw:0.809xh;0,0.156xh&resize=2048:*",
     price: 52000
   },
   {
@@ -651,7 +651,7 @@ export const cars = [
     model: "Q5",
     condition: "Used",
     mileage: 14000,
-    imageURL: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2021-audi-q5-phev-premium-plus-202-1642524019.jpg?crop=0.767xw:0.646xh;0.233xw,0.354xh&resize=1200:*",
     price: 48000
   },
   {
@@ -661,7 +661,7 @@ export const cars = [
     model: "GLE 450",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://cdn-fastly.autoguide.com/media/2023/06/29/13441990/mercedes-benz-gle-review-specs-pricing-features-videos-and-more.jpg?size=1200x628",
     price: 72000
   },
   {
@@ -671,7 +671,7 @@ export const cars = [
     model: "RX 350",
     condition: "Used",
     mileage: 12000,
-    imageURL: "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://di-uploads-pod23.s3.us-east-1.amazonaws.com/thompsonlexuswillowgrove/uploads/2023/06/Blue-RX.gif",
     price: 54000
   },
   {
@@ -681,7 +681,7 @@ export const cars = [
     model: "Cayenne",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-porsche-cayenne-turbo-gt-031-a9202323-645e5da0d747c.jpg?crop=0.755xw:0.638xh;0.196xw,0.293xh&resize=640:*",
     price: 88000
   },
   {
@@ -691,7 +691,7 @@ export const cars = [
     model: "Sport",
     condition: "Used",
     mileage: 10000,
-    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-land-rover-range-rover-sport-se-p360-19-63fe16f5eecca.jpg?crop=0.684xw:0.576xh;0.234xw,0.321xh&resize=2048:*",
     price: 95000
   },
 
@@ -703,7 +703,7 @@ export const cars = [
     model: "F-150",
     condition: "Used",
     mileage: 28000,
-    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-f-150-rattler-01-1648495659.jpg?crop=0.708xw:0.472xh;0.159xw,0.274xh&resize=1200:*",
     price: 42000
   },
   {
@@ -713,7 +713,7 @@ export const cars = [
     model: "Silverado",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-chevrolet-silverado-1500-high-country-102-642dbddbe725d.jpg?crop=0.788xw:0.666xh;0.171xw,0.212xh&resize=2048:*",
     price: 48000
   },
   {
@@ -723,7 +723,7 @@ export const cars = [
     model: "1500",
     condition: "Used",
     mileage: 35000,
-    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-ram-1500-backcountry-special-edition-104-1625851347.jpg",
     price: 39000
   },
   {
@@ -733,7 +733,7 @@ export const cars = [
     model: "Tundra",
     condition: "Used",
     mileage: 22000,
-    imageURL: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/toyota/tundra/2023/oem/2023_toyota_tundra_crew-cab-pickup_1794-edition_fq_oem_1_1600.jpg",
     price: 51000
   },
   {
@@ -743,7 +743,7 @@ export const cars = [
     model: "Sierra Denali",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-gmc-sierra-1500-denali-ultimate-101-1652106391.jpg?crop=0.853xw:0.721xh;0.0244xw,0.164xh&resize=2048:*",
     price: 65000
   },
 
@@ -755,7 +755,7 @@ export const cars = [
     model: "Model Y",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2020-tesla-model-y-long-range-101-1592842279.jpg?crop=0.590xw:0.499xh;0.319xw,0.364xh&resize=2048:*",
     price: 54000
   },
   {
@@ -765,7 +765,7 @@ export const cars = [
     model: "Model X",
     condition: "Used",
     mileage: 11000,
-    imageURL: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-tesla-model-x-101-1671475309.jpeg?crop=0.404xw:0.364xh;0.381xw,0.295xh&resize=2048:*",
     price: 89000
   },
   {
@@ -775,7 +775,7 @@ export const cars = [
     model: "R1T",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2022-rivian-r1t-first-edition-urbano-103-1643302430.jpg?crop=0.418xw:0.353xh;0.423xw,0.351xh&resize=2048:*",
     price: 78000
   },
   {
@@ -785,7 +785,7 @@ export const cars = [
     model: "Air",
     condition: "Used",
     mileage: 8000,
-    imageURL: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-lucid-air-touring-9444-1675346750.jpg?crop=0.681xw:0.512xh;0.122xw,0.358xh&resize=1200:*",
     price: 92000
   },
   {
@@ -795,7 +795,7 @@ export const cars = [
     model: "2",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1617531653520-bd466c77e5c1?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-polestar-2-single-motor-103-656765210c935.jpg?crop=0.571xw:0.428xh;0.324xw,0.457xh&resize=1200:*",
     price: 51000
   },
   {
@@ -805,7 +805,7 @@ export const cars = [
     model: "i4",
     condition: "Used",
     mileage: 9000,
-    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.cnet.com/a/img/resize/e54c4af3ab00e6673a3d2851e1bea7729f30b6d2/hub/2022/10/13/08448dfe-938c-4533-bf39-b2a48ec08436/bmw-i4-m50-2022-734311.jpg?auto=webp&width=1200",
     price: 62000
   },
   {
@@ -815,7 +815,7 @@ export const cars = [
     model: "EQS",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/mercedes-benz/eqs/2024/oem/2024_mercedes-benz_eqs_sedan_amg-eqs_fq_oem_1_1600.jpg",
     price: 105000
   },
   {
@@ -825,7 +825,7 @@ export const cars = [
     model: "e-tron GT",
     condition: "Used",
     mileage: 7000,
-    imageURL: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/audi/e-tron-gt/2022/oem/2022_audi_e-tron-gt_sedan_prestige_fq_oem_1_1600.jpg",
     price: 98000
   },
 
@@ -837,7 +837,7 @@ export const cars = [
     model: "Giulia Quadrifoglio",
     condition: "Used",
     mileage: 11000,
-    imageURL: "https://di-uploads-pod14.dealerinspire.com/billluketempe/uploads/2021/12/GiuliaQuadrifoglio.jpeg",
+    imageURL: "https://bringatrailer.com/wp-content/uploads/2024/08/2023_alfa-romeo_giulia-quadrifoglio_2023_alfa-romeo_giulia-quadrifoglio_b39b6826-2608-4e99-accc-2902847af436-lxqxpm-76203-48525.jpg",
     price: 64000
   },
   {
@@ -847,7 +847,7 @@ export const cars = [
     model: "CT5-V Blackwing",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.thedrive.com/wp-content/uploads/2024/10/2024-cadillac-ct5v-blackwing-test-drive-jerry-perez-2.jpg?quality=85",
     price: 95000
   },
   {
@@ -857,7 +857,7 @@ export const cars = [
     model: "LC 500",
     condition: "Used",
     mileage: 13000,
-    imageURL: "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/lexus/lc-500h/2022/oem/2022_lexus_lc-500h_coupe_base_fq_oem_1_1600.jpg",
     price: 78000
   },
   {
@@ -867,7 +867,7 @@ export const cars = [
     model: "M3",
     condition: "Used",
     mileage: 8000,
-    imageURL: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://news.dupontregistry.com/wp-content/uploads/2023/07/2023-bmw-m3-edition-50-jahre-scaled.jpg",
     price: 73000
   },
   {
@@ -877,7 +877,7 @@ export const cars = [
     model: "E 63 S",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-mercedes-amg-e63-s-4matic-103-1671563913.jpg?crop=0.554xw:0.467xh;0.274xw,0.396xh&resize=2048:*",
     price: 112000
   },
   {
@@ -887,7 +887,7 @@ export const cars = [
     model: "Panamera Turbo",
     condition: "Used",
     mileage: 6000,
-    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-porsche-panamera-turbo-s-102-1671562605.jpg",
     price: 138000
   },
 
@@ -899,7 +899,7 @@ export const cars = [
     model: "Flying Spur",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://d3s8goeblmpptu.cloudfront.net/mrp/bentley/2024/flying-spur/2024-bentley-flying-spur_landing_638640.jpg",
     price: 225000
   },
   {
@@ -909,7 +909,7 @@ export const cars = [
     model: "Ghost",
     condition: "Used",
     mileage: 3000,
-    imageURL: "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-rolls-royce-black-badge-101-1673365072.jpeg?crop=0.774xw:0.579xh;0.130xw,0.227xh&resize=1200:*",
     price: 315000
   },
   {
@@ -919,7 +919,7 @@ export const cars = [
     model: "DBS Superleggera",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://static0.topspeedimages.com/wordpress/wp-content/uploads/2023/04/resize_dbs_superleggera.jpg",
     price: 335000
   },
   {
@@ -929,7 +929,7 @@ export const cars = [
     model: "Roma",
     condition: "Used",
     mileage: 4000,
-    imageURL: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-ferrari-roma-spider-117-650b3c92b4ae2.jpg?crop=0.724xw:0.542xh;0.184xw,0.422xh&resize=1200:*",
     price: 245000
   },
   {
@@ -939,7 +939,7 @@ export const cars = [
     model: "Revuelto",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1621135802920-133df287f89c?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2024-lamborghini-revuelto-125-67aa477039191.jpg?crop=0.623xw:0.524xh;0.272xw,0.376xh&resize=1200:*",
     price: 608000
   },
   {
@@ -949,7 +949,7 @@ export const cars = [
     model: "Artura",
     condition: "Used",
     mileage: 2500,
-    imageURL: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/2023-mclaren-artura3-6400f567986ad.jpg?crop=0.479xw:0.404xh;0.245xw,0.370xh&resize=1200:*",
     price: 235000
   },
   {
@@ -959,7 +959,7 @@ export const cars = [
     model: "918 Spyder",
     condition: "Used",
     mileage: 1200,
-    imageURL: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.stuttcars.com/wp-content/uploads/2022/01/Porsche-918-Spyder.jpeg",
     price: 1850000
   },
   {
@@ -969,7 +969,7 @@ export const cars = [
     model: "Huayra",
     condition: "Used",
     mileage: 600,
-    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.topgear.com/sites/default/files/2023/01/1_7.jpg",
     price: 2800000
   },
   {
@@ -979,7 +979,7 @@ export const cars = [
     model: "Jesko",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.supervettura.com/blobs/Cars/88/47f4b814-246a-4f02-a7bf-6acbc71bfa19.jpg?width=1920&height=1080&mode=crop",
     price: 3200000
   },
   {
@@ -989,7 +989,7 @@ export const cars = [
     model: "LaFerrari",
     condition: "Used",
     mileage: 800,
-    imageURL: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://news.dupontregistry.com/wp-content/uploads/2022/01/5d94da3ad6f4125e09942efa-ferrari-laferrari-2013-engine-focuson-desktop-01-scaled.jpeg",
     price: 3500000
   },
   {
@@ -999,7 +999,7 @@ export const cars = [
     model: "Speedtail",
     condition: "Used",
     mileage: 950,
-    imageURL: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://s1.cdn.autoevolution.com/images/news/gallery/2022-mclaren-speedtail-easily-morphs-into-f1-and-p1-gtr-inspired-track-monster_2.jpg",
     price: 2950000
   },
   {
@@ -1009,7 +1009,7 @@ export const cars = [
     model: "Valkyrie",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://www.topgear.com/sites/default/files/2023/03/1-Aston-Martin-Valkyrie.jpg",
     price: 3500000
   },
   {
@@ -1019,7 +1019,7 @@ export const cars = [
     model: "Mistral",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1566023888772-f07c0f7dc2bf?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://hips.hearstapps.com/hmg-prod/images/12-bugatti-roadster-launch-set-1660747790.jpg",
     price: 5000000
   }
 ];

@@ -13,7 +13,7 @@ import { getRandomJumpscare, CHAOS_CONFIG } from '../data/jumpscares';
 import { speakRoast, stopRoasting, ROASTS } from '../utils/voiceRoasts';
 import GeographyMinigame from './GeographyMinigame';
 
-const Game = ({ onGameOver }) => {
+const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
   const { user, profile, refreshProfile } = useAuth();
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
@@ -249,7 +249,8 @@ const Game = ({ onGameOver }) => {
           speakRoast(ROASTS.lowScore); // Extra roast for low score
         }
         setTimeout(() => {
-          onGameOver(score);
+          // Trigger revive screen instead of immediate game over
+          onReviveNeeded(score);
         }, 1000);
       }, 1500);
     }
@@ -453,7 +454,8 @@ const Game = ({ onGameOver }) => {
             speakRoast(ROASTS.lowScore); // Extra roast for low score
           }
           setTimeout(() => {
-            onGameOver(score);
+            // Trigger revive screen instead of immediate game over
+            onReviveNeeded(score);
           }, 1000);
         }, 1500);
       }

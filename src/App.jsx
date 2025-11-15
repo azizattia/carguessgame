@@ -8,16 +8,18 @@ import Leaderboard from './components/Leaderboard';
 import AvatarShop from './components/AvatarShop';
 import ChestShop from './components/ChestShop';
 import ReferralSystem from './components/ReferralSystem';
+import ReviveScreen from './components/ReviveScreen';
 import CoinDisplay from './components/CoinDisplay';
 import Avatar from './components/Avatar';
-import { addScore } from './utils/storage';
+import { addScore, addCoins } from './utils/storage';
 
 function AppContent() {
-  const { user, profile, loading, signOut } = useAuth();
-  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals
+  const { user, profile, loading, signOut, refreshProfile } = useAuth();
+  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals, revive
   const [finalScore, setFinalScore] = useState(0);
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [gameKey, setGameKey] = useState(0);
+  const [reviveCount, setReviveCount] = useState(0);
 
   const handleStartGame = () => {
     setScreen('game');
@@ -37,7 +39,48 @@ function AppContent() {
 
   const handlePlayAgain = () => {
     setGameKey(prev => prev + 1); // Force Game component to remount
+    setReviveCount(0); // Reset revive count for new game
     setScreen('game');
+  };
+
+  const handleReviveNeeded = (score) => {
+    setFinalScore(score);
+    setScreen('revive');
+  };
+
+  const handleRevive = async () => {
+    // Get revive cost based on current revive count
+    const getReviveCost = (count) => {
+      switch (count) {
+        case 0: return 1000;
+        case 1: return 5000;
+        case 2: return 10000;
+        default: return null;
+      }
+    };
+
+    const cost = getReviveCost(reviveCount);
+    if (!cost || !user) return;
+
+    // Deduct coins
+    await addCoins(user.id, -cost);
+    await refreshProfile();
+
+    // Increment revive count and continue game
+    setReviveCount(prev => prev + 1);
+    setScreen('game');
+  };
+
+  const handleDeclineRevive = async () => {
+    // Save score to database (only if it's a new high score)
+    let newHighScore = false;
+    if (user) {
+      const result = await addScore(user.id, finalScore);
+      newHighScore = result.isNewHighScore || false;
+    }
+    setIsNewHighScore(newHighScore);
+    setReviveCount(0); // Reset for next game
+    setScreen('gameOver');
   };
 
   const handleShowLeaderboard = () => {
@@ -156,7 +199,12 @@ function AppContent() {
 
       {/* Keep Game mounted to preserve state */}
       <div style={{ display: screen === 'game' ? 'block' : 'none' }}>
-        <Game key={gameKey} onGameOver={handleGameOver} />
+        <Game
+          key={gameKey}
+          onGameOver={handleGameOver}
+          onReviveNeeded={handleReviveNeeded}
+          reviveCount={reviveCount}
+        />
       </div>
 
       <AnimatePresence mode="wait">
@@ -195,6 +243,16 @@ function AppContent() {
           <ReferralSystem
             key="referrals"
             onBack={handleBackToGame}
+          />
+        )}
+
+        {screen === 'revive' && (
+          <ReviveScreen
+            key="revive"
+            score={finalScore}
+            reviveCount={reviveCount}
+            onRevive={handleRevive}
+            onDecline={handleDeclineRevive}
           />
         )}
       </AnimatePresence>

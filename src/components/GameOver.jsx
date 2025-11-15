@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { playClickSound } from '../utils/sounds';
 
-const GameOver = ({ score, onPlayAgain, onShowLeaderboard }) => {
+const GameOver = ({ score, isNewHighScore, onPlayAgain, onShowLeaderboard }) => {
   const { profile } = useAuth();
 
   const handlePlayAgain = () => {
@@ -53,6 +53,24 @@ const GameOver = ({ score, onPlayAgain, onShowLeaderboard }) => {
             >
               {score}
             </motion.p>
+
+            {/* New High Score Badge */}
+            {isNewHighScore && (
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', delay: 0.8, bounce: 0.6 }}
+                className="mt-4"
+              >
+                <div className="inline-block px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full border-2 border-yellow-300 shadow-lg">
+                  <p className="text-2xl font-black text-white flex items-center gap-2">
+                    <span className="text-3xl">🏆</span>
+                    NEW HIGH SCORE!
+                    <span className="text-3xl">🏆</span>
+                  </p>
+                </div>
+              </motion.div>
+            )}
           </div>
 
           {score > 0 && (

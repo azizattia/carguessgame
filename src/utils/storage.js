@@ -1,18 +1,47 @@
 import { supabase } from '../lib/supabase';
 
-// Add a score to the database
+// Add a score to the database (only saves if it's a new high score)
 export const addScore = async (userId, score) => {
   try {
-    const { data, error } = await supabase
+    // First, get the user's current best score
+    const { data: existingScore, error: fetchError } = await supabase
       .from('scores')
-      .insert([{ user_id: userId, score }])
-      .select();
+      .select('id, score')
+      .eq('user_id', userId)
+      .order('score', { ascending: false })
+      .limit(1)
+      .maybeSingle();
 
-    if (error) throw error;
-    return { data, error: null };
+    if (fetchError && fetchError.code !== 'PGRST116') throw fetchError;
+
+    // If no existing score, insert new one
+    if (!existingScore) {
+      const { data, error } = await supabase
+        .from('scores')
+        .insert([{ user_id: userId, score }])
+        .select();
+
+      if (error) throw error;
+      return { data, error: null, isNewHighScore: true };
+    }
+
+    // If new score is better than existing best, update it
+    if (score > existingScore.score) {
+      const { data, error } = await supabase
+        .from('scores')
+        .update({ score, created_at: new Date().toISOString() })
+        .eq('id', existingScore.id)
+        .select();
+
+      if (error) throw error;
+      return { data, error: null, isNewHighScore: true };
+    }
+
+    // Score is not better, don't save
+    return { data: null, error: null, isNewHighScore: false };
   } catch (error) {
     console.error('Error adding score:', error);
-    return { data: null, error: error.message };
+    return { data: null, error: error.message, isNewHighScore: false };
   }
 };
 

@@ -15,6 +15,7 @@ function AppContent() {
   const { user, profile, loading, signOut } = useAuth();
   const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop
   const [finalScore, setFinalScore] = useState(0);
+  const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [gameKey, setGameKey] = useState(0);
 
   const handleStartGame = () => {
@@ -22,11 +23,14 @@ function AppContent() {
   };
 
   const handleGameOver = async (score) => {
-    // Save score to database
+    // Save score to database (only if it's a new high score)
+    let newHighScore = false;
     if (user) {
-      await addScore(user.id, score);
+      const result = await addScore(user.id, score);
+      newHighScore = result.isNewHighScore || false;
     }
     setFinalScore(score);
+    setIsNewHighScore(newHighScore);
     setScreen('gameOver');
   };
 
@@ -146,6 +150,7 @@ function AppContent() {
           <GameOver
             key="gameOver"
             score={finalScore}
+            isNewHighScore={isNewHighScore}
             onPlayAgain={handlePlayAgain}
             onShowLeaderboard={handleShowLeaderboard}
           />

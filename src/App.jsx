@@ -48,6 +48,13 @@ function AppContent() {
   };
 
   const handleBackToGame = () => {
+    // Just return to game (used by shops to preserve game state)
+    setScreen('game');
+  };
+
+  const handleBackFromLeaderboard = () => {
+    // Reset game when coming back from leaderboard to avoid stuck state
+    setGameKey(prev => prev + 1);
     setScreen('game');
   };
 
@@ -147,7 +154,7 @@ function AppContent() {
         {screen === 'leaderboard' && (
           <Leaderboard
             key="leaderboard"
-            onBack={handleBackToGame}
+            onBack={handleBackFromLeaderboard}
           />
         )}
 

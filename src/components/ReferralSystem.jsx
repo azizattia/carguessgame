@@ -18,31 +18,51 @@ const ReferralSystem = ({ onBack }) => {
   });
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadReferralData();
-  }, [user]);
+  }, [user, profile]);
 
   const loadReferralData = async () => {
-    if (!user || !profile) return;
+    if (!user || !profile) {
+      console.log('Missing user or profile:', { user: !!user, profile: !!profile });
+      return;
+    }
 
     setLoading(true);
+    setError(null);
 
-    // Get or generate referral code
-    let codeResult = await getUserReferralCode(user.id);
+    console.log('Loading referral data for user:', user.id, 'username:', profile.username);
 
-    if (!codeResult.code) {
-      // Generate a new code if user doesn't have one
-      codeResult = await generateReferralCode(user.id, profile.username);
+    try {
+      // Get or generate referral code
+      let codeResult = await getUserReferralCode(user.id);
+      console.log('Get referral code result:', codeResult);
+
+      if (!codeResult.code) {
+        // Generate a new code if user doesn't have one
+        console.log('Generating new referral code...');
+        codeResult = await generateReferralCode(user.id, profile.username);
+        console.log('Generated code result:', codeResult);
+      }
+
+      if (codeResult.code) {
+        setReferralCode(codeResult.code);
+        console.log('Referral code set:', codeResult.code);
+      } else if (codeResult.error) {
+        setError(codeResult.error);
+        console.error('Referral code error:', codeResult.error);
+      }
+
+      // Get referral stats
+      const statsResult = await getReferralStats(user.id);
+      console.log('Stats result:', statsResult);
+      setStats(statsResult);
+    } catch (err) {
+      console.error('Error loading referral data:', err);
+      setError(err.message);
     }
-
-    if (codeResult.code) {
-      setReferralCode(codeResult.code);
-    }
-
-    // Get referral stats
-    const statsResult = await getReferralStats(user.id);
-    setStats(statsResult);
 
     setLoading(false);
   };
@@ -123,41 +143,64 @@ const ReferralSystem = ({ onBack }) => {
             Your Referral Code
           </h2>
 
-          <div className="bg-black/40 rounded-lg p-3 md:p-4 mb-3 md:mb-4">
-            <div className="flex items-center justify-between gap-2 md:gap-4">
-              <div className="text-2xl md:text-4xl font-bold text-neon-blue glow-text tracking-wider">
-                {referralCode}
+          {error ? (
+            <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-3 md:mb-4">
+              <p className="text-red-400 font-bold mb-2">⚠️ Database Setup Required</p>
+              <p className="text-sm text-gray-300 mb-3">
+                The referral system database tables haven't been set up yet.
+              </p>
+              <p className="text-xs text-gray-400">
+                Please run the SQL schema from <code className="bg-black/50 px-2 py-1 rounded">referral_schema.sql</code> in your Supabase SQL Editor.
+              </p>
+              <p className="text-xs text-red-300 mt-2">Error: {error}</p>
+            </div>
+          ) : referralCode ? (
+            <>
+              <div className="bg-black/40 rounded-lg p-3 md:p-4 mb-3 md:mb-4">
+                <div className="flex items-center justify-between gap-2 md:gap-4">
+                  <div className="text-2xl md:text-4xl font-bold text-neon-blue glow-text tracking-wider">
+                    {referralCode}
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={copyToClipboard}
+                    className="px-3 md:px-4 py-2 bg-neon-blue text-black rounded-lg font-bold hover:bg-cyan-400 transition-colors text-sm md:text-base"
+                  >
+                    {copied ? '✓ Copied!' : '📋 Copy'}
+                  </motion.button>
+                </div>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={copyToClipboard}
-                className="px-3 md:px-4 py-2 bg-neon-blue text-black rounded-lg font-bold hover:bg-cyan-400 transition-colors text-sm md:text-base"
-              >
-                {copied ? '✓ Copied!' : '📋 Copy'}
-              </motion.button>
+            </>
+          ) : (
+            <div className="bg-yellow-500/20 border border-yellow-500/50 rounded-lg p-4 mb-3 md:mb-4">
+              <p className="text-yellow-400 text-sm">
+                🔄 Generating your referral code... If this persists, please refresh the page.
+              </p>
             </div>
-          </div>
+          )}
 
-          <div className="bg-black/40 rounded-lg p-3 md:p-4">
-            <p className="text-xs md:text-sm text-gray-400 mb-2">Share this link:</p>
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                value={shareLink}
-                readOnly
-                className="flex-1 bg-black/60 text-white px-2 md:px-3 py-1.5 md:py-2 rounded text-xs md:text-sm border border-neon-purple/30"
-              />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={copyShareLink}
-                className="px-3 md:px-4 py-1.5 md:py-2 bg-neon-purple text-white rounded-lg font-bold hover:bg-purple-500 transition-colors text-sm md:text-base"
-              >
-                {copied ? '✓' : '📋'}
-              </motion.button>
+          {referralCode && (
+            <div className="bg-black/40 rounded-lg p-3 md:p-4">
+              <p className="text-xs md:text-sm text-gray-400 mb-2">Share this link:</p>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={shareLink}
+                  readOnly
+                  className="flex-1 bg-black/60 text-white px-2 md:px-3 py-1.5 md:py-2 rounded text-xs md:text-sm border border-neon-purple/30"
+                />
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={copyShareLink}
+                  className="px-3 md:px-4 py-1.5 md:py-2 bg-neon-purple text-white rounded-lg font-bold hover:bg-purple-500 transition-colors text-sm md:text-base"
+                >
+                  {copied ? '✓' : '📋'}
+                </motion.button>
+              </div>
             </div>
-          </div>
+          )}
         </motion.div>
 
         {/* Stats */}

@@ -203,8 +203,8 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
     // Minimum 3 levels between geography minigames
     if (levelsSinceLastGeo < 3) return false;
 
-    // After level 4, 15% chance to trigger
-    if (level >= 4 && Math.random() < 0.15) {
+    // After level 4, 35% chance to trigger
+    if (level >= 4 && Math.random() < 0.35) {
       return true;
     }
 
@@ -512,7 +512,7 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
         animate={{ y: 0, opacity: 1 }}
         className="text-center mb-3 md:mb-6"
       >
-        <div className="flex justify-between items-start md:items-center max-w-4xl mx-auto mb-2 md:mb-4 gap-1 md:gap-4">
+        <div className="flex justify-start items-start md:items-center max-w-4xl mx-auto mb-2 md:mb-4 gap-3 md:gap-8">
           <div className="text-left flex-shrink-0">
             <p className="text-gray-400 text-xs md:text-sm">Player</p>
             <p className="text-sm md:text-xl font-bold text-neon-blue glow-text truncate max-w-[80px] md:max-w-none">{profile?.username}</p>
@@ -766,7 +766,7 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
               )}
 
               {/* Extra Life Used Animation */}
-              {!isCorrect && extraLives >= 0 && showResult && (
+              {!isCorrect && extraLives > 0 && showResult && (
                 <motion.div
                   initial={{ y: 20, opacity: 0, scale: 0.5 }}
                   animate={{ y: 0, opacity: 1, scale: 1 }}

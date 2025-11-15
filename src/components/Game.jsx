@@ -11,6 +11,7 @@ import { getRandomOutcome, LUCKY_BLOCK_CONFIG } from '../data/luckyBlocks';
 import Jumpscare from './Jumpscare';
 import { getRandomJumpscare, CHAOS_CONFIG } from '../data/jumpscares';
 import { speakRoast, stopRoasting, ROASTS } from '../utils/voiceRoasts';
+import GeographyMinigame from './GeographyMinigame';
 
 const Game = ({ onGameOver }) => {
   const { user, profile, refreshProfile } = useAuth();
@@ -31,6 +32,10 @@ const Game = ({ onGameOver }) => {
   const [luckyBlockOutcome, setLuckyBlockOutcome] = useState(null);
   const [showLuckyResult, setShowLuckyResult] = useState(false);
   const [lastLuckyBlockLevel, setLastLuckyBlockLevel] = useState(0);
+
+  // Geography minigame states
+  const [showGeographyMinigame, setShowGeographyMinigame] = useState(false);
+  const [lastGeographyLevel, setLastGeographyLevel] = useState(0);
 
   // Active effects
   const [extraLives, setExtraLives] = useState(0);
@@ -169,6 +174,37 @@ const Game = ({ onGameOver }) => {
       default:
         break;
     }
+  };
+
+  const checkForGeographyMinigame = () => {
+    // Trigger geography minigame randomly between levels
+    const levelsSinceLastGeo = level - lastGeographyLevel;
+
+    // Don't trigger on bonus round levels (multiples of 5)
+    if ((level + 1) % 5 === 0) return false;
+
+    // Minimum 3 levels between geography minigames
+    if (levelsSinceLastGeo < 3) return false;
+
+    // After level 4, 15% chance to trigger
+    if (level >= 4 && Math.random() < 0.15) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const handleGeographyComplete = (coinsEarned) => {
+    // Award coins from geography minigame
+    if (user && coinsEarned > 0) {
+      addCoins(user.id, coinsEarned).then(() => refreshProfile());
+    }
+
+    setShowGeographyMinigame(false);
+    setLastGeographyLevel(level);
+
+    // Continue with the game
+    startNewRound();
   };
 
   const handleTimeUp = () => {
@@ -357,10 +393,12 @@ const Game = ({ onGameOver }) => {
         setLevel(level + 1);
         playLevelUpSound();
 
-        // Check for lucky block after correct answer
+        // Check for special events after correct answer
         setTimeout(() => {
           if (checkForLuckyBlock()) {
             setShowLuckyBlock(true);
+          } else if (checkForGeographyMinigame()) {
+            setShowGeographyMinigame(true);
           } else {
             startNewRound();
           }
@@ -768,6 +806,13 @@ const Game = ({ onGameOver }) => {
           <Jumpscare
             jumpscare={currentJumpscare}
             onDismiss={handleJumpscareDismiss}
+          />
+        )}
+
+        {/* Geography Minigame */}
+        {showGeographyMinigame && (
+          <GeographyMinigame
+            onComplete={handleGeographyComplete}
           />
         )}
       </AnimatePresence>

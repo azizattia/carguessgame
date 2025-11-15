@@ -231,7 +231,7 @@ export const cars = [
     model: "F-Type",
     condition: "Brand New",
     mileage: 0,
-    imageURL: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=600&h=400&fit=crop&q=80",
+    imageURL: "https://media.ed.edmunds-media.com/jaguar/f-type/2024/oem/2024_jaguar_f-type_coupe_p575-r75_fq_oem_1_1600.jpg",
     price: 92000
   },
   {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const CarCard = ({ car, showPrice, label, isRevealing = false }) => {
+const CarCard = ({ car, showPrice, label, isRevealing = false, onClick, isClickable = false }) => {
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -18,8 +18,13 @@ const CarCard = ({ car, showPrice, label, isRevealing = false }) => {
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="glass-effect rounded-2xl overflow-hidden shadow-2xl border-2 border-neon-blue/30
-               hover:border-neon-blue/60 transition-all duration-300"
+      whileHover={isClickable ? { scale: 1.05, borderColor: 'rgba(99, 102, 241, 0.8)' } : {}}
+      whileTap={isClickable ? { scale: 0.98 } : {}}
+      onClick={isClickable ? onClick : undefined}
+      className={`glass-effect rounded-2xl overflow-hidden shadow-2xl border-2 border-neon-blue/30
+               hover:border-neon-blue/60 transition-all duration-300 ${
+                 isClickable ? 'cursor-pointer hover:shadow-neon-blue/50' : ''
+               }`}
     >
       {/* Label */}
       <div className="bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 px-4 py-2 text-center">

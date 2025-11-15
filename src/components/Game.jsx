@@ -54,7 +54,6 @@ const Game = ({ onGameOver }) => {
   const [showJumpscare, setShowJumpscare] = useState(false);
   const [currentJumpscare, setCurrentJumpscare] = useState(null);
   const [screenFlipped, setScreenFlipped] = useState(false);
-  const [buttonsMoving, setButtonsMoving] = useState(false);
 
   useEffect(() => {
     startNewRound();
@@ -255,10 +254,7 @@ const Game = ({ onGameOver }) => {
       setScreenFlipped(true);
     }
 
-    // Check for moving buttons
-    if (Math.random() < CHAOS_CONFIG.movingButtonsChance) {
-      setButtonsMoving(true);
-    }
+    // Moving buttons effect removed since buttons were replaced with clickable cards
   };
 
   const handleJumpscareDismiss = () => {
@@ -293,7 +289,6 @@ const Game = ({ onGameOver }) => {
 
       // No chaos effects in bonus rounds
       setScreenFlipped(false);
-      setButtonsMoving(false);
     } else {
       setIsBonusRound(false);
       const newCurrent = nextCar || getRandomCar();
@@ -336,12 +331,11 @@ const Game = ({ onGameOver }) => {
 
     // Reset chaos effects after making a guess
     setScreenFlipped(false);
-    setButtonsMoving(false);
 
     // Apply reverse controls if active
     let actualGuess = guess;
     if (reverseControls && !isBonusRound) {
-      actualGuess = guess === 'higher' ? 'lower' : 'higher';
+      actualGuess = guess === 'current' ? 'next' : 'current';
       setReverseControls(false); // Effect lasts only one round
     }
 
@@ -358,11 +352,13 @@ const Game = ({ onGameOver }) => {
         correct = diff2 < diff1;
       }
     } else {
-      // Regular round: higher or lower?
-      if (actualGuess === 'higher') {
-        correct = nextCar.price >= currentCar.price;
+      // Regular round: user clicks on the car they think is MORE expensive
+      if (actualGuess === 'current') {
+        // User thinks current car is more expensive
+        correct = currentCar.price >= nextCar.price;
       } else {
-        correct = nextCar.price <= currentCar.price;
+        // User thinks next car is more expensive
+        correct = nextCar.price > currentCar.price;
       }
     }
 
@@ -637,8 +633,10 @@ const Game = ({ onGameOver }) => {
         className="text-center mb-6 max-w-4xl mx-auto"
       >
         <p className="text-lg md:text-xl text-gray-300">
-          Is <span className="text-neon-blue font-bold">{nextCar.make} {nextCar.model}</span> lower or higher than{' '}
-          <span className="text-neon-purple font-bold">{currentCar.make} {currentCar.model}</span>?
+          <span className="text-neon-pink font-bold">Which car is MORE expensive?</span>
+        </p>
+        <p className="text-sm md:text-base text-gray-400 mt-2">
+          Click on the car you think costs more!
         </p>
       </motion.div>
 
@@ -646,7 +644,14 @@ const Game = ({ onGameOver }) => {
       <div className="flex-1 flex items-center justify-center">
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Current Car */}
-          <CarCard key={currentCar.id} car={currentCar} showPrice={!hidePriceNextRound} label="Current Car" />
+          <CarCard
+            key={currentCar.id}
+            car={currentCar}
+            showPrice={!hidePriceNextRound}
+            label="Current Car"
+            isClickable={!showResult}
+            onClick={() => handleGuess('current')}
+          />
 
           {/* VS Divider */}
           <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
@@ -667,70 +672,12 @@ const Game = ({ onGameOver }) => {
             showPrice={showResult}
             label="Next Car"
             isRevealing={showResult}
+            isClickable={!showResult}
+            onClick={() => handleGuess('next')}
           />
         </div>
       </div>
 
-      {/* Action Buttons */}
-      {!showResult && (
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="flex gap-4 justify-center mb-8 flex-wrap relative"
-        >
-          {buttonsMoving && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-yellow-500/20 border border-yellow-500/50 rounded-full text-sm font-semibold text-yellow-400"
-            >
-              🌀 MOVING BUTTONS! 🌀
-            </motion.div>
-          )}
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            animate={buttonsMoving ? {
-              x: [0, -30, 30, -20, 20, -10, 10, 0],
-              y: [0, -20, 20, -15, 15, -10, 10, 0],
-              rotate: [0, -10, 10, -5, 5, 0]
-            } : {}}
-            transition={buttonsMoving ? {
-              repeat: Infinity,
-              duration: 3,
-              ease: "easeInOut"
-            } : {}}
-            onClick={() => handleGuess('higher')}
-            className="px-12 py-4 text-xl font-bold bg-gradient-to-r from-green-500 to-green-600
-                     rounded-xl shadow-lg hover:shadow-green-500/50 transition-all duration-300
-                     border-2 border-green-400/50"
-          >
-            ⬆️ HIGHER
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            animate={buttonsMoving ? {
-              x: [0, 30, -30, 20, -20, 10, -10, 0],
-              y: [0, 20, -20, 15, -15, 10, -10, 0],
-              rotate: [0, 10, -10, 5, -5, 0]
-            } : {}}
-            transition={buttonsMoving ? {
-              repeat: Infinity,
-              duration: 3,
-              ease: "easeInOut"
-            } : {}}
-            onClick={() => handleGuess('lower')}
-            className="px-12 py-4 text-xl font-bold bg-gradient-to-r from-red-500 to-red-600
-                     rounded-xl shadow-lg hover:shadow-red-500/50 transition-all duration-300
-                     border-2 border-red-400/50"
-          >
-            ⬇️ LOWER
-          </motion.button>
-        </motion.div>
-      )}
 
       {/* Result Animation */}
       <AnimatePresence>

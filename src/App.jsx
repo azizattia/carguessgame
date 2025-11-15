@@ -101,38 +101,38 @@ function AppContent() {
       {screen !== 'avatarShop' && screen !== 'chestShop' && (
         <>
           {/* Coin display */}
-          <div className="fixed top-4 left-4 z-50">
+          <div className="fixed top-2 md:top-4 left-2 md:left-4 z-50">
             <CoinDisplay />
           </div>
 
           {/* Shop buttons */}
-          <div className="fixed bottom-4 left-4 z-50 flex items-center gap-3">
+          <div className="fixed bottom-2 md:bottom-4 left-2 md:left-4 z-50 flex items-center gap-2 md:gap-3">
             <button
               onClick={handleShowAvatarShop}
-              className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg border border-neon-purple/50
+              className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border border-neon-purple/50
                        hover:border-neon-purple hover:shadow-neon-purple transition-all duration-300"
             >
               <Avatar avatarId={profile?.current_avatar || 1} size="sm" />
-              <span className="text-sm font-semibold">Avatars</span>
+              <span className="text-xs md:text-sm font-semibold">Avatars</span>
             </button>
 
             <button
               onClick={handleShowChestShop}
-              className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg border border-yellow-500/50
+              className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border border-yellow-500/50
                        hover:border-yellow-500 hover:shadow-yellow-500/50 transition-all duration-300"
             >
-              <span className="text-2xl">🎁</span>
-              <span className="text-sm font-semibold">Chests</span>
+              <span className="text-xl md:text-2xl">🎁</span>
+              <span className="text-xs md:text-sm font-semibold">Chests</span>
             </button>
           </div>
 
           {/* Logout button */}
-          <div className="fixed top-4 right-4 z-50">
+          <div className="fixed top-2 md:top-4 right-2 md:right-4 z-50">
             <button
               onClick={handleLogout}
-              className="px-4 py-2 glass-effect rounded-lg border border-neon-pink/50
+              className="px-3 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border border-neon-pink/50
                        hover:border-neon-pink hover:shadow-neon-pink transition-all duration-300
-                       text-sm font-semibold"
+                       text-xs md:text-sm font-semibold"
             >
               Logout
             </button>

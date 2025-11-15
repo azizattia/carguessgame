@@ -478,7 +478,7 @@ const Game = ({ onGameOver }) => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40 px-4 py-2 bg-red-500/20 border border-red-500/50 rounded-full text-sm font-semibold text-red-400"
+          className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40 px-3 md:px-4 py-1 md:py-2 bg-red-500/20 border border-red-500/50 rounded-full text-xs md:text-sm font-semibold text-red-400"
           style={{ transform: screenFlipped ? 'rotate(180deg) translateX(50%)' : 'translateX(-50%)' }}
         >
           🙃 SCREEN FLIPPED! 🙃
@@ -489,18 +489,18 @@ const Game = ({ onGameOver }) => {
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="text-center mb-6"
+        className="text-center mb-3 md:mb-6"
       >
-        <div className="flex justify-between items-center max-w-4xl mx-auto mb-4">
-          <div className="text-left">
-            <p className="text-gray-400 text-sm">Player</p>
-            <p className="text-xl font-bold text-neon-blue glow-text">{profile?.username}</p>
+        <div className="flex justify-between items-start md:items-center max-w-4xl mx-auto mb-2 md:mb-4 gap-1 md:gap-4">
+          <div className="text-left flex-shrink-0">
+            <p className="text-gray-400 text-xs md:text-sm">Player</p>
+            <p className="text-sm md:text-xl font-bold text-neon-blue glow-text truncate max-w-[80px] md:max-w-none">{profile?.username}</p>
           </div>
 
           {/* Timer Display - Center */}
           {!isBonusRound && (
-            <div className="text-center">
-              <p className="text-gray-400 text-sm mb-2">Time Left</p>
+            <div className="text-center flex-shrink-0">
+              <p className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">Time Left</p>
               <motion.div
                 animate={timeLeft <= 3 ? {
                   scale: [1, 1.1, 1],
@@ -510,7 +510,7 @@ const Game = ({ onGameOver }) => {
                 className="relative"
               >
                 {/* Circular Progress */}
-                <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                <svg className="w-12 h-12 md:w-20 md:h-20 transform -rotate-90" viewBox="0 0 100 100">
                   {/* Background circle */}
                   <circle
                     cx="50"
@@ -545,7 +545,7 @@ const Game = ({ onGameOver }) => {
                     key={timeLeft}
                     initial={{ scale: 1.2, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className={`text-3xl font-bold ${
+                    className={`text-xl md:text-3xl font-bold ${
                       timeLeft <= 3 ? 'text-red-400' :
                       timeLeft <= 5 ? 'text-yellow-400' :
                       'text-green-400'
@@ -565,22 +565,22 @@ const Game = ({ onGameOver }) => {
 
           {/* Level Display - Center (for bonus rounds) */}
           {isBonusRound && (
-            <div className="text-center">
-              <p className="text-gray-400 text-sm">Level</p>
+            <div className="text-center flex-shrink-0">
+              <p className="text-gray-400 text-xs md:text-sm">Level</p>
               <motion.p
                 key={level}
                 initial={{ scale: 1.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="text-3xl font-bold text-neon-purple glow-text"
+                className="text-2xl md:text-3xl font-bold text-neon-purple glow-text"
               >
                 {level}
               </motion.p>
             </div>
           )}
 
-          <div className="text-right relative">
-            <p className="text-gray-400 text-sm">Score</p>
-            <p className="text-xl font-bold text-neon-pink glow-text">{score}</p>
+          <div className="text-right relative flex-shrink-0">
+            <p className="text-gray-400 text-xs md:text-sm">Score</p>
+            <p className="text-sm md:text-xl font-bold text-neon-pink glow-text">{score}</p>
 
             <AnimatePresence>
               {showScoreAnimation && (
@@ -588,7 +588,7 @@ const Game = ({ onGameOver }) => {
                   initial={{ y: 0, opacity: 1, scale: 1 }}
                   animate={{ y: -30, opacity: 0, scale: 1.5 }}
                   exit={{ opacity: 0 }}
-                  className="absolute top-0 right-0 text-2xl font-bold text-green-400"
+                  className="absolute top-0 right-0 text-lg md:text-2xl font-bold text-green-400"
                 >
                   +1
                 </motion.div>
@@ -598,12 +598,12 @@ const Game = ({ onGameOver }) => {
         </div>
 
         {/* Active Effects Display */}
-        <div className="flex justify-center gap-3 flex-wrap mt-4">
+        <div className="flex justify-center gap-2 md:gap-3 flex-wrap mt-2 md:mt-4 px-2">
           {extraLives > 0 && (
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded-full text-sm font-semibold text-pink-400"
+              className="px-2 md:px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded-full text-xs md:text-sm font-semibold text-pink-400"
             >
               ❤️ {extraLives} Extra {extraLives === 1 ? 'Life' : 'Lives'}
             </motion.div>
@@ -612,7 +612,7 @@ const Game = ({ onGameOver }) => {
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className={`px-3 py-1 border rounded-full text-sm font-semibold ${
+              className={`px-2 md:px-3 py-1 border rounded-full text-xs md:text-sm font-semibold ${
                 coinMultiplier > 1
                   ? 'bg-green-500/20 border-green-500/50 text-green-400'
                   : 'bg-orange-500/20 border-orange-500/50 text-orange-400'
@@ -626,7 +626,7 @@ const Game = ({ onGameOver }) => {
               initial={{ scale: 0 }}
               animate={{ scale: 1, rotate: [0, -5, 5, -5, 5, 0] }}
               transition={{ rotate: { repeat: Infinity, duration: 0.5 } }}
-              className="px-3 py-1 bg-red-500/20 border border-red-500/50 rounded-full text-sm font-semibold text-red-400"
+              className="px-2 md:px-3 py-1 bg-red-500/20 border border-red-500/50 rounded-full text-xs md:text-sm font-semibold text-red-400"
             >
               🔄 Controls Reversed!
             </motion.div>
@@ -635,7 +635,7 @@ const Game = ({ onGameOver }) => {
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full text-sm font-semibold text-purple-400"
+              className="px-2 md:px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full text-xs md:text-sm font-semibold text-purple-400"
             >
               🔮 Hint: ${priceHintRange.min.toLocaleString()} - ${priceHintRange.max.toLocaleString()}
             </motion.div>
@@ -648,19 +648,19 @@ const Game = ({ onGameOver }) => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-center mb-6 max-w-4xl mx-auto"
+        className="text-center mb-3 md:mb-6 max-w-4xl mx-auto px-4"
       >
-        <p className="text-lg md:text-xl text-gray-300">
+        <p className="text-base md:text-xl text-gray-300">
           <span className="text-neon-pink font-bold">Which car is MORE expensive?</span>
         </p>
-        <p className="text-sm md:text-base text-gray-400 mt-2">
+        <p className="text-xs md:text-base text-gray-400 mt-1 md:mt-2">
           Click on the car you think costs more!
         </p>
       </motion.div>
 
       {/* Game Area */}
-      <div className="flex-1 flex items-center justify-center overflow-hidden">
-        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative">
+      <div className="flex-1 flex items-center justify-center overflow-hidden px-2">
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center relative">
           {/* Current Car */}
           <CarCard
             key={currentCar.id}
@@ -671,15 +671,26 @@ const Game = ({ onGameOver }) => {
             onClick={() => handleGuess('current')}
           />
 
-          {/* VS Divider */}
+          {/* VS Divider - Desktop only */}
           <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ repeat: Infinity, duration: 2 }}
-              className="glass-effect rounded-full w-20 h-20 flex items-center justify-center
+              className="glass-effect rounded-full w-16 md:w-20 h-16 md:h-20 flex items-center justify-center
                        border-4 border-neon-purple shadow-neon-purple"
             >
-              <span className="text-3xl font-bold text-neon-purple glow-text">VS</span>
+              <span className="text-2xl md:text-3xl font-bold text-neon-purple glow-text">VS</span>
+            </motion.div>
+          </div>
+
+          {/* VS Text - Mobile only */}
+          <div className="flex md:hidden justify-center my-2">
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              className="text-2xl font-bold text-neon-purple glow-text"
+            >
+              VS
             </motion.div>
           </div>
 
@@ -704,18 +715,18 @@ const Game = ({ onGameOver }) => {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-4"
           >
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-3 md:gap-4">
               <motion.div
                 animate={{
                   scale: [1, 1.2, 1],
                   rotate: [0, 5, -5, 0]
                 }}
                 transition={{ duration: 0.5 }}
-                className={`text-8xl font-bold ${
+                className={`text-4xl md:text-8xl font-bold ${
                   isCorrect ? 'text-green-400' : 'text-red-400'
-                } glow-text`}
+                } glow-text text-center`}
               >
                 {isCorrect ? '✓ CORRECT!' : timeLeft === 0 ? '⏰ TIME\'S UP!' : '✗ WRONG!'}
               </motion.div>
@@ -726,7 +737,7 @@ const Game = ({ onGameOver }) => {
                   initial={{ y: 20, opacity: 0, scale: 0.5 }}
                   animate={{ y: 0, opacity: 1, scale: 1 }}
                   exit={{ y: -20, opacity: 0 }}
-                  className="flex items-center gap-2 text-3xl font-bold text-yellow-400 glow-text"
+                  className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-yellow-400 glow-text"
                 >
                   <span>🪙</span>
                   <span>+{coinsEarned}</span>
@@ -739,10 +750,11 @@ const Game = ({ onGameOver }) => {
                   initial={{ y: 20, opacity: 0, scale: 0.5 }}
                   animate={{ y: 0, opacity: 1, scale: 1 }}
                   exit={{ y: -20, opacity: 0 }}
-                  className="flex items-center gap-2 text-3xl font-bold text-pink-400 glow-text"
+                  className="flex items-center gap-2 text-xl md:text-3xl font-bold text-pink-400 glow-text text-center"
                 >
                   <span>❤️</span>
-                  <span>EXTRA LIFE SAVED YOU!</span>
+                  <span className="hidden md:inline">EXTRA LIFE SAVED YOU!</span>
+                  <span className="md:hidden">EXTRA LIFE!</span>
                 </motion.div>
               )}
             </div>

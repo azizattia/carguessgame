@@ -21,6 +21,7 @@ const CarCard = ({ car, showPrice, label, isRevealing = false, onClick, isClicka
       whileHover={isClickable ? { scale: 1.05, borderColor: 'rgba(99, 102, 241, 0.8)' } : {}}
       whileTap={isClickable ? { scale: 0.98 } : {}}
       onClick={isClickable ? onClick : undefined}
+      style={{ willChange: 'transform' }}
       className={`glass-effect rounded-2xl overflow-hidden shadow-2xl border-2 border-neon-blue/30
                hover:border-neon-blue/60 transition-all duration-300 ${
                  isClickable ? 'cursor-pointer hover:shadow-neon-blue/50' : ''

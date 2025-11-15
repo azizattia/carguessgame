@@ -59,6 +59,20 @@ const Game = ({ onGameOver }) => {
     startNewRound();
   }, []);
 
+  // Prevent body scroll when showing result
+  useEffect(() => {
+    if (showResult) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [showResult]);
+
   // Timer countdown effect
   useEffect(() => {
     if (!timerActive || showResult || isBonusRound) return;
@@ -450,9 +464,13 @@ const Game = ({ onGameOver }) => {
 
   return (
     <div
-      className="min-h-screen p-4 flex flex-col transition-transform duration-1000"
+      className={`min-h-screen p-4 flex flex-col transition-transform duration-1000 ${
+        showResult ? 'overflow-hidden' : ''
+      }`}
       style={{
         transform: screenFlipped ? 'rotate(180deg)' : 'rotate(0deg)',
+        maxHeight: '100vh',
+        overflowY: showResult ? 'hidden' : 'auto'
       }}
     >
       {/* Chaos Warning Indicator */}
@@ -641,8 +659,8 @@ const Game = ({ onGameOver }) => {
       </motion.div>
 
       {/* Game Area */}
-      <div className="flex-1 flex items-center justify-center">
-        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div className="flex-1 flex items-center justify-center overflow-hidden">
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative">
           {/* Current Car */}
           <CarCard
             key={currentCar.id}

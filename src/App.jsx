@@ -170,7 +170,7 @@ function AppContent() {
           </div>
 
           {/* Shop buttons */}
-          <div className="fixed bottom-2 md:bottom-4 left-2 md:left-4 z-50 flex items-center gap-2 md:gap-3 flex-wrap max-w-[280px] md:max-w-none">
+          <div className="fixed bottom-2 md:bottom-4 left-2 md:left-4 z-50 flex items-center gap-2 md:gap-3 flex-wrap max-w-[320px] md:max-w-none">
             <button
               onClick={handleShowAvatarShop}
               className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border border-neon-purple/50

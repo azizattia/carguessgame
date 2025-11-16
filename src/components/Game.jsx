@@ -283,6 +283,10 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
   };
 
   const startNewRound = () => {
+    // IMPORTANT: Reset result state at the very beginning
+    setShowResult(false);
+    setIsCorrect(false);
+
     // Update multiplier rounds
     if (multiplierRoundsLeft > 0) {
       setMultiplierRoundsLeft(prev => prev - 1);
@@ -339,7 +343,6 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
       // Trigger chaos effects for regular rounds
       triggerChaosEffects();
     }
-    setShowResult(false);
   };
 
   const handleGuess = (guess) => {
@@ -423,6 +426,10 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
           });
         }
 
+        // Reset showResult BEFORE checking for special events
+        setShowResult(false);
+        setIsCorrect(false);
+
         // Check for special events after correct answer
         setTimeout(() => {
           if (checkForLuckyBlock()) {
@@ -445,6 +452,11 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
         setTimeout(() => {
           setShowResult(false);
           setIsCorrect(false);
+          // If in bonus round, need to restart timer
+          if (!isBonusRound) {
+            setTimeLeft(10);
+            setTimerActive(true);
+          }
         }, 2000);
       } else {
         playWrongSound();

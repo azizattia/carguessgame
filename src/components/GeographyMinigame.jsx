@@ -13,9 +13,9 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-// Custom icons
+// Custom icons - using URL encoding to support all characters
 const guessIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+  iconUrl: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="44" viewBox="0 0 32 44">
       <path d="M16 0C7.163 0 0 7.163 0 16s16 28 16 28 16-19.163 16-28S24.837 0 16 0z" fill="#ef4444"/>
       <circle cx="16" cy="16" r="8" fill="white"/>
@@ -28,11 +28,11 @@ const guessIcon = new L.Icon({
 });
 
 const correctIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+  iconUrl: 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="44" viewBox="0 0 32 44">
       <path d="M16 0C7.163 0 0 7.163 0 16s16 28 16 28 16-19.163 16-28S24.837 0 16 0z" fill="#22c55e"/>
       <circle cx="16" cy="16" r="8" fill="white"/>
-      <text x="16" y="21" font-size="14" text-anchor="middle" fill="#22c55e">⭐</text>
+      <polygon points="16,10 18,14 23,14 19,17 20,22 16,19 12,22 13,17 9,14 14,14" fill="white"/>
     </svg>
   `),
   iconSize: [32, 44],

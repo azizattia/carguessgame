@@ -512,15 +512,17 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
         animate={{ y: 0, opacity: 1 }}
         className="text-center mb-3 md:mb-6"
       >
-        <div className="flex justify-start items-start md:items-center max-w-4xl mx-auto mb-2 md:mb-4 gap-3 md:gap-8">
-          <div className="text-left flex-shrink-0">
-            <p className="text-gray-400 text-xs md:text-sm">Player</p>
-            <p className="text-sm md:text-xl font-bold text-neon-blue glow-text truncate max-w-[80px] md:max-w-none">{profile?.username}</p>
-          </div>
+        <div className="relative max-w-4xl mx-auto mb-2 md:mb-4 px-2 md:px-4">
+          <div className="flex justify-between items-center">
+            {/* Player Info - Left */}
+            <div className="text-left flex-shrink-0 min-w-[100px] md:min-w-[150px]">
+              <p className="text-gray-400 text-xs md:text-sm">Player</p>
+              <p className="text-sm md:text-xl font-bold text-neon-blue glow-text truncate max-w-[90px] md:max-w-[140px]">{profile?.username}</p>
+            </div>
 
-          {/* Timer Display - Center */}
-          {!isBonusRound && (
-            <div className="text-center flex-shrink-0">
+            {/* Timer Display - Absolutely Centered */}
+            {!isBonusRound && (
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center flex-shrink-0">
               <p className="text-gray-400 text-xs md:text-sm mb-1 md:mb-2">Time Left</p>
               <motion.div
                 animate={timeLeft <= 3 ? {
@@ -584,37 +586,39 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
             </div>
           )}
 
-          {/* Level Display - Center (for bonus rounds) */}
-          {isBonusRound && (
-            <div className="text-center flex-shrink-0">
-              <p className="text-gray-400 text-xs md:text-sm">Level</p>
-              <motion.p
-                key={level}
-                initial={{ scale: 1.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="text-2xl md:text-3xl font-bold text-neon-purple glow-text"
-              >
-                {level}
-              </motion.p>
-            </div>
-          )}
-
-          <div className="text-right relative flex-shrink-0">
-            <p className="text-gray-400 text-xs md:text-sm">Score</p>
-            <p className="text-sm md:text-xl font-bold text-neon-pink glow-text">{score}</p>
-
-            <AnimatePresence>
-              {showScoreAnimation && (
-                <motion.div
-                  initial={{ y: 0, opacity: 1, scale: 1 }}
-                  animate={{ y: -30, opacity: 0, scale: 1.5 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute top-0 right-0 text-lg md:text-2xl font-bold text-green-400"
+            {/* Level Display - Absolutely Centered (for bonus rounds) */}
+            {isBonusRound && (
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center flex-shrink-0">
+                <p className="text-gray-400 text-xs md:text-sm">Level</p>
+                <motion.p
+                  key={level}
+                  initial={{ scale: 1.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="text-2xl md:text-3xl font-bold text-neon-purple glow-text"
                 >
-                  +1
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  {level}
+                </motion.p>
+              </div>
+            )}
+
+            {/* Score - Right */}
+            <div className="text-right relative flex-shrink-0 min-w-[100px] md:min-w-[150px]">
+              <p className="text-gray-400 text-xs md:text-sm">Score</p>
+              <p className="text-sm md:text-xl font-bold text-neon-pink glow-text">{score}</p>
+
+              <AnimatePresence>
+                {showScoreAnimation && (
+                  <motion.div
+                    initial={{ y: 0, opacity: 1, scale: 1 }}
+                    animate={{ y: -30, opacity: 0, scale: 1.5 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute top-0 right-0 text-lg md:text-2xl font-bold text-green-400"
+                  >
+                    +1
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
 

@@ -13,9 +13,11 @@ import WatchAdButton from './components/WatchAdButton';
 import CoinDisplay from './components/CoinDisplay';
 import Avatar from './components/Avatar';
 import { addScore, addCoins } from './utils/storage';
+import { useAds } from './hooks/useAds';
 
 function AppContent() {
   const { user, profile, loading, signOut, refreshProfile } = useAuth();
+  const { showInterstitialAd } = useAds();
   const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals, revive
   const [finalScore, setFinalScore] = useState(0);
   const [isNewHighScore, setIsNewHighScore] = useState(false);
@@ -73,15 +75,18 @@ function AppContent() {
   };
 
   const handleDeclineRevive = async () => {
-    // Save score to database (only if it's a new high score)
-    let newHighScore = false;
-    if (user) {
-      const result = await addScore(user.id, finalScore);
-      newHighScore = result.isNewHighScore || false;
-    }
-    setIsNewHighScore(newHighScore);
-    setReviveCount(0); // Reset for next game
-    setScreen('gameOver');
+    // Show interstitial ad on game over
+    showInterstitialAd(async () => {
+      // After ad closes, save score and show game over
+      let newHighScore = false;
+      if (user) {
+        const result = await addScore(user.id, finalScore);
+        newHighScore = result.isNewHighScore || false;
+      }
+      setIsNewHighScore(newHighScore);
+      setReviveCount(0); // Reset for next game
+      setScreen('gameOver');
+    });
   };
 
   const handleShowLeaderboard = () => {
@@ -184,7 +189,7 @@ function AppContent() {
             </button>
 
             {/* Watch Ad Button */}
-            <WatchAdButton rewardAmount={500} />
+            <WatchAdButton rewardAmount={2000} />
           </div>
 
           {/* Logout button */}

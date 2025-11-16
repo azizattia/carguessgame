@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import { useRewardedAd } from '../hooks/useRewardedAd';
+import { useAds } from '../hooks/useAds';
 import { useAuth } from '../contexts/AuthContext';
 import { addCoins } from '../utils/storage';
 
-const WatchAdButton = ({ rewardAmount = 500, onRewardEarned }) => {
+const WatchAdButton = ({ rewardAmount = 2000, onRewardEarned }) => {
   const { user, refreshProfile } = useAuth();
-  const { isAdReady, isAdPlaying, showRewardedAd } = useRewardedAd();
+  const { isAdReady, isAdPlaying, showRewardedAd } = useAds();
 
   const handleWatchAd = () => {
     if (!user) return;

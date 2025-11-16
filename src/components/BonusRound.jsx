@@ -89,7 +89,7 @@ const BonusRound = ({
       </motion.div>
 
       {/* Game Area */}
-      <div className="flex-1 flex items-center justify-center px-2">
+      <div className="flex-1 flex items-center justify-center px-2 -mt-4">
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start">
           {/* Car 1 - Clickable */}
           <motion.div

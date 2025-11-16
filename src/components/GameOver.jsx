@@ -1,9 +1,22 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { playClickSound } from '../utils/sounds';
 
 const GameOver = ({ score, isNewHighScore, onPlayAgain, onShowLeaderboard }) => {
   const { profile } = useAuth();
+  const adContainerRef = useRef(null);
+
+  // Load ad when component mounts
+  useEffect(() => {
+    if (adContainerRef.current) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (err) {
+        console.error('AdSense error:', err);
+      }
+    }
+  }, []);
 
   const handlePlayAgain = () => {
     playClickSound();
@@ -89,6 +102,24 @@ const GameOver = ({ score, isNewHighScore, onPlayAgain, onShowLeaderboard }) => 
               </p>
             </motion.div>
           )}
+
+          {/* Ad displayed when player dies */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="mb-6 md:mb-8"
+            ref={adContainerRef}
+          >
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-3 min-h-[100px] flex items-center justify-center">
+              <ins className="adsbygoogle"
+                   style={{ display: 'block' }}
+                   data-ad-client="ca-pub-1021387175994347"
+                   data-ad-slot="4602174737"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+            </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}

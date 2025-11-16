@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Auth from './components/Auth';
@@ -23,6 +23,15 @@ function AppContent() {
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [gameKey, setGameKey] = useState(0);
   const [reviveCount, setReviveCount] = useState(0);
+
+  // Load bottom ad on mount
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.error('AdSense error:', err);
+    }
+  }, []);
 
   const handleStartGame = () => {
     setScreen('game');
@@ -265,6 +274,18 @@ function AppContent() {
           />
         )}
       </AnimatePresence>
+
+      {/* Bottom Ad - Always visible */}
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-5xl pb-2 px-2 z-40">
+        <div className="bg-gray-900/80 backdrop-blur-sm rounded-lg p-2">
+          <ins className="adsbygoogle"
+               style={{ display: 'block' }}
+               data-ad-client="ca-pub-1021387175994347"
+               data-ad-slot="9776703698"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+        </div>
+      </div>
     </div>
   );
 }

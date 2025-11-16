@@ -91,39 +91,25 @@ const BonusRound = ({
       {/* Game Area */}
       <div className="flex-1 flex items-center justify-center px-2">
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start">
-          {/* Car 1 */}
-          <div>
+          {/* Car 1 - Clickable */}
+          <motion.div
+            whileHover={!showResult ? { scale: 1.02 } : {}}
+            whileTap={!showResult ? { scale: 0.98 } : {}}
+            onClick={() => !showResult && onGuess('first')}
+            className={!showResult ? 'cursor-pointer' : ''}
+          >
             <CarCard key={car1.id} car={car1} showPrice={showResult} label="Car Option 1" isRevealing={showResult} />
-            {!showResult && (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => onGuess('first')}
-                className="w-full mt-3 md:mt-4 px-4 md:px-8 py-3 md:py-4 text-base md:text-xl font-bold bg-gradient-to-r from-neon-blue to-cyan-500
-                         rounded-xl shadow-lg hover:shadow-neon-blue transition-all duration-300
-                         border-2 border-neon-blue/50"
-              >
-                👈 Choose This Car
-              </motion.button>
-            )}
-          </div>
+          </motion.div>
 
-          {/* Car 2 */}
-          <div>
+          {/* Car 2 - Clickable */}
+          <motion.div
+            whileHover={!showResult ? { scale: 1.02 } : {}}
+            whileTap={!showResult ? { scale: 0.98 } : {}}
+            onClick={() => !showResult && onGuess('second')}
+            className={!showResult ? 'cursor-pointer' : ''}
+          >
             <CarCard key={car2.id} car={car2} showPrice={showResult} label="Car Option 2" isRevealing={showResult} />
-            {!showResult && (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => onGuess('second')}
-                className="w-full mt-3 md:mt-4 px-4 md:px-8 py-3 md:py-4 text-base md:text-xl font-bold bg-gradient-to-r from-neon-purple to-purple-500
-                         rounded-xl shadow-lg hover:shadow-neon-purple transition-all duration-300
-                         border-2 border-neon-purple/50"
-              >
-                👉 Choose This Car
-              </motion.button>
-            )}
-          </div>
+          </motion.div>
         </div>
       </div>
 

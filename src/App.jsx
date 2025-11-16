@@ -199,7 +199,7 @@ function AppContent() {
             </button>
 
             {/* Watch Ad Button */}
-            <WatchAdButton rewardAmount={2000} />
+            <WatchAdButton rewardAmount={500} />
           </div>
 
           {/* Logout button */}

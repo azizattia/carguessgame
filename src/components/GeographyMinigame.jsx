@@ -111,54 +111,70 @@ const GeographyMinigame = ({ onComplete }) => {
           <div
             ref={mapRef}
             onClick={handleMapClick}
-            className={`relative w-full aspect-[2/1] bg-gradient-to-br from-blue-400 via-blue-300 to-blue-500 ${
+            className={`relative w-full aspect-[2/1] bg-gradient-to-br from-blue-500 via-blue-400 to-blue-600 ${
               !showResult ? 'cursor-crosshair' : 'cursor-not-allowed'
             }`}
-            style={{
-              backgroundImage: `
-                linear-gradient(0deg, rgba(0,0,0,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: '50px 50px'
-            }}
           >
-            {/* Simple continent representations using CSS */}
-            <div className="absolute inset-0">
-              {/* North America */}
-              <div className="absolute bg-green-600 rounded-full"
-                style={{ left: '15%', top: '25%', width: '20%', height: '35%', transform: 'rotate(-15deg)' }} />
+            {/* SVG World Map */}
+            <svg
+              viewBox="0 0 1000 500"
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              {/* Ocean/Background - already handled by bg-gradient */}
 
-              {/* South America */}
-              <div className="absolute bg-green-700 rounded-full"
-                style={{ left: '22%', top: '55%', width: '12%', height: '25%', transform: 'rotate(20deg)' }} />
+              {/* Grid lines */}
+              <g stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="none">
+                {/* Latitude lines */}
+                {[0, 100, 200, 300, 400, 500].map(y => (
+                  <line key={`lat-${y}`} x1="0" y1={y} x2="1000" y2={y} />
+                ))}
+                {/* Longitude lines */}
+                {[0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000].map(x => (
+                  <line key={`lon-${x}`} x1={x} y1="0" x2={x} y2="500" />
+                ))}
+              </g>
 
-              {/* Europe */}
-              <div className="absolute bg-green-500"
-                style={{ left: '46%', top: '20%', width: '12%', height: '18%', borderRadius: '50% 30% 40% 60%' }} />
+              {/* Continents - Accurate simplified shapes based on real geography */}
+              <g fill="#22c55e" stroke="#16a34a" strokeWidth="1.5">
 
-              {/* Africa */}
-              <div className="absolute bg-yellow-700"
-                style={{ left: '48%', top: '35%', width: '15%', height: '30%', borderRadius: '40% 40% 30% 70%' }} />
+                {/* North America */}
+                <path d="M 100,120 L 95,100 L 110,85 L 130,80 L 150,75 L 180,80 L 200,90 L 220,100 L 240,110 L 250,130 L 260,150 L 265,170 L 270,200 L 265,230 L 255,250 L 240,260 L 220,265 L 200,260 L 180,250 L 160,245 L 140,250 L 120,260 L 110,250 L 105,230 L 100,200 L 95,170 L 95,140 Z" />
 
-              {/* Asia */}
-              <div className="absolute bg-green-600"
-                style={{ left: '55%', top: '15%', width: '30%', height: '40%', borderRadius: '30% 50% 40% 40%' }} />
+                {/* South America */}
+                <path d="M 220,270 L 230,280 L 240,300 L 245,330 L 245,360 L 240,380 L 230,395 L 215,405 L 200,410 L 185,405 L 175,390 L 170,370 L 168,350 L 170,330 L 175,310 L 185,290 L 200,275 L 210,270 Z" />
 
-              {/* Australia */}
-              <div className="absolute bg-yellow-600 rounded-full"
-                style={{ left: '75%', top: '60%', width: '10%', height: '12%' }} />
+                {/* Europe */}
+                <path d="M 460,100 L 475,95 L 490,92 L 505,95 L 515,100 L 525,110 L 530,125 L 528,140 L 520,150 L 505,155 L 490,153 L 475,148 L 465,140 L 460,125 L 460,110 Z" />
 
-              {/* Grid overlay */}
-              <div className="absolute inset-0 pointer-events-none"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(0deg, rgba(255,255,255,0.1) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-                  `,
-                  backgroundSize: '10% 10%'
-                }}
-              />
-            </div>
+                {/* Africa */}
+                <path d="M 480,180 L 495,175 L 510,175 L 525,180 L 535,190 L 540,205 L 545,225 L 545,250 L 545,275 L 540,300 L 530,320 L 515,335 L 495,345 L 475,345 L 460,335 L 450,315 L 445,290 L 445,265 L 450,240 L 458,215 L 470,195 Z" />
+
+                {/* Asia */}
+                <path d="M 550,90 L 580,85 L 610,85 L 640,88 L 670,95 L 700,105 L 730,115 L 755,125 L 775,140 L 790,160 L 800,185 L 805,210 L 800,235 L 785,255 L 760,265 L 730,268 L 700,265 L 670,258 L 640,250 L 615,245 L 590,245 L 570,240 L 555,225 L 545,205 L 540,185 L 540,165 L 542,145 L 545,125 L 548,105 Z" />
+
+                {/* Australia */}
+                <path d="M 750,310 L 770,308 L 790,310 L 810,318 L 825,330 L 835,345 L 838,360 L 835,375 L 825,388 L 808,395 L 788,398 L 768,395 L 753,388 L 743,375 L 738,360 L 740,345 L 745,330 Z" />
+
+                {/* Antarctica (bottom) */}
+                <path d="M 50,470 L 950,470 L 950,490 L 50,490 Z" opacity="0.7" />
+
+                {/* Greenland */}
+                <path d="M 320,50 L 340,48 L 360,52 L 370,65 L 375,80 L 370,95 L 355,105 L 335,108 L 318,103 L 308,90 L 305,75 L 310,60 Z" opacity="0.9" />
+
+                {/* Japan */}
+                <ellipse cx="830" cy="185" rx="15" ry="35" opacity="0.95" />
+
+                {/* UK */}
+                <ellipse cx="455" cy="120" rx="8" ry="20" opacity="0.95" transform="rotate(-15 455 120)" />
+
+                {/* New Zealand */}
+                <ellipse cx="880" cy="380" rx="8" ry="25" opacity="0.9" />
+              </g>
+            </svg>
+
+            {/* Pointer-events enabled overlay for clicking */}
+            <div className="absolute inset-0"></div>
 
             {/* Clicked position marker */}
             <AnimatePresence>

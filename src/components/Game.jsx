@@ -63,6 +63,28 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
     startNewRound();
   }, []);
 
+  // Handle revive: when reviveCount changes, continue the game
+  useEffect(() => {
+    if (reviveCount > 0) {
+      // Player just revived, continue the game
+      setShowResult(false);
+      setIsCorrect(false);
+      setTimeLeft(10);
+      setTimerActive(true);
+      setLevel(prev => prev + 1); // Increment level
+
+      // Move to next car and get a new one
+      const newCurrent = nextCar || getRandomCar();
+      const newNext = getRandomCar(newCurrent.id);
+      setCurrentCar(newCurrent);
+      setNextCar(newNext);
+
+      // Reset chaos effects
+      setScreenFlipped(false);
+      stopRoasting();
+    }
+  }, [reviveCount]);
+
   // Prevent body scroll when showing result
   useEffect(() => {
     if (showResult) {

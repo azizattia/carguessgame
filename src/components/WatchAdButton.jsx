@@ -6,14 +6,14 @@ import { addCoins } from '../utils/storage';
 const WatchAdButton = ({ rewardAmount = 2000, onRewardEarned }) => {
   const { user, refreshProfile } = useAuth();
   const [showAdOverlay, setShowAdOverlay] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(10); // 10 seconds to watch
+  const [timeRemaining, setTimeRemaining] = useState(5); // 5 seconds to watch
   const [canClaim, setCanClaim] = useState(false);
   const adContainerRef = useRef(null);
 
   // Timer countdown
   useEffect(() => {
     if (!showAdOverlay) {
-      setTimeRemaining(10);
+      setTimeRemaining(5);
       setCanClaim(false);
       return;
     }

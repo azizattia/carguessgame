@@ -225,8 +225,8 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
     // Minimum 3 levels between geography minigames
     if (levelsSinceLastGeo < 3) return false;
 
-    // After level 4, 35% chance to trigger
-    if (level >= 4 && Math.random() < 0.35) {
+    // After level 5, 30% chance to trigger each round
+    if (level >= 5 && Math.random() < 0.30) {
       return true;
     }
 

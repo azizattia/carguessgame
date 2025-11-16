@@ -14,12 +14,11 @@ import CoinDisplay from './components/CoinDisplay';
 import Avatar from './components/Avatar';
 import { addScore, addCoins } from './utils/storage';
 import { useAds } from './hooks/useAds';
-import GeographyMinigame from './components/GeographyMinigame';
 
 function AppContent() {
   const { user, profile, loading, signOut, refreshProfile } = useAuth();
   const { showInterstitialAd } = useAds();
-  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals, revive, geography
+  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals, revive
   const [finalScore, setFinalScore] = useState(0);
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [gameKey, setGameKey] = useState(0);
@@ -116,22 +115,6 @@ function AppContent() {
     setScreen('referrals');
   };
 
-  const handleShowGeography = () => {
-    setScreen('geography');
-  };
-
-  const handleGeographyComplete = async (coinsEarned) => {
-    console.log('Geography complete! Coins earned:', coinsEarned);
-    if (coinsEarned > 0 && user) {
-      console.log('Adding coins to user:', user.id);
-      const result = await addCoins(user.id, coinsEarned);
-      console.log('Add coins result:', result);
-      await refreshProfile();
-      console.log('Profile refreshed');
-    }
-    setScreen('game');
-  };
-
   const handleBackToGame = () => {
     // Just return to game (used by shops to preserve game state)
     setScreen('game');
@@ -215,16 +198,6 @@ function AppContent() {
               <span className="text-xs md:text-sm font-semibold">Referrals</span>
             </button>
 
-            {/* TEMP: Geography Test Button */}
-            <button
-              onClick={handleShowGeography}
-              className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border-2 border-green-500
-                       hover:border-green-400 hover:shadow-green-500/50 transition-all duration-300 animate-pulse"
-            >
-              <span className="text-xl md:text-2xl">🗺️</span>
-              <span className="text-xs md:text-sm font-semibold">MAP TEST</span>
-            </button>
-
             {/* Watch Ad Button */}
             <WatchAdButton rewardAmount={2000} />
           </div>
@@ -299,13 +272,6 @@ function AppContent() {
             reviveCount={reviveCount}
             onRevive={handleRevive}
             onDecline={handleDeclineRevive}
-          />
-        )}
-
-        {screen === 'geography' && (
-          <GeographyMinigame
-            key="geography"
-            onComplete={handleGeographyComplete}
           />
         )}
       </AnimatePresence>

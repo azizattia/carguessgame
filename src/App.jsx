@@ -26,6 +26,7 @@ function AppContent() {
 
   // Load bottom ad on mount
   useEffect(() => {
+    console.log('🎮 Car Price Challenge - Ad System Active');
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {

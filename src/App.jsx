@@ -121,9 +121,13 @@ function AppContent() {
   };
 
   const handleGeographyComplete = async (coinsEarned) => {
+    console.log('Geography complete! Coins earned:', coinsEarned);
     if (coinsEarned > 0 && user) {
-      await addCoins(user.id, coinsEarned);
+      console.log('Adding coins to user:', user.id);
+      const result = await addCoins(user.id, coinsEarned);
+      console.log('Add coins result:', result);
       await refreshProfile();
+      console.log('Profile refreshed');
     }
     setScreen('game');
   };

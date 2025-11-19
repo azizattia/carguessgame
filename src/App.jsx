@@ -9,17 +9,23 @@ import AvatarShop from './components/AvatarShop';
 import ChestShop from './components/ChestShop';
 import ReferralSystem from './components/ReferralSystem';
 import ReviveScreen from './components/ReviveScreen';
+import GamblingWheel from './components/GamblingWheel';
+import Terms from './components/Terms';
 import CoinDisplay from './components/CoinDisplay';
 import Avatar from './components/Avatar';
 import { addScore, addCoins } from './utils/storage';
 
 function AppContent() {
   const { user, profile, loading, signOut, refreshProfile } = useAuth();
-  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals, revive
+  const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals, revive, gamblingWheel
   const [finalScore, setFinalScore] = useState(0);
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [gameKey, setGameKey] = useState(0);
   const [reviveCount, setReviveCount] = useState(0);
+  const [showTerms, setShowTerms] = useState(false);
+  const [hasAcceptedTerms, setHasAcceptedTerms] = useState(() => {
+    return localStorage.getItem('termsAccepted') === 'true';
+  });
 
   const handleStartGame = () => {
     setScreen('game');
@@ -99,6 +105,21 @@ function AppContent() {
     setScreen('referrals');
   };
 
+  const handleShowGamblingWheel = () => {
+    if (!hasAcceptedTerms) {
+      setShowTerms(true);
+    } else {
+      setScreen('gamblingWheel');
+    }
+  };
+
+  const handleAcceptTerms = () => {
+    localStorage.setItem('termsAccepted', 'true');
+    setHasAcceptedTerms(true);
+    setShowTerms(false);
+    setScreen('gamblingWheel');
+  };
+
   const handleBackToGame = () => {
     // Just return to game (used by shops to preserve game state)
     setScreen('game');
@@ -145,8 +166,8 @@ function AppContent() {
   // If authenticated, show game
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
-      {/* Top bar - always visible (except in shops) */}
-      {screen !== 'avatarShop' && screen !== 'chestShop' && screen !== 'referrals' && (
+      {/* Top bar - always visible (except in shops and gambling wheel) */}
+      {screen !== 'avatarShop' && screen !== 'chestShop' && screen !== 'referrals' && screen !== 'gamblingWheel' && (
         <>
           {/* Coin display */}
           <div className="fixed top-2 md:top-4 left-2 md:left-4 z-50">
@@ -193,6 +214,16 @@ function AppContent() {
               <span className="text-xl md:text-2xl">☕</span>
               <span className="text-xs md:text-sm font-semibold">Support</span>
             </a>
+
+            {/* Test Your Luck Button */}
+            <button
+              onClick={handleShowGamblingWheel}
+              className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border border-orange-500/50
+                       hover:border-orange-500 hover:shadow-orange-500/50 transition-all duration-300 animate-pulse"
+            >
+              <span className="text-xl md:text-2xl">🎰</span>
+              <span className="text-xs md:text-sm font-semibold">Test Luck</span>
+            </button>
           </div>
 
           {/* Logout button */}
@@ -266,6 +297,20 @@ function AppContent() {
             onRevive={handleRevive}
             onDecline={handleDeclineRevive}
           />
+        )}
+
+        {screen === 'gamblingWheel' && (
+          <GamblingWheel
+            key="gamblingWheel"
+            onBack={handleBackToGame}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Terms Modal */}
+      <AnimatePresence>
+        {showTerms && (
+          <Terms onClose={handleAcceptTerms} />
         )}
       </AnimatePresence>
     </div>

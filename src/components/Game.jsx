@@ -413,7 +413,15 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
       playCorrectSound();
 
       // Award coins for correct answer with multiplier
-      const baseCoins = isBonusRound ? 50 : 10;
+      // Speed bonus: faster responses earn more coins
+      let baseCoins;
+      if (isBonusRound) {
+        baseCoins = 50;
+      } else {
+        // Fast response (answered in less than 5 seconds): 20 coins
+        // Slow response (answered in 5+ seconds): 10 coins
+        baseCoins = timeLeft > 5 ? 20 : 10;
+      }
       const earnedCoins = Math.floor(baseCoins * coinMultiplier);
       setCoinsEarned(earnedCoins);
       if (user) {

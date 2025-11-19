@@ -9,30 +9,17 @@ import AvatarShop from './components/AvatarShop';
 import ChestShop from './components/ChestShop';
 import ReferralSystem from './components/ReferralSystem';
 import ReviveScreen from './components/ReviveScreen';
-import WatchAdButton from './components/WatchAdButton';
 import CoinDisplay from './components/CoinDisplay';
 import Avatar from './components/Avatar';
 import { addScore, addCoins } from './utils/storage';
-import { useAds } from './hooks/useAds';
 
 function AppContent() {
   const { user, profile, loading, signOut, refreshProfile } = useAuth();
-  const { showInterstitialAd } = useAds();
   const [screen, setScreen] = useState('game'); // game, gameOver, leaderboard, avatarShop, chestShop, referrals, revive
   const [finalScore, setFinalScore] = useState(0);
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [gameKey, setGameKey] = useState(0);
   const [reviveCount, setReviveCount] = useState(0);
-
-  // Load bottom ad on mount
-  useEffect(() => {
-    console.log('🎮 Car Price Challenge - Ad System Active');
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error('AdSense error:', err);
-    }
-  }, []);
 
   const handleStartGame = () => {
     setScreen('game');
@@ -85,18 +72,15 @@ function AppContent() {
   };
 
   const handleDeclineRevive = async () => {
-    // Show interstitial ad on game over
-    showInterstitialAd(async () => {
-      // After ad closes, save score and show game over
-      let newHighScore = false;
-      if (user) {
-        const result = await addScore(user.id, finalScore);
-        newHighScore = result.isNewHighScore || false;
-      }
-      setIsNewHighScore(newHighScore);
-      setReviveCount(0); // Reset for next game
-      setScreen('gameOver');
-    });
+    // Save score and show game over
+    let newHighScore = false;
+    if (user) {
+      const result = await addScore(user.id, finalScore);
+      newHighScore = result.isNewHighScore || false;
+    }
+    setIsNewHighScore(newHighScore);
+    setReviveCount(0); // Reset for next game
+    setScreen('gameOver');
   };
 
   const handleShowLeaderboard = () => {
@@ -197,9 +181,6 @@ function AppContent() {
               <span className="text-xl md:text-2xl">🎁</span>
               <span className="text-xs md:text-sm font-semibold">Referrals</span>
             </button>
-
-            {/* Watch Ad Button */}
-            <WatchAdButton rewardAmount={500} />
           </div>
 
           {/* Logout button */}
@@ -275,18 +256,6 @@ function AppContent() {
           />
         )}
       </AnimatePresence>
-
-      {/* Bottom Ad - Always visible */}
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-5xl pb-2 px-2 z-30 pointer-events-none">
-        <div className="bg-gray-900/80 backdrop-blur-sm rounded-lg p-2 pointer-events-auto">
-          <ins className="adsbygoogle"
-               style={{ display: 'block' }}
-               data-ad-client="ca-pub-1021387175994347"
-               data-ad-slot="9776703698"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-        </div>
-      </div>
     </div>
   );
 }

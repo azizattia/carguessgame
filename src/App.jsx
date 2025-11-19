@@ -121,7 +121,9 @@ function AppContent() {
   };
 
   const handleBackToGame = () => {
-    // Just return to game (used by shops to preserve game state)
+    // Reset game when coming back from shops/gambling wheel to avoid stuck state
+    setGameKey(prev => prev + 1);
+    setReviveCount(0); // Reset revive count for new game
     setScreen('game');
   };
 

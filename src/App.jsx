@@ -181,6 +181,18 @@ function AppContent() {
               <span className="text-xl md:text-2xl">🎁</span>
               <span className="text-xs md:text-sm font-semibold">Referrals</span>
             </button>
+
+            {/* Support Creator Button */}
+            <a
+              href="https://buymeacoffee.com/fundmemate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 glass-effect rounded-lg border border-pink-500/50
+                       hover:border-pink-500 hover:shadow-pink-500/50 transition-all duration-300"
+            >
+              <span className="text-xl md:text-2xl">☕</span>
+              <span className="text-xs md:text-sm font-semibold">Support</span>
+            </a>
           </div>
 
           {/* Logout button */}

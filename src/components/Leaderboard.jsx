@@ -45,14 +45,29 @@ const Leaderboard = ({ onBack }) => {
           🏆 Leaderboard
         </motion.h1>
 
-        <motion.p
-          initial={{ y: -30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-xl text-center mb-8 text-gray-400"
-        >
-          Top 100 Players - Global Leaderboard
-        </motion.p>
+        <div className="flex items-center justify-center gap-4 mb-8">
+          <motion.p
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-400"
+          >
+            Top 100 Players - Global Leaderboard
+          </motion.p>
+          <motion.button
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={loadLeaderboard}
+            disabled={loading}
+            className="px-3 py-1 text-sm glass-effect rounded-lg border border-neon-blue/50
+                     hover:border-neon-blue transition-all duration-300 disabled:opacity-50"
+          >
+            🔄 Refresh
+          </motion.button>
+        </div>
 
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}

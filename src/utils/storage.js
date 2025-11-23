@@ -48,10 +48,51 @@ export const addScore = async (userId, score) => {
 // Get leaderboard from database
 export const getLeaderboard = async () => {
   try {
-    const { data, error } = await supabase.rpc('get_leaderboard', { limit_count: 100 });
+    // Try RPC function first (if it exists)
+    const { data: rpcData, error: rpcError } = await supabase.rpc('get_leaderboard', { limit_count: 100 });
+
+    if (!rpcError && rpcData) {
+      return rpcData;
+    }
+
+    // Fallback: Direct query with fresh data (no cache)
+    // This ensures we always get the latest scores from all users
+    const { data, error } = await supabase
+      .from('scores')
+      .select(`
+        score,
+        user_id,
+        user_profiles!inner (
+          username
+        )
+      `)
+      .order('score', { ascending: false })
+      .limit(100);
 
     if (error) throw error;
-    return data || [];
+
+    // Transform data to match expected format
+    const leaderboard = data.map(entry => ({
+      high_score: entry.score,
+      username: entry.user_profiles.username,
+      user_id: entry.user_id,
+      total_games: 1 // We'll just show 1 for now since we don't track this separately
+    }));
+
+    // Group by user and get their best score
+    const userBestScores = {};
+    leaderboard.forEach(entry => {
+      if (!userBestScores[entry.user_id] || entry.high_score > userBestScores[entry.user_id].high_score) {
+        userBestScores[entry.user_id] = entry;
+      }
+    });
+
+    // Convert back to array and sort
+    const finalLeaderboard = Object.values(userBestScores)
+      .sort((a, b) => b.high_score - a.high_score)
+      .slice(0, 100);
+
+    return finalLeaderboard;
   } catch (error) {
     console.error('Error fetching leaderboard:', error);
     return [];

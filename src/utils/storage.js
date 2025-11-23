@@ -3,6 +3,19 @@ import { supabase } from '../lib/supabase';
 // Add a score to the database (only saves if it's a new high score)
 export const addScore = async (userId, score) => {
   try {
+    console.log('💾 Attempting to save score:', { userId, score });
+
+    // Validate inputs
+    if (!userId) {
+      console.error('❌ No userId provided');
+      return { data: null, error: 'No user ID provided', isNewHighScore: false };
+    }
+
+    if (!score || score === 0) {
+      console.log('⚠️ Score is 0, not saving');
+      return { data: null, error: null, isNewHighScore: false };
+    }
+
     // First, get the user's current best score
     const { data: existingScore, error: fetchError } = await supabase
       .from('scores')
@@ -12,35 +25,52 @@ export const addScore = async (userId, score) => {
       .limit(1)
       .maybeSingle();
 
-    if (fetchError && fetchError.code !== 'PGRST116') throw fetchError;
+    if (fetchError && fetchError.code !== 'PGRST116') {
+      console.error('❌ Error fetching existing score:', fetchError);
+      throw fetchError;
+    }
+
+    console.log('📊 Existing score:', existingScore);
 
     // If no existing score, insert new one
     if (!existingScore) {
+      console.log('➕ Inserting new score...');
       const { data, error } = await supabase
         .from('scores')
         .insert([{ user_id: userId, score }])
         .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Error inserting score:', error);
+        throw error;
+      }
+      console.log('✅ Score inserted successfully:', data);
       return { data, error: null, isNewHighScore: true };
     }
 
     // If new score is better than existing best, update it
     if (score > existingScore.score) {
+      console.log('⬆️ Updating to new high score...');
       const { data, error } = await supabase
         .from('scores')
         .update({ score, created_at: new Date().toISOString() })
         .eq('id', existingScore.id)
         .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Error updating score:', error);
+        throw error;
+      }
+      console.log('✅ Score updated successfully:', data);
       return { data, error: null, isNewHighScore: true };
     }
 
     // Score is not better, don't save
+    console.log('📉 Score not better than existing, not saving');
     return { data: null, error: null, isNewHighScore: false };
   } catch (error) {
-    console.error('Error adding score:', error);
+    console.error('❌ Error adding score:', error);
+    console.error('Error details:', JSON.stringify(error, null, 2));
     return { data: null, error: error.message, isNewHighScore: false };
   }
 };

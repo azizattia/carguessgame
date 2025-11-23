@@ -79,11 +79,25 @@ function AppContent() {
 
   const handleDeclineRevive = async () => {
     // Save score and show game over
+    console.log('🔥 DECLINE REVIVE - Attempting to save score...');
+    console.log('👤 User object:', user);
+    console.log('📊 Final score to save:', finalScore);
+    console.log('🔑 User ID:', user?.id);
+    console.log('✅ User authenticated:', !!user);
+
     let newHighScore = false;
     if (user) {
       const result = await addScore(user.id, finalScore);
+      console.log('💫 Save result:', result);
       newHighScore = result.isNewHighScore || false;
+
+      if (result.error) {
+        console.error('🚨 SAVE FAILED:', result.error);
+      }
+    } else {
+      console.error('❌ No user found - cannot save score!');
     }
+
     setIsNewHighScore(newHighScore);
     setReviveCount(0); // Reset for next game
     setScreen('gameOver');

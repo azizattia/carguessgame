@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cars } from '../data/cars';
 import { useAuth } from '../contexts/AuthContext';
@@ -17,6 +17,7 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
   const { user, profile, refreshProfile } = useAuth();
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
+  const scoreRef = useRef(0); // Track current score to avoid closure issues
   const [currentCar, setCurrentCar] = useState(null);
   const [nextCar, setNextCar] = useState(null);
   const [showResult, setShowResult] = useState(false);
@@ -58,6 +59,11 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
   const [showJumpscare, setShowJumpscare] = useState(false);
   const [currentJumpscare, setCurrentJumpscare] = useState(null);
   const [screenFlipped, setScreenFlipped] = useState(false);
+
+  // Sync scoreRef with score state to avoid closure issues
+  useEffect(() => {
+    scoreRef.current = score;
+  }, [score]);
 
   useEffect(() => {
     startNewRound();
@@ -267,12 +273,13 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
       playWrongSound();
       speakRoast(ROASTS.wrongAnswer); // Roast for timing out
       setTimeout(() => {
-        if (score < 5) {
+        if (scoreRef.current < 5) {
           speakRoast(ROASTS.lowScore); // Extra roast for low score
         }
         setTimeout(() => {
           // Trigger revive screen instead of immediate game over
-          onReviveNeeded(score);
+          console.log('🎮 Game Over - Final Score:', scoreRef.current);
+          onReviveNeeded(scoreRef.current);
         }, 1000);
       }, 1500);
     }
@@ -431,7 +438,7 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
       }
 
       setTimeout(() => {
-        setScore(score + 1);
+        setScore(prev => prev + 1);
         setShowScoreAnimation(true);
         setShowCoinAnimation(true);
         setTimeout(() => {
@@ -492,12 +499,13 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
         playWrongSound();
         speakRoast(ROASTS.wrongAnswer); // Roast for wrong answer
         setTimeout(() => {
-          if (score < 5) {
+          if (scoreRef.current < 5) {
             speakRoast(ROASTS.lowScore); // Extra roast for low score
           }
           setTimeout(() => {
             // Trigger revive screen instead of immediate game over
-            onReviveNeeded(score);
+            console.log('🎮 Game Over - Final Score:', scoreRef.current);
+            onReviveNeeded(scoreRef.current);
           }, 1000);
         }, 1500);
       }

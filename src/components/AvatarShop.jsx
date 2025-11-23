@@ -67,7 +67,7 @@ const AvatarShop = ({ onBack }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-[#0f0f0f] p-4"
+      className="fixed inset-0 bg-[#0f0f0f] p-4 overflow-y-auto z-40"
     >
       {/* Header */}
       <div className="max-w-7xl mx-auto">

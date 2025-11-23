@@ -83,14 +83,14 @@ const ReferralSystem = ({ onBack }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen p-4 flex items-center justify-center">
+      <div className="fixed inset-0 bg-[#0f0f0f] p-4 flex items-center justify-center z-40">
         <div className="w-16 h-16 border-4 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen p-2 md:p-4">
+    <div className="fixed inset-0 bg-[#0f0f0f] p-2 md:p-4 overflow-y-auto z-40">
       {/* Header */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}

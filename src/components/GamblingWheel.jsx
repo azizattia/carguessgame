@@ -103,7 +103,7 @@ const GamblingWheel = ({ onBack }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-[#0f0f0f] flex items-center justify-center p-4"
+      className="fixed inset-0 bg-[#0f0f0f] flex items-center justify-center p-4 overflow-y-auto z-40"
     >
       {/* Back Button - Top Left */}
       <button

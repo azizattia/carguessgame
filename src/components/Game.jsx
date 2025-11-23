@@ -377,6 +377,9 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
   const handleGuess = (guess) => {
     if (showResult) return;
 
+    // Immediately set showResult to prevent double-clicks
+    setShowResult(true);
+
     // Stop the timer
     setTimerActive(false);
 
@@ -414,7 +417,6 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
     }
 
     setIsCorrect(correct);
-    setShowResult(true);
 
     if (correct) {
       playCorrectSound();

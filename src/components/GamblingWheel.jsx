@@ -105,6 +105,15 @@ const GamblingWheel = ({ onBack }) => {
       exit={{ opacity: 0 }}
       className="min-h-screen bg-[#0f0f0f] flex items-center justify-center p-4"
     >
+      {/* Back Button - Top Left */}
+      <button
+        onClick={onBack}
+        disabled={isSpinning}
+        className="fixed top-4 left-4 z-50 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg font-bold transition-colors disabled:opacity-50 flex items-center gap-2"
+      >
+        ← Back
+      </button>
+
       <div className="max-w-4xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
@@ -185,10 +194,18 @@ const GamblingWheel = ({ onBack }) => {
               })}
             </div>
 
-            {/* Center circle */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center z-10">
+            {/* Center circle - Clickable to spin */}
+            <button
+              onClick={spinWheel}
+              disabled={isSpinning || betAmount <= 0 || betAmount > (profile?.coins || 0)}
+              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center z-10 transition-all ${
+                isSpinning || betAmount <= 0 || betAmount > (profile?.coins || 0)
+                  ? 'cursor-not-allowed opacity-70'
+                  : 'cursor-pointer hover:scale-110 hover:shadow-2xl active:scale-95'
+              }`}
+            >
               <span className="text-2xl">🎯</span>
-            </div>
+            </button>
           </div>
         </div>
 
@@ -258,15 +275,6 @@ const GamblingWheel = ({ onBack }) => {
             ))}
           </div>
         </div>
-
-        {/* Back Button */}
-        <button
-          onClick={onBack}
-          disabled={isSpinning}
-          className="w-full py-3 bg-gray-800 hover:bg-gray-700 rounded-lg font-bold transition-colors disabled:opacity-50"
-        >
-          ← Back to Game
-        </button>
       </div>
 
       {/* Result Modal */}

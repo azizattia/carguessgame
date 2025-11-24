@@ -121,7 +121,7 @@ const GamblingWheel = ({ onBack }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-[#0f0f0f] flex items-center justify-center p-4 overflow-y-auto z-40"
+      className="fixed inset-0 bg-[#0f0f0f] p-4 pt-20 overflow-y-auto z-40"
     >
       {/* Back Button - Top Left */}
       <button
@@ -132,9 +132,9 @@ const GamblingWheel = ({ onBack }) => {
         ← Back
       </button>
 
-      <div className="max-w-4xl w-full">
+      <div className="max-w-4xl w-full mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 md:mb-8">
           <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2">
             🎰 Test Your Luck! 🎰
           </h1>

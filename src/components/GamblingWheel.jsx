@@ -60,13 +60,16 @@ const GamblingWheel = ({ onBack }) => {
     const winningSegment = segments[winningSegmentIndex];
 
     // Calculate rotation to land the winning segment's CENTER under the pointer
-    // Segments are drawn starting at -90 degrees (9 o'clock)
-    // The pointer is at the top (0 degrees / 12 o'clock)
+    // Segments are drawn starting at -90 degrees (9 o'clock position)
+    // The pointer is at the top (-90 degrees in rotation coordinates)
     // Segment X's center is at: -90 + (X + 0.5) * segmentAngle
+    // To align segment X's center with pointer at -90:
+    //   rotation needed = -90 - (-90 + (X + 0.5) * segmentAngle) = -(X + 0.5) * segmentAngle
+    // Convert to positive rotation: 360 - (X + 0.5) * segmentAngle
     const spins = 5 + Math.random() * 3; // 5-8 full rotations for visual effect
 
-    // Calculate where the winning segment's center should be (at 0 degrees)
-    const targetAngle = 90 - (winningSegmentIndex + 0.5) * segmentAngle;
+    // Calculate where the winning segment's center should be (at pointer = -90 degrees)
+    const targetAngle = 360 - (winningSegmentIndex + 0.5) * segmentAngle;
 
     // Normalize current rotation to 0-360 range
     const currentAngle = rotation % 360;

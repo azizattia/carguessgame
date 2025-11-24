@@ -537,7 +537,7 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
 
   return (
     <div
-      className={`min-h-screen p-4 pt-6 flex flex-col transition-transform duration-1000 ${
+      className={`min-h-screen p-2 sm:p-4 pt-4 sm:pt-6 flex flex-col transition-transform duration-1000 ${
         showResult ? 'overflow-hidden' : ''
       }`}
       style={{
@@ -562,9 +562,9 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="text-center mb-3 md:mb-6"
+        className="text-center mb-2 sm:mb-3 md:mb-6"
       >
-        <div className="relative max-w-4xl mx-auto mb-2 md:mb-4 px-2 md:px-4">
+        <div className="relative max-w-4xl mx-auto mb-1 sm:mb-2 md:mb-4 px-1 sm:px-2 md:px-4">
           <div className="flex justify-between items-center">
             {/* Player Info - Left */}
             <div className="text-left flex-shrink-0 min-w-[100px] md:min-w-[150px]">
@@ -725,19 +725,19 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-center mb-3 md:mb-6 max-w-4xl mx-auto px-4"
+        className="text-center mb-2 sm:mb-3 md:mb-6 max-w-4xl mx-auto px-2 sm:px-4"
       >
-        <p className="text-base md:text-xl text-gray-300">
+        <p className="text-sm sm:text-base md:text-xl text-gray-300">
           <span className="text-neon-pink font-bold">Which car is MORE expensive?</span>
         </p>
-        <p className="text-xs md:text-base text-gray-400 mt-1 md:mt-2">
-          Click on the car you think costs more!
+        <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-0.5 sm:mt-1 md:mt-2">
+          Tap the car you think costs more!
         </p>
       </motion.div>
 
       {/* Game Area */}
-      <div className="flex-1 flex items-center justify-center overflow-hidden px-2">
-        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center relative">
+      <div className="flex-1 flex items-center justify-center overflow-hidden px-1 sm:px-2">
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-8 items-center relative">
           {/* Current Car */}
           <CarCard
             key={currentCar.id}

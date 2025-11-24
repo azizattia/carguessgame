@@ -19,37 +19,37 @@ const GameOver = ({ score, isNewHighScore, onPlayAgain, onShowLeaderboard }) => 
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen flex items-center justify-center p-4"
+      className="min-h-screen flex items-center justify-center p-3 sm:p-4"
     >
       <div className="max-w-2xl w-full">
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: 'spring', damping: 15 }}
-          className="text-center mb-6 md:mb-8"
+          className="text-center mb-4 sm:mb-6 md:mb-8"
         >
-          <h1 className="text-4xl md:text-8xl font-bold text-red-400 glow-text mb-3 md:mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-red-400 glow-text mb-2 sm:mb-3 md:mb-4">
             GAME OVER
           </h1>
-          <p className="text-lg md:text-2xl text-gray-400">Better luck next time!</p>
+          <p className="text-base sm:text-lg md:text-2xl text-gray-400">Better luck next time!</p>
         </motion.div>
 
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="glass-effect rounded-2xl p-6 md:p-12 shadow-neon-purple mb-6 md:mb-8"
+          className="glass-effect rounded-2xl p-4 sm:p-6 md:p-10 lg:p-12 shadow-neon-purple mb-4 sm:mb-6 md:mb-8"
         >
-          <div className="text-center mb-6 md:mb-8">
-            <p className="text-gray-400 text-sm md:text-lg mb-1 md:mb-2">Player</p>
-            <p className="text-2xl md:text-3xl font-bold text-neon-blue glow-text mb-4 md:mb-6">{profile?.username}</p>
+          <div className="text-center mb-4 sm:mb-6 md:mb-8">
+            <p className="text-gray-400 text-xs sm:text-sm md:text-lg mb-1 md:mb-2">Player</p>
+            <p className="text-xl sm:text-2xl md:text-3xl font-bold text-neon-blue glow-text mb-3 sm:mb-4 md:mb-6">{profile?.username}</p>
 
-            <p className="text-gray-400 text-sm md:text-lg mb-1 md:mb-2">Final Score</p>
+            <p className="text-gray-400 text-xs sm:text-sm md:text-lg mb-1 md:mb-2">Final Score</p>
             <motion.p
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', delay: 0.5 }}
-              className="text-5xl md:text-7xl font-bold text-neon-purple glow-text"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-neon-purple glow-text"
             >
               {score}
             </motion.p>
@@ -60,13 +60,13 @@ const GameOver = ({ score, isNewHighScore, onPlayAgain, onShowLeaderboard }) => 
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', delay: 0.8, bounce: 0.6 }}
-                className="mt-3 md:mt-4"
+                className="mt-2 sm:mt-3 md:mt-4"
               >
-                <div className="inline-block px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full border-2 border-yellow-300 shadow-lg">
-                  <p className="text-lg md:text-2xl font-black text-white flex items-center gap-2">
-                    <span className="text-2xl md:text-3xl">🏆</span>
-                    <span className="text-sm md:text-base">NEW HIGH SCORE!</span>
-                    <span className="text-2xl md:text-3xl">🏆</span>
+                <div className="inline-block px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full border-2 border-yellow-300 shadow-lg">
+                  <p className="text-base sm:text-lg md:text-2xl font-black text-white flex items-center gap-1 sm:gap-2">
+                    <span className="text-xl sm:text-2xl md:text-3xl">🏆</span>
+                    <span className="text-xs sm:text-sm md:text-base">NEW HIGH SCORE!</span>
+                    <span className="text-xl sm:text-2xl md:text-3xl">🏆</span>
                   </p>
                 </div>
               </motion.div>

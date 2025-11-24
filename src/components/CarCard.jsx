@@ -28,12 +28,12 @@ const CarCard = ({ car, showPrice, label, isRevealing = false, onClick, isClicka
                }`}
     >
       {/* Label */}
-      <div className="bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 px-3 md:px-4 py-1.5 md:py-2 text-center">
-        <p className="text-xs md:text-sm font-semibold text-neon-blue">{label}</p>
+      <div className="bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 text-center">
+        <p className="text-xs sm:text-xs md:text-sm font-semibold text-neon-blue">{label}</p>
       </div>
 
       {/* Image */}
-      <div className="relative h-48 md:h-64 overflow-hidden bg-gradient-to-br from-gray-900 to-black">
+      <div className="relative h-32 sm:h-40 md:h-64 overflow-hidden bg-gradient-to-br from-gray-900 to-black">
         {!imageLoaded && !imageError && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-16 h-16 border-4 border-neon-blue border-t-transparent rounded-full animate-spin"></div>
@@ -63,12 +63,12 @@ const CarCard = ({ car, showPrice, label, isRevealing = false, onClick, isClicka
       </div>
 
       {/* Car Info */}
-      <div className="p-4 md:p-6">
-        <h3 className="text-xl md:text-2xl font-bold mb-1 text-neon-blue glow-text">{car.make}</h3>
-        <p className="text-base md:text-lg text-gray-300 mb-2">{car.model}</p>
+      <div className="p-2 sm:p-3 md:p-6">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-0.5 sm:mb-1 text-neon-blue glow-text">{car.make}</h3>
+        <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-1 sm:mb-2">{car.model}</p>
 
         {/* Car Details */}
-        <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
+        <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 mb-2 sm:mb-3 md:mb-4">
           <span className="px-2 py-0.5 md:py-1 text-xs rounded-full bg-neon-blue/20 text-neon-blue border border-neon-blue/30">
             {car.year}
           </span>
@@ -85,18 +85,18 @@ const CarCard = ({ car, showPrice, label, isRevealing = false, onClick, isClicka
         </div>
 
         {/* Price */}
-        <div className="relative h-12 md:h-16 flex items-center justify-center">
+        <div className="relative h-8 sm:h-10 md:h-16 flex items-center justify-center">
           {showPrice ? (
             <motion.div
               initial={isRevealing ? { scale: 0, rotate: -180 } : { scale: 1 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: 'spring', damping: 10 }}
-              className="text-2xl md:text-3xl font-bold text-neon-purple glow-text"
+              className="text-xl sm:text-2xl md:text-3xl font-bold text-neon-purple glow-text"
             >
               ${car.price.toLocaleString()}
             </motion.div>
           ) : (
-            <div className="text-3xl md:text-4xl text-gray-600">???</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl text-gray-600">???</div>
           )}
         </div>
       </div>

@@ -537,7 +537,7 @@ const Game = ({ onGameOver, onReviveNeeded, reviveCount = 0 }) => {
 
   return (
     <div
-      className={`min-h-screen p-4 pt-5 flex flex-col transition-transform duration-1000 ${
+      className={`min-h-screen p-4 pt-6 flex flex-col transition-transform duration-1000 ${
         showResult ? 'overflow-hidden' : ''
       }`}
       style={{
